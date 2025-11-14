@@ -1,13 +1,13 @@
 model Fakta {
-    perioder: Array<Periode>;
+    perioder: Array<FaktaPeriode>;
 }
 
-model Periode {
+model FaktaPeriode {
     id: string;
     fom: utcDateTime;
     tom: utcDateTime;
     feilutbetaltBeløp: uint32;
-    splittbarePerioder: Array<OmitProperties<Periode, "splittbarePerioder">>;
+    splittbarePerioder: Array<OmitProperties<FaktaPeriode, "splittbarePerioder">>;
     rettsligGrunnlag: Array<RettsligGrunnlag>;
 }
 
