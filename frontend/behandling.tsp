@@ -24,8 +24,8 @@ model Feilutbetaling {
 }
 
 model Periode {
-  fom: utcDateTime;
-  tom: utcDateTime;
+  fom: plainDate;
+  tom: plainDate;
 }
 
 @error

@@ -4,10 +4,13 @@ model Fakta {
 
 model FaktaPeriode {
     id: string;
-    fom: utcDateTime;
-    tom: utcDateTime;
+    fom: plainDate;
+    tom: plainDate;
     feilutbetaltBeløp: uint32;
-    splittbarePerioder: Array<OmitProperties<FaktaPeriode, "splittbarePerioder">>;
+    splittbarePerioder: Array<OmitProperties<
+        FaktaPeriode,
+        "splittbarePerioder"
+    >>;
     rettsligGrunnlag: Array<RettsligGrunnlag>;
 }
 
@@ -27,7 +30,7 @@ model DetaljerOmFeilutbetaling {
 }
 
 model Oppdaget {
-    dato: utcDateTime;
+    dato: plainDate;
     av: "NAV" | "BRUKER";
     beskrivelse: string;
 }

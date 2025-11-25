@@ -8,6 +8,6 @@ model Fagsak {
 
 model Revurdering {
     årsak: string;
-    vedtaksdato: utcDateTime;
+    vedtaksdato: plainDate;
     resultat: "INNVILGET" | "OPPHØRT";
 }
