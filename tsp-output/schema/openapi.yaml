@@ -88,10 +88,10 @@ components:
           type: string
         fom:
           type: string
-          format: date-time
+          format: date
         tom:
           type: string
-          format: date-time
+          format: date
         feilutbetaltBeløp:
           type: integer
           format: uint32
@@ -110,10 +110,10 @@ components:
                 type: string
               fom:
                 type: string
-                format: date-time
+                format: date
               tom:
                 type: string
-                format: date-time
+                format: date
               feilutbetaltBeløp:
                 type: integer
                 format: uint32
@@ -145,10 +145,10 @@ components:
       properties:
         fom:
           type: string
-          format: date-time
+          format: date
         tom:
           type: string
-          format: date-time
+          format: date
     RettsligGrunnlag:
       type: object
       required:
