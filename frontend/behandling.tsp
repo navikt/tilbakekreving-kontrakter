@@ -1,5 +1,6 @@
 import "@typespec/http";
-import "./fakta.tsp";
+import "./feilutbetaling.tsp";
+import "./common.tsp";
 
 @tag("behandling")
 @service(#{ title: "Behandling Service" })
@@ -9,8 +10,8 @@ namespace Behandling;
 using Http;
 
 @get
-@route("/fakta")
-op fakta(@path behandlingId: string): Fakta | Error;
+@route("/feilutbetaling")
+op fakta(@path behandlingId: string): FaktaOmFeilutbetaling | Error;
 
 model Behandling {
   id: string;
@@ -21,11 +22,6 @@ model Behandling {
 model Feilutbetaling {
   fullstendigPeriode: Periode;
   beløp: uint32;
-}
-
-model Periode {
-  fom: plainDate;
-  tom: plainDate;
 }
 
 @error
