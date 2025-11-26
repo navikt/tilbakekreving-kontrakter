@@ -56,6 +56,7 @@ components:
       type: object
       required:
         - feilutbetaling
+        - tidligereVarsletBeløp
         - muligeRettsligGrunnlag
         - perioder
         - vurdering
@@ -63,8 +64,10 @@ components:
         feilutbetaling:
           $ref: '#/components/schemas/Feilutbetaling'
         tidligereVarsletBeløp:
-          type: integer
-          format: uint32
+          anyOf:
+            - type: integer
+              format: uint32
+            - type: 'null'
         muligeRettsligGrunnlag:
           type: array
           items:
@@ -166,15 +169,20 @@ components:
         - beskrivelse
       properties:
         dato:
-          type: string
-          format: date
+          anyOf:
+            - type: string
+              format: date
+            - type: 'null'
         av:
           type: string
           enum:
             - NAV
             - BRUKER
+            - IKKE_VURDERT
         beskrivelse:
-          type: string
+          anyOf:
+            - type: string
+            - type: 'null'
     RettsligGrunnlag:
       type: object
       required:
