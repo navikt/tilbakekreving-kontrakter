@@ -2,7 +2,7 @@ import "./common.tsp";
 
 model FaktaOmFeilutbetaling {
     feilutbetaling: Feilutbetaling;
-    tidligereVarsletBeløp?: uint32;
+    tidligereVarsletBeløp: uint32 | null;
     muligeRettsligGrunnlag: Array<MuligeRettsligGrunnlag>;
     perioder: Array<FaktaPeriode>;
     vurdering: Vurdering;
@@ -52,7 +52,7 @@ model Vurdering {
 }
 
 model Oppdaget {
-    dato: plainDate;
-    av: "NAV" | "BRUKER";
-    beskrivelse: string;
+    dato: plainDate | null;
+    av: "NAV" | "BRUKER" | "IKKE_VURDERT";
+    beskrivelse: string | null;
 }
