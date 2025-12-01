@@ -17,7 +17,7 @@ model Feilutbetaling {
 model Revurdering {
     årsak: string;
     vedtaksdato: plainDate;
-    resultat: string;
+    resultat: "INNVILGET" | "OPPHØRT";
 }
 
 model MuligeRettsligGrunnlag {
@@ -55,4 +55,14 @@ model Oppdaget {
     dato: plainDate | null;
     av: "NAV" | "BRUKER" | "IKKE_VURDERT";
     beskrivelse: string | null;
+}
+
+model OppdaterFaktaOmFeilutbetaling {
+    perioder: Array<OppdaterFaktaPeriode>;
+    vurdering: Vurdering;
+}
+
+model OppdaterFaktaPeriode {
+    id: string;
+    rettsligGrunnlag: Array<RettsligGrunnlag>;
 }

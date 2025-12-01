@@ -207,6 +207,9 @@ components:
           format: date
         resultat:
           type: string
+          enum:
+            - INNVILGET
+            - OPPHØRT
     Vurdering:
       type: object
       required:
