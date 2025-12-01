@@ -13,8 +13,14 @@ using Http;
 @route("/feilutbetaling")
 op fakta(@path behandlingId: string): FaktaOmFeilutbetaling | Error;
 
+@post
+@route("/feilutbetaling")
+op oppdaterFakta(
+  @path behandlingId: string,
+  @body body: OppdaterFaktaOmFeilutbetaling,
+): FaktaOmFeilutbetaling | Error;
+
 @error
 model Error {
-  code: int32;
   message: string;
 }

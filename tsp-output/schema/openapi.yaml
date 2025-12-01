@@ -29,6 +29,35 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+    post:
+      operationId: oppdaterFakta
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FaktaOmFeilutbetaling'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OppdaterFaktaOmFeilutbetaling'
 components:
   schemas:
     BestemmelseEllerGrunnlag:
@@ -44,12 +73,8 @@ components:
     Error:
       type: object
       required:
-        - code
         - message
       properties:
-        code:
-          type: integer
-          format: int32
         message:
           type: string
     FaktaOmFeilutbetaling:
@@ -183,6 +208,30 @@ components:
           anyOf:
             - type: string
             - type: 'null'
+    OppdaterFaktaOmFeilutbetaling:
+      type: object
+      required:
+        - perioder
+        - vurdering
+      properties:
+        perioder:
+          type: array
+          items:
+            $ref: '#/components/schemas/OppdaterFaktaPeriode'
+        vurdering:
+          $ref: '#/components/schemas/Vurdering'
+    OppdaterFaktaPeriode:
+      type: object
+      required:
+        - id
+        - rettsligGrunnlag
+      properties:
+        id:
+          type: string
+        rettsligGrunnlag:
+          type: array
+          items:
+            $ref: '#/components/schemas/RettsligGrunnlag'
     RettsligGrunnlag:
       type: object
       required:
