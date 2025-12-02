@@ -13,11 +13,14 @@ using Http;
 @route("/feilutbetaling")
 op fakta(@path behandlingId: string): FaktaOmFeilutbetaling | Error;
 
+#suppress "@typespec/http/patch-implicit-optional" ""
 @patch
 @route("/feilutbetaling")
 op oppdaterFakta(
   @path behandlingId: string,
-  @body body: MergePatchUpdate<OppdaterFaktaOmFeilutbetaling>,
+
+  @body
+  body: OppdaterFaktaOmFeilutbetaling,
 ): FaktaOmFeilutbetaling | Error;
 
 @error

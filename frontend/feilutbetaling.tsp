@@ -58,8 +58,8 @@ model Oppdaget {
 }
 
 model OppdaterFaktaOmFeilutbetaling {
-    perioder: Array<OppdaterFaktaPeriode>;
-    vurdering: Vurdering;
+    perioder?: Array<OppdaterFaktaPeriode>;
+    vurdering?: Vurdering;
 }
 
 model OppdaterFaktaPeriode {

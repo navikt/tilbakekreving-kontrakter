@@ -55,9 +55,9 @@ paths:
       requestBody:
         required: true
         content:
-          application/merge-patch+json:
+          application/json:
             schema:
-              $ref: '#/components/schemas/OppdaterFaktaOmFeilutbetalingMergePatchUpdate'
+              $ref: '#/components/schemas/OppdaterFaktaOmFeilutbetaling'
 components:
   schemas:
     BestemmelseEllerGrunnlag:
@@ -208,35 +208,16 @@ components:
           anyOf:
             - type: string
             - type: 'null'
-    OppdagetMergePatchUpdate:
-      type: object
-      properties:
-        dato:
-          anyOf:
-            - type: string
-              format: date
-            - type: 'null'
-        av:
-          type: string
-          enum:
-            - NAV
-            - BRUKER
-            - IKKE_VURDERT
-        beskrivelse:
-          anyOf:
-            - type: string
-            - type: 'null'
-    OppdaterFaktaOmFeilutbetalingMergePatchUpdate:
+    OppdaterFaktaOmFeilutbetaling:
       type: object
       properties:
         perioder:
           type: array
           items:
-            $ref: '#/components/schemas/OppdaterFaktaPeriodeMergePatchUpdateReplaceOnly'
+            $ref: '#/components/schemas/OppdaterFaktaPeriode'
         vurdering:
-          $ref: '#/components/schemas/VurderingMergePatchUpdate'
-      description: ''
-    OppdaterFaktaPeriodeMergePatchUpdateReplaceOnly:
+          $ref: '#/components/schemas/Vurdering'
+    OppdaterFaktaPeriode:
       type: object
       required:
         - id
@@ -247,18 +228,8 @@ components:
         rettsligGrunnlag:
           type: array
           items:
-            $ref: '#/components/schemas/RettsligGrunnlagMergePatchUpdateReplaceOnly'
+            $ref: '#/components/schemas/RettsligGrunnlag'
     RettsligGrunnlag:
-      type: object
-      required:
-        - bestemmelse
-        - grunnlag
-      properties:
-        bestemmelse:
-          type: string
-        grunnlag:
-          type: string
-    RettsligGrunnlagMergePatchUpdateReplaceOnly:
       type: object
       required:
         - bestemmelse
@@ -295,10 +266,3 @@ components:
           type: string
         oppdaget:
           $ref: '#/components/schemas/Oppdaget'
-    VurderingMergePatchUpdate:
-      type: object
-      properties:
-        årsak:
-          type: string
-        oppdaget:
-          $ref: '#/components/schemas/OppdagetMergePatchUpdate'
