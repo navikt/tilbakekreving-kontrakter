@@ -17,7 +17,7 @@ op fakta(@path behandlingId: string): FaktaOmFeilutbetaling | Error;
 @route("/feilutbetaling")
 op oppdaterFakta(
   @path behandlingId: string,
-  @body body: OppdaterFaktaOmFeilutbetaling,
+  @body body: MergePatchUpdate<OppdaterFaktaOmFeilutbetaling>,
 ): FaktaOmFeilutbetaling | Error;
 
 @error

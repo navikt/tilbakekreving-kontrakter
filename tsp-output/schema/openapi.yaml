@@ -55,9 +55,9 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          application/merge-patch+json:
             schema:
-              $ref: '#/components/schemas/OppdaterFaktaOmFeilutbetaling'
+              $ref: '#/components/schemas/OppdaterFaktaOmFeilutbetalingMergePatchUpdate'
 components:
   schemas:
     BestemmelseEllerGrunnlag:
@@ -208,19 +208,35 @@ components:
           anyOf:
             - type: string
             - type: 'null'
-    OppdaterFaktaOmFeilutbetaling:
+    OppdagetMergePatchUpdate:
       type: object
-      required:
-        - perioder
-        - vurdering
+      properties:
+        dato:
+          anyOf:
+            - type: string
+              format: date
+            - type: 'null'
+        av:
+          type: string
+          enum:
+            - NAV
+            - BRUKER
+            - IKKE_VURDERT
+        beskrivelse:
+          anyOf:
+            - type: string
+            - type: 'null'
+    OppdaterFaktaOmFeilutbetalingMergePatchUpdate:
+      type: object
       properties:
         perioder:
           type: array
           items:
-            $ref: '#/components/schemas/OppdaterFaktaPeriode'
+            $ref: '#/components/schemas/OppdaterFaktaPeriodeMergePatchUpdateReplaceOnly'
         vurdering:
-          $ref: '#/components/schemas/Vurdering'
-    OppdaterFaktaPeriode:
+          $ref: '#/components/schemas/VurderingMergePatchUpdate'
+      description: ''
+    OppdaterFaktaPeriodeMergePatchUpdateReplaceOnly:
       type: object
       required:
         - id
@@ -231,8 +247,18 @@ components:
         rettsligGrunnlag:
           type: array
           items:
-            $ref: '#/components/schemas/RettsligGrunnlag'
+            $ref: '#/components/schemas/RettsligGrunnlagMergePatchUpdateReplaceOnly'
     RettsligGrunnlag:
+      type: object
+      required:
+        - bestemmelse
+        - grunnlag
+      properties:
+        bestemmelse:
+          type: string
+        grunnlag:
+          type: string
+    RettsligGrunnlagMergePatchUpdateReplaceOnly:
       type: object
       required:
         - bestemmelse
@@ -269,3 +295,10 @@ components:
           type: string
         oppdaget:
           $ref: '#/components/schemas/Oppdaget'
+    VurderingMergePatchUpdate:
+      type: object
+      properties:
+        årsak:
+          type: string
+        oppdaget:
+          $ref: '#/components/schemas/OppdagetMergePatchUpdate'
