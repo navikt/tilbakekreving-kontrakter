@@ -13,7 +13,7 @@ using Http;
 @route("/feilutbetaling")
 op fakta(@path behandlingId: string): FaktaOmFeilutbetaling | Error;
 
-@post
+@patch
 @route("/feilutbetaling")
 op oppdaterFakta(
   @path behandlingId: string,
