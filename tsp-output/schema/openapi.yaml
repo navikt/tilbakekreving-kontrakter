@@ -29,7 +29,7 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
-    post:
+    patch:
       operationId: oppdaterFakta
       parameters:
         - name: behandlingId
