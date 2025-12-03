@@ -47,8 +47,8 @@ model RettsligGrunnlag {
 }
 
 model Vurdering {
-    årsak: string;
-    oppdaget: Oppdaget;
+    årsak?: string;
+    oppdaget?: Oppdaget;
 }
 
 model Oppdaget {

@@ -258,9 +258,6 @@ components:
             - OPPHØRT
     Vurdering:
       type: object
-      required:
-        - årsak
-        - oppdaget
       properties:
         årsak:
           type: string
