@@ -11,7 +11,14 @@ using Http;
 
 @get
 @route("/feilutbetaling")
-op fakta(@path behandlingId: string): FaktaOmFeilutbetaling | Error;
+op fakta(
+  @path behandlingId: string
+): {
+  @body fakta: FaktaOmFeilutbetaling;
+} | {
+  @body error: Error;
+  @statusCode statusCode: 400 | 500;
+};
 
 #suppress "@typespec/http/patch-implicit-optional" ""
 @patch
