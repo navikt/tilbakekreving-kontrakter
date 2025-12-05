@@ -21,7 +21,12 @@ op oppdaterFakta(
 
   @body
   body: OppdaterFaktaOmFeilutbetaling,
-): FaktaOmFeilutbetaling | Error;
+): {
+  @body fakta: FaktaOmFeilutbetaling;
+} | {
+  @body error: Error;
+  @statusCode statusCode: 400 | 500;
+};
 
 @error
 model Error {

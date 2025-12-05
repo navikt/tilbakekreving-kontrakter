@@ -44,8 +44,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FaktaOmFeilutbetaling'
-        default:
-          description: An unexpected error response.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
           content:
             application/json:
               schema:
