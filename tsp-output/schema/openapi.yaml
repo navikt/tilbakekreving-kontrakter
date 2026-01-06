@@ -97,6 +97,7 @@ components:
         - muligeRettsligGrunnlag
         - perioder
         - vurdering
+        - ferdigvurdert
       properties:
         feilutbetaling:
           $ref: '#/components/schemas/Feilutbetaling'
@@ -115,6 +116,8 @@ components:
             $ref: '#/components/schemas/FaktaPeriode'
         vurdering:
           $ref: '#/components/schemas/Vurdering'
+        ferdigvurdert:
+          type: boolean
     FaktaPeriode:
       type: object
       required:
@@ -220,6 +223,8 @@ components:
           anyOf:
             - type: string
             - type: 'null'
+          minLength: 3
+          maxLength: 3000
     OppdaterFaktaOmFeilutbetaling:
       type: object
       properties:
@@ -241,6 +246,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RettsligGrunnlag'
+          minItems: 1
     RettsligGrunnlag:
       type: object
       required:
@@ -273,5 +279,7 @@ components:
       properties:
         årsak:
           type: string
+          minLength: 3
+          maxLength: 3000
         oppdaget:
           $ref: '#/components/schemas/Oppdaget'

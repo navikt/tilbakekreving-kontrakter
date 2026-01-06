@@ -6,6 +6,7 @@ model FaktaOmFeilutbetaling {
     muligeRettsligGrunnlag: Array<MuligeRettsligGrunnlag>;
     perioder: Array<FaktaPeriode>;
     vurdering: Vurdering;
+    ferdigvurdert: boolean;
 }
 
 model Feilutbetaling {
@@ -47,6 +48,8 @@ model RettsligGrunnlag {
 }
 
 model Vurdering {
+    @minLength(3)
+    @maxLength(3000)
     årsak?: string;
     oppdaget?: Oppdaget;
 }
@@ -54,6 +57,8 @@ model Vurdering {
 model Oppdaget {
     dato: plainDate | null;
     av: "NAV" | "BRUKER" | "IKKE_VURDERT";
+    @minLength(3)
+    @maxLength(3000)
     beskrivelse: string | null;
 }
 
@@ -64,5 +69,6 @@ model OppdaterFaktaOmFeilutbetaling {
 
 model OppdaterFaktaPeriode {
     id: string;
+    @minItems(1)
     rettsligGrunnlag: Array<RettsligGrunnlag>;
 }
