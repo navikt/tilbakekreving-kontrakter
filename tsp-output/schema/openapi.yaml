@@ -189,6 +189,10 @@ components:
           format: date
         revurdering:
           $ref: '#/components/schemas/Revurdering'
+    Fritekst:
+      type: string
+      minLength: 3
+      maxLength: 3000
     MuligeRettsligGrunnlag:
       type: object
       required:
@@ -221,10 +225,8 @@ components:
             - IKKE_VURDERT
         beskrivelse:
           anyOf:
-            - type: string
+            - $ref: '#/components/schemas/Fritekst'
             - type: 'null'
-          minLength: 3
-          maxLength: 3000
     OppdaterFaktaOmFeilutbetaling:
       type: object
       properties:
@@ -255,8 +257,10 @@ components:
       properties:
         bestemmelse:
           type: string
+          minLength: 1
         grunnlag:
           type: string
+          minLength: 1
     Revurdering:
       type: object
       required:
@@ -276,9 +280,13 @@ components:
             - OPPHØRT
     Vurdering:
       type: object
+      required:
+        - årsak
       properties:
         årsak:
-          type: string
+          anyOf:
+            - $ref: '#/components/schemas/Fritekst'
+            - type: 'null'
           minLength: 3
           maxLength: 3000
         oppdaget:

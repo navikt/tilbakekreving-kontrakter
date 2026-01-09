@@ -1,5 +1,9 @@
 import "./common.tsp";
 
+@minLength(3)
+@maxLength(3000)
+scalar Fritekst extends string;
+
 model FaktaOmFeilutbetaling {
     feilutbetaling: Feilutbetaling;
     tidligereVarsletBeløp: uint32 | null;
@@ -43,23 +47,23 @@ model FaktaPeriode {
 }
 
 model RettsligGrunnlag {
+    @minLength(1)
     bestemmelse: string;
+    @minLength(1)
     grunnlag: string;
 }
 
 model Vurdering {
     @minLength(3)
     @maxLength(3000)
-    årsak?: string;
+    årsak: Fritekst | null;
     oppdaget?: Oppdaget;
 }
 
 model Oppdaget {
     dato: plainDate | null;
     av: "NAV" | "BRUKER" | "IKKE_VURDERT";
-    @minLength(3)
-    @maxLength(3000)
-    beskrivelse: string | null;
+    beskrivelse: Fritekst | null;
 }
 
 model OppdaterFaktaOmFeilutbetaling {
