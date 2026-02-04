@@ -1,4 +1,3 @@
-import "@typespec/json-schema";
 import "@typespec/http";
 
 using Http;

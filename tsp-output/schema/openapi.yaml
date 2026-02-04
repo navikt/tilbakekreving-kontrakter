@@ -71,6 +71,36 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/OppdaterFaktaOmFeilutbetaling'
+  /api/v1/behandling/{behandlingId}/vedtak/brev:
+    get:
+      operationId: Behandling_hentVedtaksbrev
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vedtaksbrev'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
   /api/v1/brev/vedtaksbrev/svg:
     post:
       operationId: Vedtaksbrev_lagSvgVedtaksbrev
@@ -390,6 +420,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Element'
+    Vedtaksbrev:
+      type: object
+      required:
+        - innledning
+        - perioder
+        - brevGjelder
+        - ytelse
+        - signatur
+      properties:
+        innledning:
+          type: string
+        perioder:
+          type: array
+          items:
+            $ref: '#/components/schemas/VedtaksbrevPeriode'
+        brevGjelder:
+          $ref: '#/components/schemas/Brevmottaker'
+        ytelse:
+          $ref: '#/components/schemas/Ytelse'
+        signatur:
+          $ref: '#/components/schemas/Signatur'
     VedtaksbrevData:
       type: object
       required:
@@ -414,6 +465,43 @@ components:
           $ref: '#/components/schemas/Ytelse'
         signatur:
           $ref: '#/components/schemas/Signatur'
+    VedtaksbrevPeriode:
+      type: object
+      required:
+        - fom
+        - tom
+        - beskrivelse
+        - konklusjon
+        - vurderinger
+      properties:
+        fom:
+          type: string
+        tom:
+          type: string
+        beskrivelse:
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
+        konklusjon:
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
+        vurderinger:
+          type: array
+          items:
+            $ref: '#/components/schemas/VedtaksbrevVurdering'
+    VedtaksbrevVurdering:
+      type: object
+      required:
+        - tittel
+        - beskrivelse
+      properties:
+        tittel:
+          type: string
+        beskrivelse:
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
     Vurdering:
       type: object
       required:

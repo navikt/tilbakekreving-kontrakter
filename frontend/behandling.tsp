@@ -1,5 +1,6 @@
 import "@typespec/http";
 import "./feilutbetaling.tsp";
+import "./vedtak.tsp";
 import "./common.tsp";
 
 using Http;
@@ -24,6 +25,15 @@ interface BehandlingApi {
     body: OppdaterFaktaOmFeilutbetaling,
   ): {
     @body fakta: FaktaOmFeilutbetaling;
+  } | {
+    @body error: Error;
+    @statusCode statusCode: 400 | 500;
+  };
+
+  @get
+  @route("/vedtak/brev")
+  hentVedtaksbrev(@path behandlingId: string): {
+    @body brev: Vedtaksbrev;
   } | {
     @body error: Error;
     @statusCode statusCode: 400 | 500;
