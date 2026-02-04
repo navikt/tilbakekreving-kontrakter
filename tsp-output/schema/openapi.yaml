@@ -476,8 +476,10 @@ components:
       properties:
         fom:
           type: string
+          format: date
         tom:
           type: string
+          format: date
         beskrivelse:
           type: array
           items:

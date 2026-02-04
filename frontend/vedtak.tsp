@@ -9,8 +9,7 @@ model Vedtaksbrev {
 }
 
 model VedtaksbrevPeriode {
-    fom: string;
-    tom: string;
+    ...Periode;
     beskrivelse: Element[];
     konklusjon: Element[];
     vurderinger: VedtaksbrevVurdering[];
