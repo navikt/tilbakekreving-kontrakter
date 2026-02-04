@@ -56,7 +56,7 @@ model UnderavsnittElement {
 }
 
 model Brevmottaker {
-    fultNavn: string;
+    fullName: string;
     personIdent: string;
 }
 
