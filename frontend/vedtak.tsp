@@ -1,7 +1,7 @@
 import "../brev/vedtaksbrev.tsp";
 
 model Vedtaksbrev {
-    innledning: string;
+    innledning: Element[];
     perioder: VedtaksbrevPeriode[];
     brevGjelder: Brevmottaker;
     ytelse: Ytelse;

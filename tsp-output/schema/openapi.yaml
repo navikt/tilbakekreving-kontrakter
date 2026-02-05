@@ -149,10 +149,10 @@ components:
     Brevmottaker:
       type: object
       required:
-        - fultNavn
+        - navn
         - personIdent
       properties:
-        fultNavn:
+        navn:
           type: string
         personIdent:
           type: string
@@ -430,7 +430,9 @@ components:
         - signatur
       properties:
         innledning:
-          type: string
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
         perioder:
           type: array
           items:
