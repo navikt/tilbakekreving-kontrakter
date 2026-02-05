@@ -149,10 +149,10 @@ components:
     Brevmottaker:
       type: object
       required:
-        - fullName
+        - navn
         - personIdent
       properties:
-        fullName:
+        navn:
           type: string
         personIdent:
           type: string
