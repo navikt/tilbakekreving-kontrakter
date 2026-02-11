@@ -5,15 +5,21 @@ import "./common.tsp";
 
 using Http;
 
+alias ErrorResponse = {
+  @body error: Error;
+  @statusCode statusCode: 400 | 500;
+};
+
+alias SuccessResponse<Body> = {
+  @body body: Body;
+};
+
 interface BehandlingApi {
   @get
   @route("/feilutbetaling")
-  fakta(@path behandlingId: string): {
-    @body fakta: FaktaOmFeilutbetaling;
-  } | {
-    @body error: Error;
-    @statusCode statusCode: 400 | 500;
-  };
+  fakta(
+    @path behandlingId: string,
+  ): SuccessResponse<FaktaOmFeilutbetaling> | ErrorResponse;
 
   #suppress "@typespec/http/patch-implicit-optional" ""
   @patch
@@ -23,21 +29,20 @@ interface BehandlingApi {
 
     @body
     body: OppdaterFaktaOmFeilutbetaling,
-  ): {
-    @body fakta: FaktaOmFeilutbetaling;
-  } | {
-    @body error: Error;
-    @statusCode statusCode: 400 | 500;
-  };
+  ): SuccessResponse<FaktaOmFeilutbetaling> | ErrorResponse;
 
   @get
   @route("/vedtak/brev")
-  hentVedtaksbrev(@path behandlingId: string): {
-    @body brev: Vedtaksbrev;
-  } | {
-    @body error: Error;
-    @statusCode statusCode: 400 | 500;
-  };
+  hentVedtaksbrev(
+    @path behandlingId: string,
+  ): SuccessResponse<Vedtaksbrev> | ErrorResponse;
+
+  @put
+  @route("/vedtak/brev")
+  oppdaterVedtaksbrev(
+    @path behandlingId: string,
+    @body brevdata: VedtaksbrevData,
+  ): SuccessResponse<VedtaksbrevData> | ErrorResponse;
 }
 
 @error

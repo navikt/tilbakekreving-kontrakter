@@ -30,6 +30,8 @@ model Avsnitt {
     @maxLength(300)
     tittel: string;
 
+    @format("uuid")
+    id: string;
     underavsnitt: RotElement[];
 }
 

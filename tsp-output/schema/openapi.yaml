@@ -101,6 +101,41 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+    put:
+      operationId: Behandling_oppdaterVedtaksbrev
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VedtaksbrevData'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VedtaksbrevData'
   /api/v1/brev/vedtaksbrev/svg:
     post:
       operationId: Vedtaksbrev_lagSvgVedtaksbrev
@@ -126,12 +161,16 @@ components:
       type: object
       required:
         - tittel
+        - id
         - underavsnitt
       properties:
         tittel:
           type: string
           minLength: 3
           maxLength: 300
+        id:
+          type: string
+          format: uuid
         underavsnitt:
           type: array
           items:
