@@ -109,6 +109,7 @@ paths:
           required: true
           schema:
             type: string
+            format: uuid
       responses:
         '200':
           description: The request has succeeded.
@@ -135,7 +136,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VedtaksbrevData'
+              $ref: '#/components/schemas/VedtaksbrevRedigerbareData'
   /api/v1/brev/vedtaksbrev/svg:
     post:
       operationId: Vedtaksbrev_lagSvgVedtaksbrev
@@ -533,6 +534,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VedtaksbrevVurdering'
+    VedtaksbrevRedigerbareData:
+      type: object
+      required:
+        - hovedavsnitt
+        - avsnitt
+      properties:
+        hovedavsnitt:
+          $ref: '#/components/schemas/Hovedavsnitt'
+        avsnitt:
+          type: array
+          items:
+            $ref: '#/components/schemas/Avsnitt'
     VedtaksbrevVurdering:
       type: object
       required:

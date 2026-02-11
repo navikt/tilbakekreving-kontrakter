@@ -40,8 +40,8 @@ interface BehandlingApi {
   @put
   @route("/vedtak/brev")
   oppdaterVedtaksbrev(
-    @path behandlingId: string,
-    @body brevdata: VedtaksbrevData,
+    @path @format("uuid") behandlingId: string,
+    @body brevdata: VedtaksbrevRedigerbareData,
   ): SuccessResponse<VedtaksbrevData> | ErrorResponse;
 }
 

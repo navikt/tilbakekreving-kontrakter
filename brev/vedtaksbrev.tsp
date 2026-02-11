@@ -8,9 +8,13 @@ interface VedtaksbrevApi {
     lagSvgVedtaksbrev(@body body: VedtaksbrevData): bytes;
 }
 
-model VedtaksbrevData {
+model VedtaksbrevRedigerbareData {
     hovedavsnitt: Hovedavsnitt;
     avsnitt: Avsnitt[];
+}
+
+model VedtaksbrevData {
+    ...VedtaksbrevRedigerbareData;
     brevGjelder: Brevmottaker;
     sendtDato: string;
     ytelse: Ytelse;
