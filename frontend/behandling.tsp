@@ -1,6 +1,5 @@
 import "@typespec/http";
 import "./feilutbetaling.tsp";
-import "./vedtak.tsp";
 import "./common.tsp";
 
 using Http;
@@ -35,7 +34,7 @@ interface BehandlingApi {
   @route("/vedtak/brev")
   hentVedtaksbrev(
     @path behandlingId: string,
-  ): SuccessResponse<Vedtaksbrev> | ErrorResponse;
+  ): SuccessResponse<VedtaksbrevData> | ErrorResponse;
 
   @put
   @route("/vedtak/brev")
