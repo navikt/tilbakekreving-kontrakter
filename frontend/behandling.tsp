@@ -42,7 +42,7 @@ interface BehandlingApi {
   oppdaterVedtaksbrev(
     @path @format("uuid") behandlingId: string,
     @body brevdata: VedtaksbrevRedigerbareData,
-  ): SuccessResponse<VedtaksbrevData> | ErrorResponse;
+  ): SuccessResponse<VedtaksbrevRedigerbareData> | ErrorResponse;
 }
 
 @error
