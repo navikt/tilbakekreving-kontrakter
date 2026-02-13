@@ -1,4 +1,5 @@
 import "@typespec/http";
+import "@typespec/openapi";
 
 using Http;
 
@@ -36,6 +37,7 @@ model Avsnitt {
 
     @format("uuid")
     id: string;
+
     underavsnitt: RotElement[];
 }
 
@@ -50,12 +52,14 @@ union Element {
     rentekst: RentekstElement,
 }
 
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RotElementDto"])
 model RentekstElement {
     @minLength(3)
     @maxLength(3000)
     tekst: string;
 }
 
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RotElementDto"])
 model UnderavsnittElement {
     tittel: string;
     underavsnitt: Element[];
