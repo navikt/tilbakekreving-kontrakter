@@ -394,6 +394,8 @@ components:
           type: string
           minLength: 3
           maxLength: 3000
+      x-kotlin-implements:
+        - RotElementDto
     RettsligGrunnlag:
       type: object
       required:
@@ -460,6 +462,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Element'
+      x-kotlin-implements:
+        - RotElementDto
     VedtaksbrevData:
       type: object
       required:
