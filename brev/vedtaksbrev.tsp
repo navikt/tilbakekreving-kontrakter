@@ -12,6 +12,9 @@ interface VedtaksbrevApi {
 model VedtaksbrevRedigerbareData {
     hovedavsnitt: Hovedavsnitt;
     avsnitt: Avsnitt[];
+
+    @visibility(Lifecycle.Read)
+    sistOppdatert: utcDateTime;
 }
 
 model VedtaksbrevData {
