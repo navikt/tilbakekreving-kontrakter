@@ -38,6 +38,7 @@ interface BehandlingApi {
 
   @put
   @route("/vedtak/brev")
+  @parameterVisibility(Lifecycle.Update)
   oppdaterVedtaksbrev(
     @path @format("uuid") behandlingId: string,
     @body brevdata: VedtaksbrevRedigerbareData,

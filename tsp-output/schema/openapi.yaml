@@ -136,7 +136,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VedtaksbrevRedigerbareData'
+              $ref: '#/components/schemas/VedtaksbrevRedigerbareDataUpdate'
   /api/v1/brev/vedtaksbrev/svg:
     post:
       operationId: Vedtaksbrev_lagSvgVedtaksbrev
@@ -176,6 +176,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RotElement'
+    AvsnittUpdateItem:
+      type: object
+      required:
+        - tittel
+        - id
+        - underavsnitt
+      properties:
+        tittel:
+          type: string
+          minLength: 3
+          maxLength: 300
+        id:
+          type: string
+          format: uuid
+        underavsnitt:
+          type: array
+          items:
+            $ref: '#/components/schemas/RotElementUpdateItem'
     BestemmelseEllerGrunnlag:
       type: object
       required:
@@ -329,6 +347,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RotElement'
+    HovedavsnittUpdate:
+      type: object
+      required:
+        - tittel
+        - underavsnitt
+      properties:
+        tittel:
+          type: string
+          minLength: 3
+          maxLength: 300
+        underavsnitt:
+          type: array
+          items:
+            $ref: '#/components/schemas/RotElementUpdateItem'
     MuligeRettsligGrunnlag:
       type: object
       required:
@@ -385,6 +417,43 @@ components:
           items:
             $ref: '#/components/schemas/RettsligGrunnlag'
           minItems: 1
+    PakrevdBegrunnelse:
+      type: object
+      required:
+        - tittel
+        - forklaring
+        - begrunnelseType
+        - underavsnitt
+      properties:
+        tittel:
+          type: string
+        forklaring:
+          type: string
+          readOnly: true
+        begrunnelseType:
+          type: string
+        underavsnitt:
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
+      x-kotlin-implements:
+        - RotElementDto
+        - RotElementUpdateItemDto
+    PakrevdBegrunnelseUpdateItem:
+      type: object
+      required:
+        - begrunnelseType
+        - underavsnitt
+      properties:
+        begrunnelseType:
+          type: string
+        underavsnitt:
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
+      x-kotlin-implements:
+        - RotElementDto
+        - RotElementUpdateItemDto
     RentekstElement:
       type: object
       required:
@@ -396,6 +465,7 @@ components:
           maxLength: 3000
       x-kotlin-implements:
         - RotElementDto
+        - RotElementUpdateItemDto
     RettsligGrunnlag:
       type: object
       required:
@@ -430,11 +500,25 @@ components:
       oneOf:
         - $ref: '#/components/schemas/RentekstElement'
         - $ref: '#/components/schemas/UnderavsnittElement'
+        - $ref: '#/components/schemas/PakrevdBegrunnelse'
       discriminator:
         propertyName: type
         mapping:
           rentekst: '#/components/schemas/RentekstElement'
           underavsnitt: '#/components/schemas/UnderavsnittElement'
+          påkrevd_begrunnelse: '#/components/schemas/PakrevdBegrunnelse'
+    RotElementUpdateItem:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/RentekstElement'
+        - $ref: '#/components/schemas/UnderavsnittElement'
+        - $ref: '#/components/schemas/PakrevdBegrunnelseUpdateItem'
+      discriminator:
+        propertyName: type
+        mapping:
+          rentekst: '#/components/schemas/RentekstElement'
+          underavsnitt: '#/components/schemas/UnderavsnittElement'
+          påkrevd_begrunnelse: '#/components/schemas/PakrevdBegrunnelseUpdateItem'
     Signatur:
       type: object
       required:
@@ -464,6 +548,7 @@ components:
             $ref: '#/components/schemas/Element'
       x-kotlin-implements:
         - RotElementDto
+        - RotElementUpdateItemDto
     VedtaksbrevData:
       type: object
       required:
@@ -510,6 +595,18 @@ components:
           type: string
           format: date-time
           readOnly: true
+    VedtaksbrevRedigerbareDataUpdate:
+      type: object
+      required:
+        - hovedavsnitt
+        - avsnitt
+      properties:
+        hovedavsnitt:
+          $ref: '#/components/schemas/HovedavsnittUpdate'
+        avsnitt:
+          type: array
+          items:
+            $ref: '#/components/schemas/AvsnittUpdateItem'
     Vurdering:
       type: object
       required:

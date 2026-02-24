@@ -6,6 +6,7 @@ using Http;
 interface VedtaksbrevApi {
     @post
     @route("/vedtaksbrev/svg")
+    @parameterVisibility(Lifecycle.Create)
     lagSvgVedtaksbrev(@body body: VedtaksbrevData): bytes;
 }
 
@@ -48,6 +49,7 @@ model Avsnitt {
 union RotElement {
     rentekst: RentekstElement,
     underavsnitt: UnderavsnittElement,
+    påkrevd_begrunnelse: PakrevdBegrunnelse,
 }
 
 @discriminated(#{ discriminatorPropertyName: "type", envelope: "none" })
@@ -55,16 +57,28 @@ union Element {
     rentekst: RentekstElement,
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RotElementDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RotElementDto", "RotElementUpdateItemDto"])
 model RentekstElement {
     @minLength(3)
     @maxLength(3000)
     tekst: string;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RotElementDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RotElementDto", "RotElementUpdateItemDto"])
 model UnderavsnittElement {
     tittel: string;
+    underavsnitt: Element[];
+}
+
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RotElementDto", "RotElementUpdateItemDto"])
+model PakrevdBegrunnelse {
+    @visibility(Lifecycle.Create, Lifecycle.Read)
+    tittel: string;
+
+    @visibility(Lifecycle.Read)
+    forklaring: string;
+
+    begrunnelseType: string;
     underavsnitt: Element[];
 }
 
