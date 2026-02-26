@@ -37,7 +37,6 @@ model Hovedavsnitt {
 model Avsnitt {
     @minLength(3)
     @maxLength(300)
-    @visibility(Lifecycle.Create, Lifecycle.Read)
     tittel: string;
 
     @visibility(Lifecycle.Read)

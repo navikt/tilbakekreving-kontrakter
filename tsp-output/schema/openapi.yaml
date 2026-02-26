@@ -183,9 +183,14 @@ components:
     AvsnittUpdateItem:
       type: object
       required:
+        - tittel
         - id
         - underavsnitt
       properties:
+        tittel:
+          type: string
+          minLength: 3
+          maxLength: 300
         id:
           type: string
           format: uuid
