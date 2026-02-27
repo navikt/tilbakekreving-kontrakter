@@ -31,6 +31,9 @@ model Hovedavsnitt {
     @maxLength(300)
     tittel: string;
 
+    @visibility(Lifecycle.Read)
+    forklaring: string;
+
     underavsnitt: RotElement[];
 }
 
@@ -60,20 +63,29 @@ union Element {
     rentekst: RentekstElement,
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RotElementDto", "RotElementUpdateItemDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["RotElementDto", "RotElementUpdateItemDto"]
+)
 model RentekstElement {
     @minLength(3)
     @maxLength(3000)
     tekst: string;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RotElementDto", "RotElementUpdateItemDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["RotElementDto", "RotElementUpdateItemDto"]
+)
 model UnderavsnittElement {
     tittel: string;
     underavsnitt: Element[];
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RotElementDto", "RotElementUpdateItemDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["RotElementDto", "RotElementUpdateItemDto"]
+)
 model PakrevdBegrunnelse {
     @visibility(Lifecycle.Create, Lifecycle.Read)
     tittel: string;
