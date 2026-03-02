@@ -341,12 +341,16 @@ components:
       type: object
       required:
         - tittel
+        - forklaring
         - underavsnitt
       properties:
         tittel:
           type: string
           minLength: 3
           maxLength: 300
+        forklaring:
+          type: string
+          readOnly: true
         underavsnitt:
           type: array
           items:
