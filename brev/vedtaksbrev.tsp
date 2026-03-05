@@ -68,6 +68,8 @@ union Element {
     #["RotElementDto", "RotElementUpdateItemDto"]
 )
 model RentekstElement {
+    @minLength(3)
+    @maxLength(3000)
     tekst: string;
 }
 

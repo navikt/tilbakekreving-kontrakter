@@ -469,6 +469,8 @@ components:
       properties:
         tekst:
           type: string
+          minLength: 3
+          maxLength: 3000
       x-kotlin-implements:
         - RotElementDto
         - RotElementUpdateItemDto
