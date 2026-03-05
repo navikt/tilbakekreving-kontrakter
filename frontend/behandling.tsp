@@ -43,6 +43,12 @@ interface BehandlingApi {
     @path @format("uuid") behandlingId: string,
     @body brevdata: VedtaksbrevRedigerbareData,
   ): SuccessResponse<VedtaksbrevRedigerbareData> | ErrorResponse;
+
+  @post
+  @route("/foreslå-vedtak")
+  foreslåVedtak(
+    @path @format("uuid") behandlingId: string,
+  ): SuccessResponse<void> | ErrorResponse;
 }
 
 @error
