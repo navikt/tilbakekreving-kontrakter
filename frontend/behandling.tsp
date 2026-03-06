@@ -45,7 +45,7 @@ interface BehandlingApi {
   ): SuccessResponse<VedtaksbrevRedigerbareData> | ErrorResponse;
 
   @post
-  @route("/foreslaa-vedtak")
+  @route("/foreslå-vedtak")
   foreslaaVedtak(
     @path @format("uuid") behandlingId: string,
   ): SuccessResponse<void> | ErrorResponse;
