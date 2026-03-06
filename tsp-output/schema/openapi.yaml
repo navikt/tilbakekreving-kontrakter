@@ -71,9 +71,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/OppdaterFaktaOmFeilutbetaling'
-  /api/v1/behandling/{behandlingId}/foreslå-vedtak:
+  /api/v1/behandling/{behandlingId}/foreslaa-vedtak:
     post:
-      operationId: Behandling_foreslåVedtak
+      operationId: Behandling_foreslaaVedtak
       parameters:
         - name: behandlingId
           in: path
