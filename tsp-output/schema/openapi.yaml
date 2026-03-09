@@ -164,6 +164,36 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/VedtaksbrevRedigerbareDataUpdate'
+  /api/v1/behandling/{behandlingId}/vedtak/resultat:
+    get:
+      operationId: Behandling_hentVedtaksresultat
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beregningsresultat'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
   /api/v1/brev/vedtaksbrev/svg:
     post:
       operationId: Vedtaksbrev_lagSvgVedtaksbrev
@@ -231,6 +261,61 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RotElementUpdateItem'
+    Beregningsresultat:
+      type: object
+      required:
+        - beregningsresultatsperioder
+        - vedtaksresultat
+        - harBrukerUttaltSeg
+      properties:
+        beregningsresultatsperioder:
+          type: array
+          items:
+            $ref: '#/components/schemas/Beregningsresultatsperiode'
+        vedtaksresultat:
+          $ref: '#/components/schemas/Vedtaksresultat'
+        harBrukerUttaltSeg:
+          type: boolean
+    BeregningsresultatVurdering:
+      type: string
+      enum:
+        - GOD_TRO
+        - FORSETT
+        - UAKTSOMHET
+        - GROV_UAKTSOMHET
+    Beregningsresultatsperiode:
+      type: object
+      required:
+        - fom
+        - tom
+        - feilutbetaltBeløp
+        - vurdering
+        - andelAvBeløp
+        - renteprosent
+        - tilbakekrevingsbeløp
+        - tilbakekrevesBeløpEtterSkatt
+      properties:
+        fom:
+          type: string
+          format: date
+        tom:
+          type: string
+          format: date
+        feilutbetaltBeløp:
+          type: integer
+          format: uint32
+        vurdering:
+          $ref: '#/components/schemas/BeregningsresultatVurdering'
+        andelAvBeløp:
+          type: string
+        renteprosent:
+          type: string
+        tilbakekrevingsbeløp:
+          type: integer
+          format: uint32
+        tilbakekrevesBeløpEtterSkatt:
+          type: integer
+          format: uint32
     BestemmelseEllerGrunnlag:
       type: object
       required:
@@ -654,6 +739,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AvsnittUpdateItem'
+    Vedtaksresultat:
+      type: string
+      enum:
+        - INGEN_TILBAKEBETALING
+        - DELVIS_TILBAKEBETALING
+        - FULL_TILBAKEBETALING
     Vurdering:
       type: object
       required:

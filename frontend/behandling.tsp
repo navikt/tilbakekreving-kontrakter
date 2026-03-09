@@ -1,5 +1,6 @@
 import "@typespec/http";
 import "./feilutbetaling.tsp";
+import "./beregningsresultat.tsp";
 import "./common.tsp";
 
 using Http;
@@ -43,6 +44,12 @@ interface BehandlingApi {
     @path @format("uuid") behandlingId: string,
     @body brevdata: VedtaksbrevRedigerbareData,
   ): SuccessResponse<VedtaksbrevRedigerbareData> | ErrorResponse;
+
+  @get
+  @route("/vedtak/resultat")
+  hentVedtaksresultat(
+    @path behandlingId: string,
+  ): SuccessResponse<Beregningsresultat> | ErrorResponse;
 
   @post
   @route("/foreslå-vedtak")
