@@ -48,7 +48,7 @@ interface BehandlingApi {
   @get
   @route("/vedtak/resultat")
   hentVedtaksresultat(
-    @path behandlingId: string,
+    @path @format("uuid") behandlingId: string,
   ): SuccessResponse<Beregningsresultat> | ErrorResponse;
 
   @post
