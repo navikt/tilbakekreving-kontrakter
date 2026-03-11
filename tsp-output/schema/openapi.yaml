@@ -267,7 +267,6 @@ components:
       required:
         - beregningsresultatsperioder
         - vedtaksresultat
-        - harBrukerUttaltSeg
       properties:
         beregningsresultatsperioder:
           type: array
@@ -275,15 +274,13 @@ components:
             $ref: '#/components/schemas/Beregningsresultatsperiode'
         vedtaksresultat:
           $ref: '#/components/schemas/Vedtaksresultat'
-        harBrukerUttaltSeg:
-          type: boolean
     BeregningsresultatVurdering:
       type: string
       enum:
-        - GOD_TRO
-        - FORSETT
-        - UAKTSOMHET
-        - GROV_UAKTSOMHET
+        - GodTro
+        - Forsett
+        - SimpelUaktsomhet
+        - GrovUaktsomhet
     Beregningsresultatsperiode:
       type: object
       required:
@@ -308,9 +305,11 @@ components:
         vurdering:
           $ref: '#/components/schemas/BeregningsresultatVurdering'
         andelAvBeløp:
-          type: string
+          type: integer
+          format: uint32
         renteprosent:
-          type: string
+          type: integer
+          format: uint32
         tilbakekrevingsbeløp:
           type: integer
           format: uint32
@@ -743,9 +742,9 @@ components:
     Vedtaksresultat:
       type: string
       enum:
-        - INGEN_TILBAKEBETALING
-        - DELVIS_TILBAKEBETALING
-        - FULL_TILBAKEBETALING
+        - IngenTilbakebetaling
+        - DelvisTilbakebetaling
+        - FullTilbakebetaling
     Vurdering:
       type: object
       required:

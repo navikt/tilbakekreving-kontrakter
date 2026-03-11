@@ -1,24 +1,24 @@
 import "./common.tsp";
 
-union BeregningsresultatVurdering {
-    godTro: "GOD_TRO",
-    forsett: "FORSETT",
-    simpelUaktsomhet: "UAKTSOMHET",
-    grovUaktsomhet: "GROV_UAKTSOMHET",
+enum BeregningsresultatVurdering {
+    GodTro,
+    Forsett,
+    SimpelUaktsomhet,
+    GrovUaktsomhet,
 }
 
-union Vedtaksresultat {
-    ingenTilbakebetaling: "INGEN_TILBAKEBETALING",
-    delvisTilbakebetaling: "DELVIS_TILBAKEBETALING",
-    fullTilbakebetaling: "FULL_TILBAKEBETALING",
+enum Vedtaksresultat {
+    IngenTilbakebetaling,
+    DelvisTilbakebetaling,
+    FullTilbakebetaling,
 }
 
 model Beregningsresultatsperiode {
     ...Periode;
     feilutbetaltBeløp: uint32;
     vurdering: BeregningsresultatVurdering;
-    andelAvBeløp: string;
-    renteprosent: string;
+    andelAvBeløp: uint32;
+    renteprosent: uint32;
     tilbakekrevingsbeløp: uint32;
     tilbakekrevesBeløpEtterSkatt: uint32;
 }
@@ -26,5 +26,4 @@ model Beregningsresultatsperiode {
 model Beregningsresultat {
     beregningsresultatsperioder: Array<Beregningsresultatsperiode>;
     vedtaksresultat: Vedtaksresultat;
-    harBrukerUttaltSeg: boolean;
 }
