@@ -17,8 +17,8 @@ model Beregningsresultatsperiode {
     ...Periode;
     feilutbetaltBeløp: uint32;
     vurdering: BeregningsresultatVurdering;
-    andelAvBeløp: uint32;
-    renteprosent: uint32;
+    andelAvBeløp: uint32 | null;
+    renteprosent: uint32 | null;
     tilbakekrevingsbeløp: uint32;
     tilbakekrevesBeløpEtterSkatt: uint32;
 }

@@ -305,11 +305,15 @@ components:
         vurdering:
           $ref: '#/components/schemas/BeregningsresultatVurdering'
         andelAvBeløp:
-          type: integer
-          format: uint32
+          anyOf:
+            - type: integer
+              format: uint32
+            - type: 'null'
         renteprosent:
-          type: integer
-          format: uint32
+          anyOf:
+            - type: integer
+              format: uint32
+            - type: 'null'
         tilbakekrevingsbeløp:
           type: integer
           format: uint32
