@@ -3,7 +3,7 @@ import "./common.tsp";
 enum BeregningsresultatVurdering {
     GodTro,
     Forsett,
-    SimpelUaktsomhet,
+    Uaktsomhet,
     GrovUaktsomhet,
 }
 
