@@ -45,6 +45,9 @@ model Avsnitt {
     @visibility(Lifecycle.Read)
     forklaring: string;
 
+    @visibility(Lifecycle.Read)
+    meldingerTilSaksbehandler: string[];
+
     @format("uuid")
     id: string;
 
@@ -92,6 +95,9 @@ model PakrevdBegrunnelse {
 
     @visibility(Lifecycle.Read)
     forklaring: string;
+
+    @visibility(Lifecycle.Read)
+    meldingerTilSaksbehandler: string[];
 
     begrunnelseType: string;
     underavsnitt: Element[];

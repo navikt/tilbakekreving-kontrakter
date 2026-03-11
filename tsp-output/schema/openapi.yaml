@@ -190,6 +190,7 @@ components:
       required:
         - tittel
         - forklaring
+        - meldingerTilSaksbehandler
         - id
         - underavsnitt
       properties:
@@ -199,6 +200,11 @@ components:
           maxLength: 300
         forklaring:
           type: string
+          readOnly: true
+        meldingerTilSaksbehandler:
+          type: array
+          items:
+            type: string
           readOnly: true
         id:
           type: string
@@ -457,6 +463,7 @@ components:
       required:
         - tittel
         - forklaring
+        - meldingerTilSaksbehandler
         - begrunnelseType
         - underavsnitt
       properties:
@@ -464,6 +471,11 @@ components:
           type: string
         forklaring:
           type: string
+          readOnly: true
+        meldingerTilSaksbehandler:
+          type: array
+          items:
+            type: string
           readOnly: true
         begrunnelseType:
           type: string
