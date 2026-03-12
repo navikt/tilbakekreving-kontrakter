@@ -2,6 +2,7 @@ import "@typespec/http";
 import "./feilutbetaling.tsp";
 import "./beregningsresultat.tsp";
 import "./common.tsp";
+import "./behandlingslogg.tsp";
 
 using Http;
 
@@ -56,6 +57,12 @@ interface BehandlingApi {
   foreslaaVedtak(
     @path @format("uuid") behandlingId: string,
   ): SuccessResponse<void> | ErrorResponse;
+
+  @get
+  @route("/behandlingslogg")
+  behandlingslogg(
+    @path @format("uuid") behandlingId: string,
+  ): SuccessResponse<Array<Logginnslag>> | ErrorResponse;
 }
 
 @error
