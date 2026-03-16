@@ -528,18 +528,19 @@ components:
       type: object
       required:
         - behandlingId
+        - opprettetTid
         - type
         - aktør
         - aktørIdent
         - tittel
         - tekst
         - steg
-        - journalpostId
-        - dokumentId
-        - opprettetTid
       properties:
         behandlingId:
           type: string
+        opprettetTid:
+          type: string
+          format: date-time
         type:
           type: string
         aktør:
@@ -556,17 +557,6 @@ components:
           anyOf:
             - type: string
             - type: 'null'
-        journalpostId:
-          anyOf:
-            - type: string
-            - type: 'null'
-        dokumentId:
-          anyOf:
-            - type: string
-            - type: 'null'
-        opprettetTid:
-          type: string
-          format: date-time
     MuligeRettsligGrunnlag:
       type: object
       required:
