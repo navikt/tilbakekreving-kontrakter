@@ -384,9 +384,9 @@ components:
     Error:
       type: object
       required:
-        - message
+        - melding
       properties:
-        message:
+        melding:
           type: string
     FaktaOmFeilutbetaling:
       type: object
