@@ -736,6 +736,18 @@ components:
           anyOf:
             - type: string
             - type: 'null'
+    Standardtekst:
+      type: object
+      required:
+        - tittel
+        - underavsnitt
+      properties:
+        tittel:
+          type: string
+        underavsnitt:
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
     UnderavsnittElement:
       type: object
       required:
@@ -756,6 +768,7 @@ components:
       required:
         - hovedavsnitt
         - avsnitt
+        - bunntekster
         - sistOppdatert
         - brevGjelder
         - sendtDato
@@ -768,6 +781,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Avsnitt'
+        bunntekster:
+          type: array
+          items:
+            $ref: '#/components/schemas/Standardtekst'
+          readOnly: true
         sistOppdatert:
           type: string
           format: date-time
@@ -785,6 +803,7 @@ components:
       required:
         - hovedavsnitt
         - avsnitt
+        - bunntekster
         - sistOppdatert
       properties:
         hovedavsnitt:
@@ -793,6 +812,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Avsnitt'
+        bunntekster:
+          type: array
+          items:
+            $ref: '#/components/schemas/Standardtekst'
+          readOnly: true
         sistOppdatert:
           type: string
           format: date-time

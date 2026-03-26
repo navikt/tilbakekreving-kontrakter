@@ -15,6 +15,9 @@ model VedtaksbrevRedigerbareData {
     avsnitt: Avsnitt[];
 
     @visibility(Lifecycle.Read)
+    bunntekster: Standardtekst[];
+
+    @visibility(Lifecycle.Read)
     sistOppdatert: utcDateTime;
 }
 
@@ -100,6 +103,13 @@ model PakrevdBegrunnelse {
     meldingerTilSaksbehandler: string[];
 
     begrunnelseType: string;
+    underavsnitt: Element[];
+}
+
+model Standardtekst {
+    @visibility(Lifecycle.Create, Lifecycle.Read)
+    tittel: string;
+
     underavsnitt: Element[];
 }
 
