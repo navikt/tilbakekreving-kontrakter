@@ -282,7 +282,6 @@ components:
       required:
         - tittel
         - id
-        - underavsnitt
       properties:
         tittel:
           type: string
@@ -291,10 +290,6 @@ components:
         id:
           type: string
           format: uuid
-        underavsnitt:
-          type: array
-          items:
-            $ref: '#/components/schemas/RotElementUpdateItem'
     Beregningsresultat:
       type: object
       required:

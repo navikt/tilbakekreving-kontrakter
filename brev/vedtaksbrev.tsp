@@ -54,6 +54,7 @@ model Avsnitt {
     @format("uuid")
     id: string;
 
+    @visibility(Lifecycle.Create, Lifecycle.Read)
     underavsnitt: RotElement[];
 }
 
@@ -107,9 +108,7 @@ model PakrevdBegrunnelse {
 }
 
 model Standardtekst {
-    @visibility(Lifecycle.Create, Lifecycle.Read)
     tittel: string;
-
     underavsnitt: Element[];
 }
 
