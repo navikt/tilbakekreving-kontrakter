@@ -282,6 +282,7 @@ components:
       required:
         - tittel
         - id
+        - underavsnitt
       properties:
         tittel:
           type: string
@@ -290,6 +291,10 @@ components:
         id:
           type: string
           format: uuid
+        underavsnitt:
+          type: array
+          items:
+            $ref: '#/components/schemas/RotElementUpdateItem'
     Beregningsresultat:
       type: object
       required:
@@ -763,12 +768,12 @@ components:
       required:
         - hovedavsnitt
         - avsnitt
-        - bunntekster
         - sistOppdatert
         - brevGjelder
         - sendtDato
         - ytelse
         - signatur
+        - bunntekster
       properties:
         hovedavsnitt:
           $ref: '#/components/schemas/Hovedavsnitt'
@@ -776,11 +781,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Avsnitt'
-        bunntekster:
-          type: array
-          items:
-            $ref: '#/components/schemas/Standardtekst'
-          readOnly: true
         sistOppdatert:
           type: string
           format: date-time
@@ -793,12 +793,15 @@ components:
           $ref: '#/components/schemas/Ytelse'
         signatur:
           $ref: '#/components/schemas/Signatur'
+        bunntekster:
+          type: array
+          items:
+            $ref: '#/components/schemas/Standardtekst'
     VedtaksbrevRedigerbareData:
       type: object
       required:
         - hovedavsnitt
         - avsnitt
-        - bunntekster
         - sistOppdatert
       properties:
         hovedavsnitt:
@@ -807,11 +810,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Avsnitt'
-        bunntekster:
-          type: array
-          items:
-            $ref: '#/components/schemas/Standardtekst'
-          readOnly: true
         sistOppdatert:
           type: string
           format: date-time

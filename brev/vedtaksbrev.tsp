@@ -15,9 +15,6 @@ model VedtaksbrevRedigerbareData {
     avsnitt: Avsnitt[];
 
     @visibility(Lifecycle.Read)
-    bunntekster: Standardtekst[];
-
-    @visibility(Lifecycle.Read)
     sistOppdatert: utcDateTime;
 }
 
@@ -27,6 +24,9 @@ model VedtaksbrevData {
     sendtDato: string;
     ytelse: Ytelse;
     signatur: Signatur;
+
+    @visibility(Lifecycle.Create, Lifecycle.Read)
+    bunntekster: Standardtekst[];
 }
 
 model Hovedavsnitt {
@@ -54,7 +54,6 @@ model Avsnitt {
     @format("uuid")
     id: string;
 
-    @visibility(Lifecycle.Create, Lifecycle.Read)
     underavsnitt: RotElement[];
 }
 
