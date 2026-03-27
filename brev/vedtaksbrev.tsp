@@ -27,6 +27,9 @@ model VedtaksbrevData {
 
     @visibility(Lifecycle.Create, Lifecycle.Read)
     bunntekster: Standardtekst[];
+
+    @visibility(Lifecycle.Create, Lifecycle.Read)
+    saksnummer: string;
 }
 
 model Hovedavsnitt {

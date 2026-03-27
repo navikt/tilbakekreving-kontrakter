@@ -774,6 +774,7 @@ components:
         - ytelse
         - signatur
         - bunntekster
+        - saksnummer
       properties:
         hovedavsnitt:
           $ref: '#/components/schemas/Hovedavsnitt'
@@ -797,6 +798,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Standardtekst'
+        saksnummer:
+          type: string
     VedtaksbrevRedigerbareData:
       type: object
       required:
