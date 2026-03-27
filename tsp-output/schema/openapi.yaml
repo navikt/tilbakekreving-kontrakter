@@ -613,6 +613,34 @@ components:
           items:
             $ref: '#/components/schemas/RettsligGrunnlag'
           minItems: 1
+    Oppsummeringsdata:
+      type: object
+      required:
+        - fom
+        - tom
+        - feilutbetaltBeløp
+        - vurdering
+        - andelAvBeløp
+        - renteprosent
+        - tilbakekrevingsbeløp
+        - tilbakekrevesBeløpEtterSkatt
+      properties:
+        fom:
+          type: string
+        tom:
+          type: string
+        feilutbetaltBeløp:
+          type: string
+        vurdering:
+          type: string
+        andelAvBeløp:
+          type: string
+        renteprosent:
+          type: string
+        tilbakekrevingsbeløp:
+          type: string
+        tilbakekrevesBeløpEtterSkatt:
+          type: string
     PakrevdBegrunnelse:
       type: object
       required:
@@ -798,7 +826,7 @@ components:
         oppsummeringstabell:
           type: array
           items:
-            $ref: '#/components/schemas/Beregningsresultatsperiode'
+            $ref: '#/components/schemas/Oppsummeringsdata'
         bunntekster:
           type: array
           items:
