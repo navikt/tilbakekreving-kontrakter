@@ -773,6 +773,7 @@ components:
         - sendtDato
         - ytelse
         - signatur
+        - oppsummeringstabell
         - bunntekster
         - saksnummer
       properties:
@@ -794,6 +795,10 @@ components:
           $ref: '#/components/schemas/Ytelse'
         signatur:
           $ref: '#/components/schemas/Signatur'
+        oppsummeringstabell:
+          type: array
+          items:
+            $ref: '#/components/schemas/Beregningsresultatsperiode'
         bunntekster:
           type: array
           items:

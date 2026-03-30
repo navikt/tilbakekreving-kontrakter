@@ -24,6 +24,7 @@ model VedtaksbrevData {
     sendtDato: string;
     ytelse: Ytelse;
     signatur: Signatur;
+    oppsummeringstabell: Beregningsresultatsperiode[];
 
     @visibility(Lifecycle.Create, Lifecycle.Read)
     bunntekster: Standardtekst[];
