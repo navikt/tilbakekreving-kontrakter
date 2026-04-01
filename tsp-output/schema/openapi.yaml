@@ -310,10 +310,10 @@ components:
     BeregningsresultatVurdering:
       type: string
       enum:
-        - GodTro
+        - God tro
         - Forsett
         - Uaktsomhet
-        - GrovUaktsomhet
+        - Grov uaktsomhet
     Beregningsresultatsperiode:
       type: object
       required:

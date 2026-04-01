@@ -1,10 +1,10 @@
 import "./common.tsp";
 
 enum BeregningsresultatVurdering {
-    GodTro,
-    Forsett,
-    Uaktsomhet,
-    GrovUaktsomhet,
+    GodTro: "God tro",
+    Forsett: "Forsett",
+    Uaktsomhet: "Uaktsomhet",
+    GrovUaktsomhet: "Grov uaktsomhet",
 }
 
 enum Vedtaksresultat {
