@@ -24,7 +24,7 @@ model VedtaksbrevData {
     sendtDato: string;
     ytelse: Ytelse;
     signatur: Signatur;
-    oppsummeringstabell: Beregningsresultatsperiode[];
+    oppsummeringstabell: Oppsummeringsdata[];
 
     @visibility(Lifecycle.Create, Lifecycle.Read)
     bunntekster: Standardtekst[];
@@ -130,4 +130,15 @@ model Signatur {
     enhetNavn: string;
     ansvarligSaksbehandler: string;
     besluttendeSaksbehandler: string | null;
+}
+
+model Oppsummeringsdata {
+    fom: string;
+    tom: string;
+    feilutbetaltBeløp: string;
+    vurdering: string;
+    andelAvBeløp: string;
+    renteprosent: string;
+    tilbakekrevingsbeløp: string;
+    tilbakekrevesBeløpEtterSkatt: string;
 }
