@@ -69,7 +69,7 @@ interface BehandlingApi {
     @route("/forhåndsvarsel")
     forhandsvarsel(
       @path @format("uuid") behandlingId: string,
-    ): SuccessResponse<Forhaandsvarsel> | ErrorResponse;
+    ): SuccessResponse<ForhaandsvarselResponse> | ErrorResponse;
 
     @post
     @route("/forhåndsvarsel/send-varselbrev")
@@ -82,21 +82,22 @@ interface BehandlingApi {
     @route("/forhåndsvarsel/uttalelse")
     lagreBrukersuttalelse(
         @path @format("uuid") behandlingId: string,
-        @body uttalelse: LagreUttalelse,
+        @body uttalelse: Uttalelse,
     ): SuccessResponse<void> | ErrorResponse;
 
-    @post
+    @put
     @route("/forhåndsvarsel/utsett-frist")
-    lagreFristUtsettelse(
-        @path @format("uuid") behandlingId: string,
-        @body utsettFrist: UtsettFrist,
-    ): SuccessResponse<void> | ErrorResponse;
+    @parameterVisibility(Lifecycle.Update)
+    utsettUttalelsesfrist(
+  @path @format("uuid") behandlingId: string,
+      @body utsettFrist:Update<Uttalelsesfrist>,
+    ): SuccessResponse<Uttalelsesfrist> | ErrorResponse;
 
     @post
-    @route("/forhåndsvarsel/forhaandsvarsel-unntak")
-    lagreForhandsvarselUnntak(
+    @route("/forhåndsvarsel/unntak")
+    lagreForhaandsvarselUnntak(
         @path @format("uuid") behandlingId: string,
-        @body forhåndsvarselUnntak: ForhaandsvarselUnntak,
+        @body unntak: ForhaandsvarselUnntak,
     ): SuccessResponse<void> | ErrorResponse;
 }
 
