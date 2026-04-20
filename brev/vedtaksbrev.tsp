@@ -42,6 +42,9 @@ model Hovedavsnitt {
     forklaring: string;
 
     underavsnitt: RotElement[];
+
+    @visibility(Lifecycle.Create, Lifecycle.Read)
+    hjemler: string;
 }
 
 model Avsnitt {

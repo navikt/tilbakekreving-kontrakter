@@ -498,6 +498,7 @@ components:
         - tittel
         - forklaring
         - underavsnitt
+        - hjemler
       properties:
         tittel:
           type: string
@@ -510,6 +511,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RotElement'
+        hjemler:
+          type: string
     HovedavsnittUpdate:
       type: object
       required:
