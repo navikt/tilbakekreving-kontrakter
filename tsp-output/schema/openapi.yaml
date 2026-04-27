@@ -839,9 +839,7 @@ components:
         signatur:
           $ref: '#/components/schemas/Signatur'
         oppsummeringstabell:
-          type: array
-          items:
-            $ref: '#/components/schemas/Oppsummeringsdata'
+          $ref: '#/components/schemas/Oppsummeringsdata'
         bunntekster:
           type: array
           items:
