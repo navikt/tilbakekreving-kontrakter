@@ -619,6 +619,18 @@ components:
     Oppsummeringsdata:
       type: object
       required:
+        - beregnerSkatt
+        - perioder
+      properties:
+        beregnerSkatt:
+          type: boolean
+        perioder:
+          type: array
+          items:
+            $ref: '#/components/schemas/OppsummertPeriode'
+    OppsummertPeriode:
+      type: object
+      required:
         - fom
         - tom
         - feilutbetaltBeløp

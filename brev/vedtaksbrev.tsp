@@ -136,6 +136,11 @@ model Signatur {
 }
 
 model Oppsummeringsdata {
+    beregnerSkatt: boolean;
+    perioder: OppsummertPeriode[];
+}
+
+model OppsummertPeriode {
     fom: string;
     tom: string;
     feilutbetaltBeløp: string;
