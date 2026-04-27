@@ -538,6 +538,8 @@ components:
         - tittel
         - tekst
         - steg
+        - journalpostId
+        - dokumentInfoId
       properties:
         behandlingId:
           type: string
@@ -557,6 +559,14 @@ components:
             - type: string
             - type: 'null'
         steg:
+          anyOf:
+            - type: string
+            - type: 'null'
+        journalpostId:
+          anyOf:
+            - type: string
+            - type: 'null'
+        dokumentInfoId:
           anyOf:
             - type: string
             - type: 'null'
