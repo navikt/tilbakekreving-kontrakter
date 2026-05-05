@@ -384,8 +384,11 @@ components:
     Error:
       type: object
       required:
+        - tittel
         - melding
       properties:
+        tittel:
+          type: string
         melding:
           type: string
     FaktaOmFeilutbetaling:

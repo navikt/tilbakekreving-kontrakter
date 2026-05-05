@@ -67,5 +67,6 @@ interface BehandlingApi {
 
 @error
 model Error {
+  tittel: string;
   melding: string;
 }
