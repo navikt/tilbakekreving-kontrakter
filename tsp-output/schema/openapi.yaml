@@ -131,6 +131,173 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+  /api/v1/behandling/{behandlingId}/forhåndsvarsel:
+    get:
+      operationId: Behandling_forhandsvarsel
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForhaandsvarselResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+  /api/v1/behandling/{behandlingId}/forhåndsvarsel/send-varselbrev:
+    post:
+      operationId: Behandling_sendVarselbrev
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendForhaandsvarsel'
+  /api/v1/behandling/{behandlingId}/forhåndsvarsel/unntak:
+    post:
+      operationId: Behandling_lagreForhaandsvarselUnntak
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForhaandsvarselUnntak'
+  /api/v1/behandling/{behandlingId}/forhåndsvarsel/utsett-frist:
+    put:
+      operationId: Behandling_utsettUttalelsesfrist
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Uttalelsesfrist'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUttalelsesfrist'
+  /api/v1/behandling/{behandlingId}/forhåndsvarsel/uttalelse:
+    post:
+      operationId: Behandling_lagreBrukersuttalelse
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Uttalelse'
   /api/v1/behandling/{behandlingId}/vedtak/brev:
     get:
       operationId: Behandling_hentVedtaksbrev
@@ -491,6 +658,65 @@ components:
           format: date
         revurdering:
           $ref: '#/components/schemas/Revurdering'
+    ForhaandsvarselErSendt:
+      type: object
+      required:
+        - forhåndsvarselInfo
+        - uttalelsesfrist
+      properties:
+        forhåndsvarselInfo:
+          $ref: '#/components/schemas/ForhaandsvarselInfo'
+        uttalelsesfrist:
+          $ref: '#/components/schemas/Uttalelsesfrist'
+      x-kotlin-implements:
+        - ForhaandsvarselStegDto
+    ForhaandsvarselInfo:
+      type: object
+      required:
+        - tekstFraSaksbehandler
+        - varselbrevSendtTid
+      properties:
+        tekstFraSaksbehandler:
+          type: string
+        varselbrevSendtTid:
+          type: string
+          format: date
+    ForhaandsvarselResponse:
+      type: object
+      required:
+        - forhaandsvarselSteg
+        - brukeruttalelse
+      properties:
+        forhaandsvarselSteg:
+          $ref: '#/components/schemas/ForhaandsvarselSteg'
+        brukeruttalelse:
+          anyOf:
+            - $ref: '#/components/schemas/Uttalelse'
+            - type: 'null'
+    ForhaandsvarselSteg:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/IkkeVurdert'
+        - $ref: '#/components/schemas/ForhaandsvarselErSendt'
+        - $ref: '#/components/schemas/ForhaandsvarselUnntak'
+      discriminator:
+        propertyName: type
+        mapping:
+          ikkeVurdert: '#/components/schemas/IkkeVurdert'
+          sendt: '#/components/schemas/ForhaandsvarselErSendt'
+          unntak: '#/components/schemas/ForhaandsvarselUnntak'
+    ForhaandsvarselUnntak:
+      type: object
+      required:
+        - begrunnelseForUnntak
+        - beskrivelse
+      properties:
+        begrunnelseForUnntak:
+          $ref: '#/components/schemas/Varslingsunntak'
+        beskrivelse:
+          type: string
+      x-kotlin-implements:
+        - ForhaandsvarselStegDto
     Fritekst:
       type: string
       minLength: 3
@@ -530,6 +756,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RotElementUpdateItem'
+    IkkeVurdert:
+      type: object
+      x-kotlin-implements:
+        - ForhaandsvarselStegDto
     Logginnslag:
       type: object
       required:
@@ -777,6 +1007,13 @@ components:
           rentekst: '#/components/schemas/RentekstElement'
           underavsnitt: '#/components/schemas/UnderavsnittElement'
           påkrevd_begrunnelse: '#/components/schemas/PakrevdBegrunnelseUpdateItem'
+    SendForhaandsvarsel:
+      type: object
+      required:
+        - tekstFraSaksbehandler
+      properties:
+        tekstFraSaksbehandler:
+          type: string
     Signatur:
       type: object
       required:
@@ -819,6 +1056,58 @@ components:
       x-kotlin-implements:
         - RotElementDto
         - RotElementUpdateItemDto
+    UpdateUttalelsesfrist:
+      type: object
+      properties:
+        nyFrist:
+          type: string
+          format: date
+        begrunnelse:
+          type: string
+      description: ''
+    Uttalelse:
+      type: object
+      required:
+        - harBrukerUttaltSeg
+      properties:
+        harBrukerUttaltSeg:
+          $ref: '#/components/schemas/UttalelseVurdering'
+        uttalelsesdato:
+          type: string
+          format: date
+        hvorBrukerenUttalteSeg:
+          type: string
+        beskrivelse:
+          type: string
+    UttalelseVurdering:
+      type: string
+      enum:
+        - JA_ETTER_FORHÅNDSVARSEL
+        - NEI_ETTER_FORHÅNDSVARSEL
+        - UNNTAK_ALLEREDE_UTTALT_SEG
+        - UNNTAK_INGEN_UTTALELSE
+        - IKKE_VURDERT
+    Uttalelsesfrist:
+      type: object
+      required:
+        - opprinneligFrist
+      properties:
+        nyFrist:
+          type: string
+          format: date
+        begrunnelse:
+          type: string
+        opprinneligFrist:
+          type: string
+          format: date
+          readOnly: true
+    Varslingsunntak:
+      type: string
+      enum:
+        - IKKE_PRAKTISK_MULIG
+        - UKJENT_ADRESSE_ELLER_URIMELIG_ETTERSPORING
+        - ÅPENBART_UNØDVENDIG
+        - ALLEREDE_UTTALET_SEG
     VedtaksbrevData:
       type: object
       required:

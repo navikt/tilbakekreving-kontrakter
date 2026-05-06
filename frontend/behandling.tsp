@@ -3,6 +3,7 @@ import "./feilutbetaling.tsp";
 import "./beregningsresultat.tsp";
 import "./common.tsp";
 import "./behandlingslogg.tsp";
+import "./forhaandsvarsel.tsp";
 
 using Http;
 
@@ -63,6 +64,41 @@ interface BehandlingApi {
   behandlingslogg(
     @path @format("uuid") behandlingId: string,
   ): SuccessResponse<Array<Logginnslag>> | ErrorResponse;
+
+    @get
+    @route("/forhåndsvarsel")
+    forhandsvarsel(
+      @path @format("uuid") behandlingId: string,
+    ): SuccessResponse<ForhaandsvarselResponse> | ErrorResponse;
+
+    @post
+    @route("/forhåndsvarsel/send-varselbrev")
+    sendVarselbrev(
+        @path @format("uuid") behandlingId: string,
+        @body sendForhaandsvarsel: SendForhaandsvarsel,
+    ): SuccessResponse<void> | ErrorResponse;
+
+    @post
+    @route("/forhåndsvarsel/uttalelse")
+    lagreBrukersuttalelse(
+        @path @format("uuid") behandlingId: string,
+        @body uttalelse: Uttalelse,
+    ): SuccessResponse<void> | ErrorResponse;
+
+    @put
+    @route("/forhåndsvarsel/utsett-frist")
+    @parameterVisibility(Lifecycle.Update)
+    utsettUttalelsesfrist(
+  @path @format("uuid") behandlingId: string,
+      @body utsettFrist:Update<Uttalelsesfrist>,
+    ): SuccessResponse<Uttalelsesfrist> | ErrorResponse;
+
+    @post
+    @route("/forhåndsvarsel/unntak")
+    lagreForhaandsvarselUnntak(
+        @path @format("uuid") behandlingId: string,
+        @body unntak: ForhaandsvarselUnntak,
+    ): SuccessResponse<void> | ErrorResponse;
 }
 
 @error
