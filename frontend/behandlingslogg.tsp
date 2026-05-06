@@ -9,6 +9,5 @@ model Logginnslag {
     tittel: string;
     tekst: string | null;
     steg: string | null;
-    journalpostId: string | null;
-    dokumentInfoId: string | null;
+    ekstraInfo: Record<unknown>;
 }
