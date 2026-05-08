@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "FagsysteminfoBehov.json",
+    "type": "object",
+    "properties": {
+        "hendelsestype": {
+            "type": "string",
+            "const": "fagsysteminfo_behov"
+        }
+    },
+    "required": [
+        "hendelsestype"
+    ]
+}

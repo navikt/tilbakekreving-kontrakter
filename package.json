@@ -4,14 +4,15 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "tsp compile ."
+    "build": "tsp compile . && tsp compile integrasjoner"
   },
   "dependencies": {
     "@typespec/compiler": "latest",
     "@typespec/http": "latest",
-    "@typespec/rest": "latest",
+    "@typespec/json-schema": "^1.11.0",
     "@typespec/openapi": "latest",
-    "@typespec/openapi3": "latest"
+    "@typespec/openapi3": "latest",
+    "@typespec/rest": "latest"
   },
   "packageManager": "pnpm@11.0.5"
 }

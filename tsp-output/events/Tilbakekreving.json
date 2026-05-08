@@ -1,0 +1,58 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Tilbakekreving.json",
+    "type": "object",
+    "properties": {
+        "behandlingId": {
+            "type": "string",
+            "format": "uuid"
+        },
+        "sakOpprettet": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "varselSendt": {
+            "anyOf": [
+                {
+                    "type": "string",
+                    "format": "date"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "behandlingsstatus": {
+            "$ref": "Behandlingsstatus.json"
+        },
+        "forrigeBehandlingsstatus": {
+            "anyOf": [
+                {
+                    "$ref": "Behandlingsstatus.json"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "totaltFeilutbetaltBeløp": {
+            "type": "string"
+        },
+        "saksbehandlingURL": {
+            "type": "string"
+        },
+        "fullstendigPeriode": {
+            "$ref": "Periode.json"
+        }
+    },
+    "required": [
+        "behandlingId",
+        "sakOpprettet",
+        "varselSendt",
+        "behandlingsstatus",
+        "forrigeBehandlingsstatus",
+        "totaltFeilutbetaltBeløp",
+        "saksbehandlingURL",
+        "fullstendigPeriode"
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "BehandlingEndret.json",
+    "type": "object",
+    "properties": {
+        "hendelsestype": {
+            "type": "string",
+            "const": "behandling_endret"
+        },
+        "versjon": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535
+        },
+        "eksternFagsakId": {
+            "type": "string"
+        },
+        "hendelseOpprettet": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "eksternBehandlingId": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "tilbakekreving": {
+            "$ref": "Tilbakekreving.json"
+        }
+    },
+    "required": [
+        "hendelsestype",
+        "versjon",
+        "eksternFagsakId",
+        "hendelseOpprettet",
+        "eksternBehandlingId",
+        "tilbakekreving"
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Periode.json",
+    "type": "object",
+    "properties": {
+        "fom": {
+            "type": "string",
+            "format": "date"
+        },
+        "tom": {
+            "type": "string",
+            "format": "date"
+        }
+    },
+    "required": [
+        "fom",
+        "tom"
+    ]
+}

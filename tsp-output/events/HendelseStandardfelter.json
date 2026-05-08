@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "HendelseStandardfelter.json",
+    "type": "object",
+    "properties": {
+        "versjon": {
+            "type": "string",
+            "const": "v1"
+        },
+        "eksternFagsakId": {
+            "type": "string"
+        },
+        "hendelseOpprettet": {
+            "type": "string",
+            "format": "date-time"
+        }
+    },
+    "required": [
+        "versjon",
+        "eksternFagsakId",
+        "hendelseOpprettet"
+    ]
+}
