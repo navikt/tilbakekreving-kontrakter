@@ -7,6 +7,16 @@
             "type": "string",
             "format": "uuid"
         },
+        "venter": {
+            "anyOf": [
+                {
+                    "$ref": "Venter.json"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
         "sakOpprettet": {
             "type": "string",
             "format": "date-time"
@@ -47,6 +57,7 @@
     },
     "required": [
         "behandlingId",
+        "venter",
         "sakOpprettet",
         "varselSendt",
         "behandlingsstatus",
