@@ -20,6 +20,7 @@ model Tilbakekreving {
     @format("uuid")
     behandlingId: string;
 
+    venter: Venter | null;
     sakOpprettet: utcDateTime;
     varselSendt: plainDate | null;
     behandlingsstatus: Behandlingsstatus;
@@ -36,9 +37,19 @@ model Periode {
 
 enum Behandlingsstatus {
     OPPRETTET,
+    TIL_FORHÅNDSVARSEL,
     TIL_BEHANDLING,
     TIL_GODKJENNING,
     AVSLUTTET,
+}
+
+model Venter {
+    grunn: Ventegrunn;
+    gjenopptas: plainDate;
+}
+
+enum Ventegrunn {
+    AVVENTER_BRUKERUTTALELSE,
 }
 
 model FagsysteminfoBehov {
