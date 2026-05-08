@@ -864,6 +864,8 @@ components:
       required:
         - beregnerSkatt
         - perioder
+        - sumFeilutbetaltBeløp
+        - sumTilbakekrevesBeløpEtterSkatt
       properties:
         beregnerSkatt:
           type: boolean
@@ -871,6 +873,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OppsummertPeriode'
+        sumFeilutbetaltBeløp:
+          type: string
+        sumTilbakekrevesBeløpEtterSkatt:
+          type: string
     OppsummertPeriode:
       type: object
       required:
