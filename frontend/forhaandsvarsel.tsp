@@ -7,7 +7,7 @@ model ForhaandsvarselResponse {
 
 @discriminated(#{ discriminatorPropertyName: "type", envelope: "none" })
 union ForhaandsvarselSteg {
-  ikkeVurdert: IkkeVurdert,
+  ikke_vurdert: IkkeVurdert,
   sendt: ForhaandsvarselErSendt,
   unntak: ForhaandsvarselUnntak,
 }
