@@ -771,8 +771,7 @@ components:
         - tittel
         - tekst
         - steg
-        - journalpostId
-        - dokumentInfoId
+        - ekstraInfo
       properties:
         behandlingId:
           type: string
@@ -795,14 +794,9 @@ components:
           anyOf:
             - type: string
             - type: 'null'
-        journalpostId:
-          anyOf:
-            - type: string
-            - type: 'null'
-        dokumentInfoId:
-          anyOf:
-            - type: string
-            - type: 'null'
+        ekstraInfo:
+          type: object
+          unevaluatedProperties: {}
     MuligeRettsligGrunnlag:
       type: object
       required:
