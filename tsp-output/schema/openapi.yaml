@@ -298,6 +298,47 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Uttalelse'
+  /api/v1/behandling/{behandlingId}/journalpost/{journalpostId}/dokument/{dokumentInfoId}:
+    get:
+      operationId: Behandling_hentDokument
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: journalpostId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: dokumentInfoId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/octet-stream:
+              schema:
+                contentMediaType: application/octet-stream
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
   /api/v1/behandling/{behandlingId}/vedtak/brev:
     get:
       operationId: Behandling_hentVedtaksbrev
@@ -381,6 +422,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Beregningsresultat'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+  /api/v1/behandling/{behandlingId}/{dokumentType}/gjeldende:
+    get:
+      operationId: Behandling_hentDokumentInfo
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: dokumentType
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/DokumentType'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DokumentInfo'
         '400':
           description: The server could not understand the request due to invalid syntax.
           content:
@@ -540,6 +617,25 @@ components:
           type: string
         personIdent:
           type: string
+    DokumentInfo:
+      type: object
+      required:
+        - journalpostId
+        - dokumentId
+      properties:
+        journalpostId:
+          anyOf:
+            - type: string
+            - type: 'null'
+        dokumentId:
+          anyOf:
+            - type: string
+            - type: 'null'
+    DokumentType:
+      type: string
+      enum:
+        - VARSELBREV
+        - VEDTAKSBREV
     Element:
       type: object
       oneOf:
@@ -1064,7 +1160,6 @@ components:
           format: date
         begrunnelse:
           type: string
-      description: ''
     Uttalelse:
       type: object
       required:
