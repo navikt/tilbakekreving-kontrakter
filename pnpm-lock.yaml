@@ -471,8 +471,8 @@ packages:
     resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==}
     engines: {node: '>=18'}
 
-  yaml@2.8.2:
-    resolution: {integrity: sha512-mplynKqc1C2hTVYxd0PU2xQAc22TI1vShAYGksCCfxbn/dFwnHTNi1bvYsBTkhdUNtGIf5xNOg938rrSSYvS9A==}
+  yaml@2.8.4:
+    resolution: {integrity: sha512-ml/JPOj9fOQK8RNnWojA67GbZ0ApXAUlN2UQclwv2eVgTgn7O9gg9o7paZWKMp4g0H3nTLtS9LVzhkpOFIKzog==}
     engines: {node: '>= 14.6'}
     hasBin: true
 
@@ -664,7 +664,7 @@ snapshots:
     dependencies:
       '@typespec/asset-emitter': 0.79.1(@typespec/compiler@1.12.0)
       '@typespec/compiler': 1.12.0
-      yaml: 2.8.2
+      yaml: 2.8.4
 
   '@typespec/openapi3@1.12.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0))(@typespec/json-schema@1.11.0(@typespec/compiler@1.12.0))(@typespec/openapi@1.12.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0)))':
     dependencies:
@@ -837,7 +837,7 @@ snapshots:
 
   yallist@5.0.0: {}
 
-  yaml@2.8.2: {}
+  yaml@2.8.4: {}
 
   yaml@2.9.0: {}
 
