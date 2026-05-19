@@ -5,6 +5,8 @@ enum BeregningsresultatVurdering {
     Forsett,
     Uaktsomhet,
     GrovUaktsomhet,
+    BurdeForstått,
+    Forstod,
 }
 
 enum Vedtaksresultat {
