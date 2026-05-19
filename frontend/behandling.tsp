@@ -4,6 +4,7 @@ import "./beregningsresultat.tsp";
 import "./common.tsp";
 import "./behandlingslogg.tsp";
 import "./forhaandsvarsel.tsp";
+import "./journalpost.tsp";
 
 using Http;
 
@@ -32,6 +33,21 @@ interface BehandlingApi {
     @body
     body: OppdaterFaktaOmFeilutbetaling,
   ): SuccessResponse<FaktaOmFeilutbetaling> | ErrorResponse;
+
+  @get
+  @route("/journalpost/{journalpostId}/dokument/{dokumentInfoId}")
+  hentDokument(
+    @path @format("uuid") behandlingId: string,
+    @path journalpostId: string,
+    @path dokumentInfoId: string,
+  ): SuccessResponse<bytes> | ErrorResponse;
+
+  @get
+  @route("/{dokumentType}/gjeldende")
+  hentDokumentInfo(
+    @path @format("uuid") behandlingId: string,
+    @path dokumentType: DokumentType
+  ): SuccessResponse<DokumentInfo> | ErrorResponse;
 
   @get
   @route("/vedtak/brev")
