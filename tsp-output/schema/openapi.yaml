@@ -227,7 +227,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ForhaandsvarselUnntak'
+              $ref: '#/components/schemas/Unntak'
   /api/v1/behandling/{behandlingId}/forhåndsvarsel/utsett-frist:
     put:
       operationId: Behandling_utsettUttalelsesfrist
@@ -1154,6 +1154,16 @@ components:
       x-kotlin-implements:
         - RotElementDto
         - RotElementUpdateItemDto
+    Unntak:
+      type: object
+      required:
+        - begrunnelseForUnntak
+        - beskrivelse
+      properties:
+        begrunnelseForUnntak:
+          $ref: '#/components/schemas/Varslingsunntak'
+        beskrivelse:
+          type: string
     UpdateUttalelsesfrist:
       type: object
       properties:

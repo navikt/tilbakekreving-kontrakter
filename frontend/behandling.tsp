@@ -113,7 +113,7 @@ interface BehandlingApi {
     @route("/forhåndsvarsel/unntak")
     lagreForhaandsvarselUnntak(
         @path @format("uuid") behandlingId: string,
-        @body unntak: ForhaandsvarselUnntak,
+        @body unntak: Unntak,
     ): SuccessResponse<void> | ErrorResponse;
 }
 
