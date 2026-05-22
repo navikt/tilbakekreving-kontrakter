@@ -60,9 +60,9 @@ model SendForhaandsvarsel {
     tekstFraSaksbehandler: string;
 }
 
-enum SvarAlternativ {
-    JA,
-    Nei,
+model Unntak {
+    begrunnelseForUnntak: Varslingsunntak;
+    beskrivelse: string;
 }
 
 enum UttalelseVurdering {
