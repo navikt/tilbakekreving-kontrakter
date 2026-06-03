@@ -122,6 +122,12 @@ interface BehandlingApi {
         @path @format("uuid") behandlingId: string,
         @body splittFra: plainDate,
     ): SuccessResponse<void> | ErrorResponse;
+
+    @get
+    @route("/vilkårsvurdering/perioder")
+    vilkaarsvurderingsperioder(
+        @path @format("uuid") behandlingId: string,
+    ): SuccessResponse<Array<Periode>> | ErrorResponse;
 }
 
 @error

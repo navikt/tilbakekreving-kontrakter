@@ -436,6 +436,39 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+  /api/v1/behandling/{behandlingId}/vilkårsvurdering/perioder:
+    get:
+      operationId: Behandling_vilkaarsvurderingsperioder
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Periode'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
   /api/v1/behandling/{behandlingId}/vilkårsvurdering/splitt:
     post:
       operationId: Behandling_splittPeriode
@@ -1074,6 +1107,18 @@ components:
       x-kotlin-implements:
         - RotElementDto
         - RotElementUpdateItemDto
+    Periode:
+      type: object
+      required:
+        - fom
+        - tom
+      properties:
+        fom:
+          type: string
+          format: date
+        tom:
+          type: string
+          format: date
     RentekstElement:
       type: object
       required:
