@@ -115,6 +115,13 @@ interface BehandlingApi {
         @path @format("uuid") behandlingId: string,
         @body unntak: Unntak,
     ): SuccessResponse<void> | ErrorResponse;
+
+    @post
+    @route("/vilkårsvurdering/splitt")
+    splittPeriode(
+        @path @format("uuid") behandlingId: string,
+        @body splittFra: plainDate,
+    ): SuccessResponse<void> | ErrorResponse;
 }
 
 @error
