@@ -1,4 +1,5 @@
 import "@typespec/http";
+import "./vilkaarsvurdering.tsp";
 import "./feilutbetaling.tsp";
 import "./beregningsresultat.tsp";
 import "./common.tsp";
@@ -20,9 +21,9 @@ alias SuccessResponse<Body> = {
 interface BehandlingApi {
   @get
   @route("/feilutbetaling")
-  fakta(
-    @path behandlingId: string,
-  ): SuccessResponse<FaktaOmFeilutbetaling> | ErrorResponse;
+  fakta(@path behandlingId: string):
+    | SuccessResponse<FaktaOmFeilutbetaling>
+    | ErrorResponse;
 
   #suppress "@typespec/http/patch-implicit-optional" ""
   @patch
@@ -46,14 +47,14 @@ interface BehandlingApi {
   @route("/{dokumentType}/gjeldende")
   hentDokumentInfo(
     @path @format("uuid") behandlingId: string,
-    @path dokumentType: DokumentType
+    @path dokumentType: DokumentType,
   ): SuccessResponse<DokumentInfo> | ErrorResponse;
 
   @get
   @route("/vedtak/brev")
-  hentVedtaksbrev(
-    @path behandlingId: string,
-  ): SuccessResponse<VedtaksbrevData> | ErrorResponse;
+  hentVedtaksbrev(@path behandlingId: string):
+    | SuccessResponse<VedtaksbrevData>
+    | ErrorResponse;
 
   @put
   @route("/vedtak/brev")
@@ -65,69 +66,69 @@ interface BehandlingApi {
 
   @get
   @route("/vedtak/resultat")
-  hentVedtaksresultat(
-    @path @format("uuid") behandlingId: string,
-  ): SuccessResponse<Beregningsresultat> | ErrorResponse;
+  hentVedtaksresultat(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Beregningsresultat>
+    | ErrorResponse;
 
   @post
   @route("/foreslå-vedtak")
-  foreslaaVedtak(
-    @path @format("uuid") behandlingId: string,
-  ): SuccessResponse<void> | ErrorResponse;
+  foreslaaVedtak(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<void>
+    | ErrorResponse;
 
   @get
   @route("/behandlingslogg")
-  behandlingslogg(
+  behandlingslogg(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Array<Logginnslag>>
+    | ErrorResponse;
+
+  @get
+  @route("/forhåndsvarsel")
+  forhandsvarsel(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<ForhaandsvarselResponse>
+    | ErrorResponse;
+
+  @post
+  @route("/forhåndsvarsel/send-varselbrev")
+  sendVarselbrev(
     @path @format("uuid") behandlingId: string,
-  ): SuccessResponse<Array<Logginnslag>> | ErrorResponse;
+    @body sendForhaandsvarsel: SendForhaandsvarsel,
+  ): SuccessResponse<void> | ErrorResponse;
 
-    @get
-    @route("/forhåndsvarsel")
-    forhandsvarsel(
-      @path @format("uuid") behandlingId: string,
-    ): SuccessResponse<ForhaandsvarselResponse> | ErrorResponse;
+  @post
+  @route("/forhåndsvarsel/uttalelse")
+  lagreBrukersuttalelse(
+    @path @format("uuid") behandlingId: string,
+    @body uttalelse: Uttalelse,
+  ): SuccessResponse<void> | ErrorResponse;
 
-    @post
-    @route("/forhåndsvarsel/send-varselbrev")
-    sendVarselbrev(
-        @path @format("uuid") behandlingId: string,
-        @body sendForhaandsvarsel: SendForhaandsvarsel,
-    ): SuccessResponse<void> | ErrorResponse;
+  @put
+  @route("/forhåndsvarsel/utsett-frist")
+  @parameterVisibility(Lifecycle.Update)
+  utsettUttalelsesfrist(
+    @path @format("uuid") behandlingId: string,
+    @body utsettFrist: Update<Uttalelsesfrist>,
+  ): SuccessResponse<Uttalelsesfrist> | ErrorResponse;
 
-    @post
-    @route("/forhåndsvarsel/uttalelse")
-    lagreBrukersuttalelse(
-        @path @format("uuid") behandlingId: string,
-        @body uttalelse: Uttalelse,
-    ): SuccessResponse<void> | ErrorResponse;
+  @post
+  @route("/forhåndsvarsel/unntak")
+  lagreForhaandsvarselUnntak(
+    @path @format("uuid") behandlingId: string,
+    @body unntak: Unntak,
+  ): SuccessResponse<void> | ErrorResponse;
 
-    @put
-    @route("/forhåndsvarsel/utsett-frist")
-    @parameterVisibility(Lifecycle.Update)
-    utsettUttalelsesfrist(
-  @path @format("uuid") behandlingId: string,
-      @body utsettFrist:Update<Uttalelsesfrist>,
-    ): SuccessResponse<Uttalelsesfrist> | ErrorResponse;
+  @post
+  @route("/vilkårsvurdering/splitt")
+  splittPeriode(
+    @path @format("uuid") behandlingId: string,
+    @body splittFra: SplittPeriode,
+  ): SuccessResponse<void> | ErrorResponse;
 
-    @post
-    @route("/forhåndsvarsel/unntak")
-    lagreForhaandsvarselUnntak(
-        @path @format("uuid") behandlingId: string,
-        @body unntak: Unntak,
-    ): SuccessResponse<void> | ErrorResponse;
-
-    @post
-    @route("/vilkårsvurdering/splitt")
-    splittPeriode(
-        @path @format("uuid") behandlingId: string,
-        @body splittFra: plainDate,
-    ): SuccessResponse<void> | ErrorResponse;
-
-    @get
-    @route("/vilkårsvurdering/perioder")
-    vilkaarsvurderingsperioder(
-        @path @format("uuid") behandlingId: string,
-    ): SuccessResponse<Array<Periode>> | ErrorResponse;
+  @get
+  @route("/vilkårsvurdering/perioder")
+  vilkaarsvurderingsperioder(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Array<Periode>>
+    | ErrorResponse;
 }
 
 @error
