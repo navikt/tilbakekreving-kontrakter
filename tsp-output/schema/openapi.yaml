@@ -501,8 +501,7 @@ paths:
         content:
           application/json:
             schema:
-              type: string
-              format: date
+              $ref: '#/components/schemas/SplittPeriode'
   /api/v1/behandling/{behandlingId}/{dokumentType}/gjeldende:
     get:
       operationId: Behandling_hentDokumentInfo
@@ -1206,6 +1205,14 @@ components:
           anyOf:
             - type: string
             - type: 'null'
+    SplittPeriode:
+      type: object
+      required:
+        - splittFra
+      properties:
+        splittFra:
+          type: string
+          format: date
     Standardtekst:
       type: object
       required:

@@ -1,4 +1,5 @@
 import "@typespec/http";
+import "./vilkaarsvurdering.tsp";
 import "./feilutbetaling.tsp";
 import "./beregningsresultat.tsp";
 import "./common.tsp";
@@ -20,9 +21,9 @@ alias SuccessResponse<Body> = {
 interface BehandlingApi {
   @get
   @route("/feilutbetaling")
-  fakta(
-    @path behandlingId: string,
-  ): SuccessResponse<FaktaOmFeilutbetaling> | ErrorResponse;
+  fakta(@path behandlingId: string):
+    | SuccessResponse<FaktaOmFeilutbetaling>
+    | ErrorResponse;
 
   #suppress "@typespec/http/patch-implicit-optional" ""
   @patch
@@ -51,9 +52,9 @@ interface BehandlingApi {
 
   @get
   @route("/vedtak/brev")
-  hentVedtaksbrev(
-    @path behandlingId: string,
-  ): SuccessResponse<VedtaksbrevData> | ErrorResponse;
+  hentVedtaksbrev(@path behandlingId: string):
+    | SuccessResponse<VedtaksbrevData>
+    | ErrorResponse;
 
   @put
   @route("/vedtak/brev")
@@ -65,27 +66,27 @@ interface BehandlingApi {
 
   @get
   @route("/vedtak/resultat")
-  hentVedtaksresultat(
-    @path @format("uuid") behandlingId: string,
-  ): SuccessResponse<Beregningsresultat> | ErrorResponse;
+  hentVedtaksresultat(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Beregningsresultat>
+    | ErrorResponse;
 
   @post
   @route("/foreslå-vedtak")
-  foreslaaVedtak(
-    @path @format("uuid") behandlingId: string,
-  ): SuccessResponse<void> | ErrorResponse;
+  foreslaaVedtak(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<void>
+    | ErrorResponse;
 
   @get
   @route("/behandlingslogg")
-  behandlingslogg(
-    @path @format("uuid") behandlingId: string,
-  ): SuccessResponse<Array<Logginnslag>> | ErrorResponse;
+  behandlingslogg(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Array<Logginnslag>>
+    | ErrorResponse;
 
   @get
   @route("/forhåndsvarsel")
-  forhandsvarsel(
-    @path @format("uuid") behandlingId: string,
-  ): SuccessResponse<ForhaandsvarselResponse> | ErrorResponse;
+  forhandsvarsel(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<ForhaandsvarselResponse>
+    | ErrorResponse;
 
   @post
   @route("/forhåndsvarsel/send-varselbrev")
@@ -120,15 +121,14 @@ interface BehandlingApi {
   @route("/vilkårsvurdering/splitt")
   splittPeriode(
     @path @format("uuid") behandlingId: string,
-    @header contentType: "application/json",
-    @body splittFra: plainDate,
+    @body splittFra: SplittPeriode,
   ): SuccessResponse<void> | ErrorResponse;
 
   @get
   @route("/vilkårsvurdering/perioder")
-  vilkaarsvurderingsperioder(
-    @path @format("uuid") behandlingId: string,
-  ): SuccessResponse<Array<Periode>> | ErrorResponse;
+  vilkaarsvurderingsperioder(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Array<Periode>>
+    | ErrorResponse;
 }
 
 @error
