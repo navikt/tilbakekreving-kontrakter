@@ -22,7 +22,7 @@ importers:
         version: 1.12.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0))
       '@typespec/openapi3':
         specifier: latest
-        version: 1.12.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0))(@typespec/json-schema@1.12.0(@typespec/compiler@1.12.0))(@typespec/openapi@1.12.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0)))
+        version: 1.13.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0))(@typespec/json-schema@1.12.0(@typespec/compiler@1.12.0))(@typespec/openapi@1.12.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0)))
       '@typespec/rest':
         specifier: latest
         version: 0.82.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0))
@@ -175,36 +175,24 @@ packages:
     resolution: {integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==}
     engines: {node: '>=18.0.0'}
 
-  '@scalar/helpers@0.5.2':
-    resolution: {integrity: sha512-Pi1GAl8jO6ungmGj2sjDfCfqiBNrKW6HXDZmminV94ybGU/KtRLOqHwd0n9FIhY3j0RYGpGC0VCuniCICfQPHg==}
+  '@scalar/helpers@0.8.1':
+    resolution: {integrity: sha512-yuiuBCadP5bjAnIv23QvifVN/NaMi9xBF6b8Wdk4QOzwzLPJmp699MAdf33J0A5i2qKcvnu32iz/VkEJmQRe5g==}
     engines: {node: '>=22'}
 
-  '@scalar/helpers@0.6.0':
-    resolution: {integrity: sha512-pfSamAgBxqFeE8IpEG6uGkHlnPhY1CLeOTttV9+vKQbrBk5b7vvyTsUXv0Hz4kNU1TFrxcTTPE+Akn5S+jlTtQ==}
+  '@scalar/json-magic@0.12.15':
+    resolution: {integrity: sha512-ZYgdYZ0jSZXQeyhG2lJ20FjzvKsaDRXk4bPguF/Ytl2nGBh9a6RIIr9NvVy4zAD67a/ahm+xipXlfoR1KtB5fg==}
     engines: {node: '>=22'}
 
-  '@scalar/json-magic@0.12.12':
-    resolution: {integrity: sha512-F7q6mPlVdHntvEvlJPwzvA2E2fjxsNtMeSzODtcdhp4mdQndMqqxEhy0rKmRvk36Oka+9F/hl3EDG194BpNBGg==}
+  '@scalar/openapi-parser@0.28.6':
+    resolution: {integrity: sha512-gCl4r+rpmO+CKfwmmwI+GJVFhuNut7e6beUcD/xazanH4epkLT7V9ZgMv9YKbUBE73fkrOv6NJympeEGiU8aUw==}
     engines: {node: '>=22'}
 
-  '@scalar/json-magic@0.12.8':
-    resolution: {integrity: sha512-a559iO8tmFeA90JJAAM3U5x1Asf3mr0Z8uDC1PmyLTDjdSOfajP7EY9VzNoXE2cM48ilf9qrjmkbw/d4VCFjQw==}
+  '@scalar/openapi-types@0.9.1':
+    resolution: {integrity: sha512-gkGhSkxSzADaBiNg+ZAbJuwj+ZUmzP2Pg9CWZ7ZP+0fck2WjPeDDM7aAbouAm0aQQMF9xBjSPXSA9a/qTHYaTw==}
     engines: {node: '>=22'}
 
-  '@scalar/openapi-parser@0.25.12':
-    resolution: {integrity: sha512-1hajBAbc7cbEcsSZEQxaPXZyCjMf6h6hObV+SO32jkC6rrxinPXQIucDu9HTu/jm/FaaMnNhc8/XDWz5/E49cQ==}
-    engines: {node: '>=22'}
-
-  '@scalar/openapi-types@0.7.0':
-    resolution: {integrity: sha512-kN0PwlJW0de4bwQ4ib+mBHzKJUvBCyR/gwU4zLEq6SCbj+GfgYUh+2a0/yl1WYVUiSkkwFsHjfmQ8KjhR3HK0Q==}
-    engines: {node: '>=22'}
-
-  '@scalar/openapi-types@0.8.0':
-    resolution: {integrity: sha512-WmaxVSfvY5K/TwcG2B2TU1WOe1As1uc2s7myswtP6dBlcjU3hM08SApxv/jmyGaCE8t4gO5BBhmHY4pDUfmr2g==}
-    engines: {node: '>=22'}
-
-  '@scalar/openapi-upgrader@0.2.6':
-    resolution: {integrity: sha512-pvEmfSCDNYR4+lygidUqfo+shzyp4OSh9+UgK110rzA8Oot6WbJBM03Fuq3M255G7G6R9iXyfsebB7MBUocPkw==}
+  '@scalar/openapi-upgrader@0.2.9':
+    resolution: {integrity: sha512-D5b0rGLLZgmkO9mdW2j/ND1KBlH1u3RCpr87HPxv9P9ZSr6PtM5iLqFOJq0ACiaHjY2mikCrxgDmnUEhTzRpHQ==}
     engines: {node: '>=22'}
 
   '@typespec/asset-emitter@0.79.1':
@@ -234,19 +222,19 @@ packages:
     peerDependencies:
       '@typespec/compiler': ^1.12.0
 
-  '@typespec/openapi3@1.12.0':
-    resolution: {integrity: sha512-r2CechzwGyr+BtLo7ApoaaTsrYybaE0gsGCLVWbkfH9Fs2KTu0ilpMKGxXjhKRS6cWHMkGGuB3hM0OJjFyFydw==}
+  '@typespec/openapi3@1.13.0':
+    resolution: {integrity: sha512-G6ayl30kXYVhJvL2/zFwtTdWnCt6N6jZWxs8rAwYiFlZfaG8R/dzjRgcap9Dr0v+6AyWmRwooxRKM3TLi5R/mg==}
     engines: {node: '>=22.0.0'}
     hasBin: true
     peerDependencies:
-      '@typespec/compiler': ^1.12.0
-      '@typespec/events': ^0.82.0
-      '@typespec/http': ^1.12.0
-      '@typespec/json-schema': ^1.12.0
-      '@typespec/openapi': ^1.12.0
-      '@typespec/sse': ^0.82.0
-      '@typespec/streams': ^0.82.0
-      '@typespec/versioning': ^0.82.0
+      '@typespec/compiler': ^1.13.0
+      '@typespec/events': ^0.83.0
+      '@typespec/http': ^1.13.0
+      '@typespec/json-schema': ^1.13.0
+      '@typespec/openapi': ^1.13.0
+      '@typespec/sse': ^0.83.0
+      '@typespec/streams': ^0.83.0
+      '@typespec/versioning': ^0.83.0
       '@typespec/xml': '*'
     peerDependenciesMeta:
       '@typespec/events':
@@ -589,28 +577,20 @@ snapshots:
     dependencies:
       minipass: 7.1.3
 
-  '@scalar/helpers@0.5.2': {}
+  '@scalar/helpers@0.8.1': {}
 
-  '@scalar/helpers@0.6.0': {}
-
-  '@scalar/json-magic@0.12.12':
+  '@scalar/json-magic@0.12.15':
     dependencies:
-      '@scalar/helpers': 0.6.0
+      '@scalar/helpers': 0.8.1
       pathe: 2.0.3
       yaml: 2.9.0
 
-  '@scalar/json-magic@0.12.8':
+  '@scalar/openapi-parser@0.28.6':
     dependencies:
-      '@scalar/helpers': 0.5.2
-      pathe: 2.0.3
-      yaml: 2.9.0
-
-  '@scalar/openapi-parser@0.25.12':
-    dependencies:
-      '@scalar/helpers': 0.5.2
-      '@scalar/json-magic': 0.12.8
-      '@scalar/openapi-types': 0.8.0
-      '@scalar/openapi-upgrader': 0.2.6
+      '@scalar/helpers': 0.8.1
+      '@scalar/json-magic': 0.12.15
+      '@scalar/openapi-types': 0.9.1
+      '@scalar/openapi-upgrader': 0.2.9
       ajv: 8.20.0
       ajv-draft-04: 1.0.0(ajv@8.20.0)
       ajv-formats: 3.0.1(ajv@8.20.0)
@@ -618,13 +598,11 @@ snapshots:
       leven: 4.1.0
       yaml: 2.9.0
 
-  '@scalar/openapi-types@0.7.0': {}
+  '@scalar/openapi-types@0.9.1': {}
 
-  '@scalar/openapi-types@0.8.0': {}
-
-  '@scalar/openapi-upgrader@0.2.6':
+  '@scalar/openapi-upgrader@0.2.9':
     dependencies:
-      '@scalar/openapi-types': 0.8.0
+      '@scalar/openapi-types': 0.9.1
 
   '@typespec/asset-emitter@0.79.1(@typespec/compiler@1.12.0)':
     dependencies:
@@ -661,11 +639,11 @@ snapshots:
       '@typespec/compiler': 1.12.0
       yaml: 2.9.0
 
-  '@typespec/openapi3@1.12.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0))(@typespec/json-schema@1.12.0(@typespec/compiler@1.12.0))(@typespec/openapi@1.12.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0)))':
+  '@typespec/openapi3@1.13.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0))(@typespec/json-schema@1.12.0(@typespec/compiler@1.12.0))(@typespec/openapi@1.12.0(@typespec/compiler@1.12.0)(@typespec/http@1.12.0(@typespec/compiler@1.12.0)))':
     dependencies:
-      '@scalar/json-magic': 0.12.12
-      '@scalar/openapi-parser': 0.25.12
-      '@scalar/openapi-types': 0.7.0
+      '@scalar/json-magic': 0.12.15
+      '@scalar/openapi-parser': 0.28.6
+      '@scalar/openapi-types': 0.9.1
       '@typespec/asset-emitter': 0.79.1(@typespec/compiler@1.12.0)
       '@typespec/compiler': 1.12.0
       '@typespec/http': 1.12.0(@typespec/compiler@1.12.0)
