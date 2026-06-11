@@ -469,6 +469,39 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+  /api/v1/behandling/{behandlingId}/vilkårsvurdering/sammenslå:
+    post:
+      operationId: Behandling_slaaSammenPerioder
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sammenslaaing'
   /api/v1/behandling/{behandlingId}/vilkårsvurdering/splitt:
     post:
       operationId: Behandling_splittPeriode
@@ -1194,6 +1227,18 @@ components:
           rentekst: '#/components/schemas/RentekstElement'
           underavsnitt: '#/components/schemas/UnderavsnittElement'
           påkrevd_begrunnelse: '#/components/schemas/PakrevdBegrunnelseUpdateItem'
+    Sammenslaaing:
+      type: object
+      required:
+        - vilkårsvurderingId
+        - slåesSammenMedId
+      properties:
+        vilkårsvurderingId:
+          type: string
+          format: uuid
+        slåesSammenMedId:
+          type: string
+          format: uuid
     SendForhaandsvarsel:
       type: object
       required:
