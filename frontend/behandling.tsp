@@ -127,7 +127,7 @@ interface BehandlingApi {
   @get
   @route("/vilkårsvurdering/perioder")
   vilkaarsvurderingsperioder(@path @format("uuid") behandlingId: string):
-    | SuccessResponse<Array<Periode>>
+    | SuccessResponse<Array<PeriodeInfo>>
     | ErrorResponse;
 }
 

@@ -454,7 +454,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Periode'
+                  $ref: '#/components/schemas/PeriodeInfo'
         '400':
           description: The server could not understand the request due to invalid syntax.
           content:
@@ -1118,6 +1118,17 @@ components:
         tom:
           type: string
           format: date
+    PeriodeInfo:
+      type: object
+      required:
+        - periodeId
+        - periode
+      properties:
+        periodeId:
+          type: string
+          format: uuid
+        periode:
+          $ref: '#/components/schemas/Periode'
     RentekstElement:
       type: object
       required:
