@@ -7,3 +7,10 @@ model PeriodeInfo {
 model SplittPeriode {
     splittFra: plainDate;
 }
+
+model Sammenslaaing {
+    @format("uuid")
+    vilkårsvurderingId: string;
+    @format("uuid")
+    slåesSammenMedId: string;
+}

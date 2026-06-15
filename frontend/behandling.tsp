@@ -129,6 +129,13 @@ interface BehandlingApi {
   vilkaarsvurderingsperioder(@path @format("uuid") behandlingId: string):
     | SuccessResponse<Array<PeriodeInfo>>
     | ErrorResponse;
+
+   @post
+   @route("/vilkårsvurdering/sammenslå")
+   slaaSammenPerioder(
+     @path @format("uuid") behandlingId: string,
+     @body sammenslåing: Sammenslaaing,
+   ): SuccessResponse<void> | ErrorResponse;
 }
 
 @error
