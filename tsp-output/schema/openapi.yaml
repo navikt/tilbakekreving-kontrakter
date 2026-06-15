@@ -1264,11 +1264,11 @@ components:
     SplittPeriode:
       type: object
       required:
-        - splittFra
+        - vilkårsvurderingId
       properties:
-        splittFra:
+        vilkårsvurderingId:
           type: string
-          format: date
+          format: uuid
     Standardtekst:
       type: object
       required:

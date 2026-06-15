@@ -5,7 +5,8 @@ model PeriodeInfo {
 }
 
 model SplittPeriode {
-    splittFra: plainDate;
+    @format("uuid")
+    vilkårsvurderingId: string;
 }
 
 model Sammenslaaing {
