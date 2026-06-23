@@ -1149,6 +1149,7 @@ components:
         - særligeGrunnerFor
         - prosentReduksjon
         - begrunnelse
+        - annetBegrunnelse
       properties:
         særligeGrunnerFor:
           type: array
@@ -1159,6 +1160,10 @@ components:
           format: uint8
         begrunnelse:
           type: string
+        annetBegrunnelse:
+          anyOf:
+            - type: string
+            - type: 'null'
       x-kotlin-implements:
         - SaerligeGrunnerDto
     Logginnslag:
@@ -1226,6 +1231,7 @@ components:
       required:
         - særligeGrunnerMot
         - begrunnelse
+        - annetBegrunnelse
       properties:
         særligeGrunnerMot:
           type: array
@@ -1233,6 +1239,10 @@ components:
             $ref: '#/components/schemas/Moment'
         begrunnelse:
           type: string
+        annetBegrunnelse:
+          anyOf:
+            - type: string
+            - type: 'null'
       x-kotlin-implements:
         - SaerligeGrunnerDto
     Oppdaget:
@@ -1514,12 +1524,17 @@ components:
       type: object
       required:
         - relevans
+        - annetBegrunnelse
         - begrunnelse
       properties:
         relevans:
           type: array
           items:
             $ref: '#/components/schemas/Moment'
+        annetBegrunnelse:
+          anyOf:
+            - type: string
+            - type: 'null'
         begrunnelse:
           type: string
       x-kotlin-implements:
@@ -1541,6 +1556,7 @@ components:
       required:
         - beløp
         - relevans
+        - annetBegrunnelse
         - begrunnelse
       properties:
         beløp:
@@ -1550,6 +1566,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Moment'
+        annetBegrunnelse:
+          anyOf:
+            - type: string
+            - type: 'null'
         begrunnelse:
           type: string
       x-kotlin-implements:

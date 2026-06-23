@@ -76,7 +76,10 @@ union VilkaarsvurderingValg {
     ikke_vurdert: VilkaarsvurderingIkkeVurdert,
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingValgDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["VilkaarsvurderingValgDto"]
+)
 model GodTro {
     begrunnelse: string;
     beløpIBehold: BelopIBehold;
@@ -109,6 +112,7 @@ union Reduksjon {
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ReduksjonDto"])
 model SkalIkkeReduseres {
     relevans: Array<Moment>;
+    annetBegrunnelse: string | null;
     begrunnelse: string;
 }
 
@@ -116,6 +120,7 @@ model SkalIkkeReduseres {
 model SkalReduseres {
     beløp: uint32;
     relevans: Array<Moment>;
+    annetBegrunnelse: string | null;
     begrunnelse: string;
 }
 
@@ -126,7 +131,10 @@ model Deler {
     reduksjon: Reduksjon;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingValgDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["VilkaarsvurderingValgDto"]
+)
 model ForaarsaketAvMottaker {
     begrunnelse: string;
     aktsomhet: Aktsomhet;
@@ -175,6 +183,7 @@ union SaerligeGrunner {
 model NeiSaerligeGrunner {
     særligeGrunnerMot: Array<Moment>;
     begrunnelse: string;
+    annetBegrunnelse: string | null;
 }
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["SaerligeGrunnerDto"])
@@ -182,6 +191,7 @@ model JaSaerligeGrunner {
     særligeGrunnerFor: Array<Moment>;
     prosentReduksjon: uint8;
     begrunnelse: string;
+    annetBegrunnelse: string | null;
 }
 
 model Moment {
@@ -203,8 +213,14 @@ model Forsettlig {
 }
 
 /* TODO */
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingValgDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["VilkaarsvurderingValgDto"]
+)
 model ForstoEllerBurdeForstaatt {}
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingValgDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["VilkaarsvurderingValgDto"]
+)
 model VilkaarsvurderingIkkeVurdert {}
