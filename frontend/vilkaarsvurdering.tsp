@@ -55,6 +55,9 @@ model Vilkaarsperiode {
 
     @visibility(Lifecycle.Read)
     fakta: Fakta;
+
+    @visibility(Lifecycle.Read)
+    simulertBeløp: uint32;
 }
 
 model Fakta {
@@ -71,7 +74,7 @@ union Vilkaarsvurdering {
 
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
-    #["VilkaarsvurderingDto", "VilkaarsvurderingUpdateDto"]
+    #["VilkaarsvurderingDto"]
 )
 model GodTro {
     begrunnelse: string;
@@ -87,7 +90,7 @@ union BelopIBehold {
 
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
-    #["BelopIBeholdDto", "BelopIBeholdUpdateDto"]
+    #["BelopIBeholdDto"]
 )
 model Ingenting {
     begrunnelse: string;
@@ -95,7 +98,7 @@ model Ingenting {
 
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
-    #["BelopIBeholdDto", "BelopIBeholdUpdateDto"]
+    #["BelopIBeholdDto"]
 )
 model Hele {
     begrunnelse: string;
@@ -108,39 +111,27 @@ union Reduksjon {
     skalIkkeReduseres: SkalIkkeReduseres,
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["ReduksjonDto", "ReduksjonUpdateDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ReduksjonDto"])
 model SkalIkkeReduseres {
     relevans: Array<Moment>;
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["ReduksjonDto", "ReduksjonUpdateDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ReduksjonDto"])
 model SkalReduseres {
     beløp: uint32;
     relevans: Array<Moment>;
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["BelopIBeholdDto", "BelopIBeholdUpdateDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["BelopIBeholdDto"])
 model Deler {
     beløp: uint32;
     begrunnelse: string;
     reduksjon: Reduksjon;
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["VilkaarsvurderingDto", "VilkaarsvurderingUpdateDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingDto"])
 model ForaarsaketAvMottaker {
     begrunnelse: string;
     aktsomhet: Aktsomhet;
@@ -153,10 +144,7 @@ union Aktsomhet {
     forsettlig: Forsettlig,
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["AktsomhetDto", "AktsomhetUpdateDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["AktsomhetDto"])
 model Uaktsomt {
     begrunnelse: string;
     unnlatelse: Unnlatelse;
@@ -168,18 +156,12 @@ union Unnlatelse {
     skalIkkeUnnlates: SkalIkkeUnnlates,
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["UnnlatelseDto", "UnnlatelseUpdateDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UnnlatelseDto"])
 model SkalUnnlates {
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["UnnlatelseDto", "UnnlatelseUpdateDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UnnlatelseDto"])
 model SkalIkkeUnnlates {
     begrunnelse: string;
     erDetSærligeGrunner: SaerligeGrunner;
@@ -196,7 +178,7 @@ union SaerligeGrunner {
 
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
-    #["SaerligeGrunnerDto", "SaerligeGrunnerUpdateDto"]
+    #["SaerligeGrunnerDto"]
 )
 model NeiSaerligeGrunner {
     særligeGrunnerMot: Array<Moment>;
@@ -205,15 +187,12 @@ model NeiSaerligeGrunner {
 
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
-    #["SaerligeGrunnerDto", "SaerligeGrunnerUpdateDto"]
+    #["SaerligeGrunnerDto"]
 )
 model JaSaerligeGrunner {
     særligeGrunnerFor: Array<Moment>;
     prosentReduksjon: uint8;
     begrunnelse: string;
-
-    @visibility(Lifecycle.Read)
-    simulertBeløp: uint32;
 }
 
 model Moment {
@@ -223,28 +202,19 @@ model Moment {
     beskrivelse: string;
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["AktsomhetDto", "AktsomhetUpdateDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["AktsomhetDto"])
 model GrovtUaktsomt {
     begrunnelse: string;
     erDetSærligeGrunner: SaerligeGrunner;
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["AktsomhetDto", "AktsomhetUpdateDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["AktsomhetDto"])
 model Forsettlig {
     begrunnelse: string;
 }
 
 /* TODO */
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["VilkaarsvurderingDto", "VilkaarsvurderingUpdateDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingDto"])
 model ForstoEllerBurdeForstaatt {}
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingDto"])

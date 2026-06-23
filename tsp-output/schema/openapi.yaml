@@ -825,7 +825,6 @@ components:
           $ref: '#/components/schemas/Reduksjon'
       x-kotlin-implements:
         - BelopIBeholdDto
-        - BelopIBeholdUpdateDto
     DokumentInfo:
       type: object
       required:
@@ -984,7 +983,6 @@ components:
           $ref: '#/components/schemas/Aktsomhet'
       x-kotlin-implements:
         - VilkaarsvurderingDto
-        - VilkaarsvurderingUpdateDto
     ForhaandsvarselErSendt:
       type: object
       required:
@@ -1053,12 +1051,10 @@ components:
           type: string
       x-kotlin-implements:
         - AktsomhetDto
-        - AktsomhetUpdateDto
     ForstoEllerBurdeForstaatt:
       type: object
       x-kotlin-implements:
         - VilkaarsvurderingDto
-        - VilkaarsvurderingUpdateDto
     Fritekst:
       type: string
       minLength: 3
@@ -1075,7 +1071,6 @@ components:
           $ref: '#/components/schemas/BelopIBehold'
       x-kotlin-implements:
         - VilkaarsvurderingDto
-        - VilkaarsvurderingUpdateDto
     GrovtUaktsomt:
       type: object
       required:
@@ -1088,7 +1083,6 @@ components:
           $ref: '#/components/schemas/SaerligeGrunner'
       x-kotlin-implements:
         - AktsomhetDto
-        - AktsomhetUpdateDto
     Hele:
       type: object
       required:
@@ -1101,7 +1095,6 @@ components:
           $ref: '#/components/schemas/Reduksjon'
       x-kotlin-implements:
         - BelopIBeholdDto
-        - BelopIBeholdUpdateDto
     Hovedavsnitt:
       type: object
       required:
@@ -1150,14 +1143,12 @@ components:
           type: string
       x-kotlin-implements:
         - BelopIBeholdDto
-        - BelopIBeholdUpdateDto
     JaSaerligeGrunner:
       type: object
       required:
         - særligeGrunnerFor
         - prosentReduksjon
         - begrunnelse
-        - simulertBeløp
       properties:
         særligeGrunnerFor:
           type: array
@@ -1168,13 +1159,8 @@ components:
           format: uint8
         begrunnelse:
           type: string
-        simulertBeløp:
-          type: integer
-          format: uint32
-          readOnly: true
       x-kotlin-implements:
         - SaerligeGrunnerDto
-        - SaerligeGrunnerUpdateDto
     Logginnslag:
       type: object
       required:
@@ -1249,7 +1235,6 @@ components:
           type: string
       x-kotlin-implements:
         - SaerligeGrunnerDto
-        - SaerligeGrunnerUpdateDto
     Oppdaget:
       type: object
       required:
@@ -1539,7 +1524,6 @@ components:
           type: string
       x-kotlin-implements:
         - ReduksjonDto
-        - ReduksjonUpdateDto
     SkalIkkeUnnlates:
       type: object
       required:
@@ -1552,7 +1536,6 @@ components:
           $ref: '#/components/schemas/SaerligeGrunner'
       x-kotlin-implements:
         - UnnlatelseDto
-        - UnnlatelseUpdateDto
     SkalReduseres:
       type: object
       required:
@@ -1571,7 +1554,6 @@ components:
           type: string
       x-kotlin-implements:
         - ReduksjonDto
-        - ReduksjonUpdateDto
     SkalUnnlates:
       type: object
       required:
@@ -1581,7 +1563,6 @@ components:
           type: string
       x-kotlin-implements:
         - UnnlatelseDto
-        - UnnlatelseUpdateDto
     SplittPeriode:
       type: object
       required:
@@ -1614,7 +1595,6 @@ components:
           $ref: '#/components/schemas/Unnlatelse'
       x-kotlin-implements:
         - AktsomhetDto
-        - AktsomhetUpdateDto
     UnderavsnittElement:
       type: object
       required:
@@ -1811,6 +1791,7 @@ components:
         - vilkårsvurdering
         - delresultat
         - fakta
+        - simulertBeløp
       properties:
         id:
           type: string
@@ -1842,6 +1823,10 @@ components:
         fakta:
           allOf:
             - $ref: '#/components/schemas/Fakta'
+          readOnly: true
+        simulertBeløp:
+          type: integer
+          format: uint32
           readOnly: true
     Vilkaarsvurdering:
       type: object
