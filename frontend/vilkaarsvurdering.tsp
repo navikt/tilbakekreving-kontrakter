@@ -65,7 +65,7 @@ model Fakta {
 union Vilkaarsvurdering {
     god_tro: GodTro,
     forårsaket_av_mottaker: ForaarsaketAvMottaker,
-    forsto_eller_burde_forstått: ForaarsaketAvNav,
+    forsto_eller_burde_forstått: ForstoEllerBurdeForstaatt,
     ikke_vurdert: VilkaarsvurderingIkkeVurdert,
 }
 
@@ -245,7 +245,7 @@ model Forsettlig {
     "x-kotlin-implements",
     #["VilkaarsvurderingDto", "VilkaarsvurderingUpdateDto"]
 )
-model ForaarsaketAvNav {}
+model ForstoEllerBurdeForstaatt {}
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingDto"])
 model VilkaarsvurderingIkkeVurdert {}

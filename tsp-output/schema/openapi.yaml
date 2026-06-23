@@ -479,6 +479,10 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vilkaar'
         '400':
           description: The server could not understand the request due to invalid syntax.
           content:
@@ -981,11 +985,6 @@ components:
       x-kotlin-implements:
         - VilkaarsvurderingDto
         - VilkaarsvurderingUpdateDto
-    ForaarsaketAvNav:
-      type: object
-      x-kotlin-implements:
-        - VilkaarsvurderingDto
-        - VilkaarsvurderingUpdateDto
     ForhaandsvarselErSendt:
       type: object
       required:
@@ -1055,6 +1054,11 @@ components:
       x-kotlin-implements:
         - AktsomhetDto
         - AktsomhetUpdateDto
+    ForstoEllerBurdeForstaatt:
+      type: object
+      x-kotlin-implements:
+        - VilkaarsvurderingDto
+        - VilkaarsvurderingUpdateDto
     Fritekst:
       type: string
       minLength: 3
@@ -1844,14 +1848,14 @@ components:
       oneOf:
         - $ref: '#/components/schemas/GodTro'
         - $ref: '#/components/schemas/ForaarsaketAvMottaker'
-        - $ref: '#/components/schemas/ForaarsaketAvNav'
+        - $ref: '#/components/schemas/ForstoEllerBurdeForstaatt'
         - $ref: '#/components/schemas/VilkaarsvurderingIkkeVurdert'
       discriminator:
         propertyName: vurdering
         mapping:
           god_tro: '#/components/schemas/GodTro'
           forårsaket_av_mottaker: '#/components/schemas/ForaarsaketAvMottaker'
-          forsto_eller_burde_forstått: '#/components/schemas/ForaarsaketAvNav'
+          forsto_eller_burde_forstått: '#/components/schemas/ForstoEllerBurdeForstaatt'
           ikke_vurdert: '#/components/schemas/VilkaarsvurderingIkkeVurdert'
     VilkaarsvurderingIkkeVurdert:
       type: object

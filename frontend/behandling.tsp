@@ -148,7 +148,7 @@ interface BehandlingApi {
   lagreVilkaarsvurdering(
     @path @format("uuid") behandlingId: string,
     @body vilkår: Vilkaar,
-  ): SuccessResponse<void> | ErrorResponse;
+  ): SuccessResponse<Vilkaar> | ErrorResponse;
 }
 
 @error
