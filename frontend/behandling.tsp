@@ -130,12 +130,25 @@ interface BehandlingApi {
     | SuccessResponse<Array<PeriodeInfo>>
     | ErrorResponse;
 
-   @post
-   @route("/vilkårsvurdering/sammenslå")
-   slaaSammenPerioder(
-     @path @format("uuid") behandlingId: string,
-     @body sammenslåing: Sammenslaaing,
-   ): SuccessResponse<void> | ErrorResponse;
+  @post
+  @route("/vilkårsvurdering/sammenslå")
+  slaaSammenPerioder(
+    @path @format("uuid") behandlingId: string,
+    @body sammenslåing: Sammenslaaing,
+  ): SuccessResponse<void> | ErrorResponse;
+
+  @get
+  @route("/vilkårsvurdering")
+  vilkaarsvurdering(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Vilkaar>
+    | ErrorResponse;
+
+  @post
+  @route("/vilkårsvurdering")
+  lagreVilkaarsvurdering(
+    @path @format("uuid") behandlingId: string,
+    @body vilkår: Vilkaar,
+  ): SuccessResponse<void> | ErrorResponse;
 }
 
 @error

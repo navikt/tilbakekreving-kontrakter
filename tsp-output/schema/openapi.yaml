@@ -436,6 +436,69 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+  /api/v1/behandling/{behandlingId}/vilkårsvurdering:
+    get:
+      operationId: Behandling_vilkaarsvurdering
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vilkaar'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+    post:
+      operationId: Behandling_lagreVilkaarsvurdering
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vilkaar'
   /api/v1/behandling/{behandlingId}/vilkårsvurdering/perioder:
     get:
       operationId: Behandling_vilkaarsvurderingsperioder
@@ -592,6 +655,18 @@ paths:
               $ref: '#/components/schemas/VedtaksbrevData'
 components:
   schemas:
+    Aktsomhet:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/Uaktsomt'
+        - $ref: '#/components/schemas/GrovtUaktsomt'
+        - $ref: '#/components/schemas/Forsettlig'
+      discriminator:
+        propertyName: aktsomhet
+        mapping:
+          uaktsomt: '#/components/schemas/Uaktsomt'
+          grovtUaktsomt: '#/components/schemas/GrovtUaktsomt'
+          forsettlig: '#/components/schemas/Forsettlig'
     Avsnitt:
       type: object
       required:
@@ -638,6 +713,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RotElementUpdateItem'
+    BelopIBehold:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/Ingenting'
+        - $ref: '#/components/schemas/Hele'
+        - $ref: '#/components/schemas/Deler'
+      discriminator:
+        propertyName: belopIBehold
+        mapping:
+          ingenting: '#/components/schemas/Ingenting'
+          hele: '#/components/schemas/Hele'
+          deler: '#/components/schemas/Deler'
     Beregningsresultat:
       type: object
       required:
@@ -718,6 +805,23 @@ components:
           type: string
         personIdent:
           type: string
+    Deler:
+      type: object
+      required:
+        - beløp
+        - begrunnelse
+        - reduksjon
+      properties:
+        beløp:
+          type: integer
+          format: uint32
+        begrunnelse:
+          type: string
+        reduksjon:
+          $ref: '#/components/schemas/Reduksjon'
+      x-kotlin-implements:
+        - BelopIBeholdDto
+        - BelopIBeholdUpdateDto
     DokumentInfo:
       type: object
       required:
@@ -755,6 +859,15 @@ components:
           type: string
         melding:
           type: string
+    Fakta:
+      type: object
+      required:
+        - rettsligGrunnlag
+      properties:
+        rettsligGrunnlag:
+          type: array
+          items:
+            type: string
     FaktaOmFeilutbetaling:
       type: object
       required:
@@ -855,6 +968,24 @@ components:
           format: date
         revurdering:
           $ref: '#/components/schemas/Revurdering'
+    ForaarsaketAvMottaker:
+      type: object
+      required:
+        - begrunnelse
+        - aktsomhet
+      properties:
+        begrunnelse:
+          type: string
+        aktsomhet:
+          $ref: '#/components/schemas/Aktsomhet'
+      x-kotlin-implements:
+        - VilkaarsvurderingDto
+        - VilkaarsvurderingUpdateDto
+    ForaarsaketAvNav:
+      type: object
+      x-kotlin-implements:
+        - VilkaarsvurderingDto
+        - VilkaarsvurderingUpdateDto
     ForhaandsvarselErSendt:
       type: object
       required:
@@ -914,10 +1045,59 @@ components:
           type: string
       x-kotlin-implements:
         - ForhaandsvarselStegDto
+    Forsettlig:
+      type: object
+      required:
+        - begrunnelse
+      properties:
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - AktsomhetDto
+        - AktsomhetUpdateDto
     Fritekst:
       type: string
       minLength: 3
       maxLength: 3000
+    GodTro:
+      type: object
+      required:
+        - begrunnelse
+        - beløpIBehold
+      properties:
+        begrunnelse:
+          type: string
+        beløpIBehold:
+          $ref: '#/components/schemas/BelopIBehold'
+      x-kotlin-implements:
+        - VilkaarsvurderingDto
+        - VilkaarsvurderingUpdateDto
+    GrovtUaktsomt:
+      type: object
+      required:
+        - begrunnelse
+        - erDetSærligeGrunner
+      properties:
+        begrunnelse:
+          type: string
+        erDetSærligeGrunner:
+          $ref: '#/components/schemas/SaerligeGrunner'
+      x-kotlin-implements:
+        - AktsomhetDto
+        - AktsomhetUpdateDto
+    Hele:
+      type: object
+      required:
+        - begrunnelse
+        - reduksjon
+      properties:
+        begrunnelse:
+          type: string
+        reduksjon:
+          $ref: '#/components/schemas/Reduksjon'
+      x-kotlin-implements:
+        - BelopIBeholdDto
+        - BelopIBeholdUpdateDto
     Hovedavsnitt:
       type: object
       required:
@@ -957,6 +1137,40 @@ components:
       type: object
       x-kotlin-implements:
         - ForhaandsvarselStegDto
+    Ingenting:
+      type: object
+      required:
+        - begrunnelse
+      properties:
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - BelopIBeholdDto
+        - BelopIBeholdUpdateDto
+    JaSaerligeGrunner:
+      type: object
+      required:
+        - særligeGrunnerFor
+        - prosentReduksjon
+        - begrunnelse
+        - simulertBeløp
+      properties:
+        særligeGrunnerFor:
+          type: array
+          items:
+            $ref: '#/components/schemas/Moment'
+        prosentReduksjon:
+          type: integer
+          format: uint8
+        begrunnelse:
+          type: string
+        simulertBeløp:
+          type: integer
+          format: uint32
+          readOnly: true
+      x-kotlin-implements:
+        - SaerligeGrunnerDto
+        - SaerligeGrunnerUpdateDto
     Logginnslag:
       type: object
       required:
@@ -994,6 +1208,17 @@ components:
         ekstraInfo:
           type: object
           unevaluatedProperties: {}
+    Moment:
+      type: object
+      required:
+        - moment
+        - beskrivelse
+      properties:
+        moment:
+          type: string
+        beskrivelse:
+          type: string
+          readOnly: true
     MuligeRettsligGrunnlag:
       type: object
       required:
@@ -1006,6 +1231,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BestemmelseEllerGrunnlag'
+    NeiSaerligeGrunner:
+      type: object
+      required:
+        - særligeGrunnerMot
+        - begrunnelse
+      properties:
+        særligeGrunnerMot:
+          type: array
+          items:
+            $ref: '#/components/schemas/Moment'
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - SaerligeGrunnerDto
+        - SaerligeGrunnerUpdateDto
     Oppdaget:
       type: object
       required:
@@ -1162,6 +1402,16 @@ components:
           format: uuid
         periode:
           $ref: '#/components/schemas/Periode'
+    Reduksjon:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/SkalReduseres'
+        - $ref: '#/components/schemas/SkalIkkeReduseres'
+      discriminator:
+        propertyName: reduksjon
+        mapping:
+          skalReduseres: '#/components/schemas/SkalReduseres'
+          skalIkkeReduseres: '#/components/schemas/SkalIkkeReduseres'
     RentekstElement:
       type: object
       required:
@@ -1227,6 +1477,16 @@ components:
           rentekst: '#/components/schemas/RentekstElement'
           underavsnitt: '#/components/schemas/UnderavsnittElement'
           påkrevd_begrunnelse: '#/components/schemas/PakrevdBegrunnelseUpdateItem'
+    SaerligeGrunner:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/NeiSaerligeGrunner'
+        - $ref: '#/components/schemas/JaSaerligeGrunner'
+      discriminator:
+        propertyName: erDetSaerligeGrunner
+        mapping:
+          nei: '#/components/schemas/NeiSaerligeGrunner'
+          ja: '#/components/schemas/JaSaerligeGrunner'
     Sammenslaaing:
       type: object
       required:
@@ -1261,6 +1521,63 @@ components:
           anyOf:
             - type: string
             - type: 'null'
+    SkalIkkeReduseres:
+      type: object
+      required:
+        - relevans
+        - begrunnelse
+      properties:
+        relevans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Moment'
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - ReduksjonDto
+        - ReduksjonUpdateDto
+    SkalIkkeUnnlates:
+      type: object
+      required:
+        - begrunnelse
+        - erDetSærligeGrunner
+      properties:
+        begrunnelse:
+          type: string
+        erDetSærligeGrunner:
+          $ref: '#/components/schemas/SaerligeGrunner'
+      x-kotlin-implements:
+        - UnnlatelseDto
+        - UnnlatelseUpdateDto
+    SkalReduseres:
+      type: object
+      required:
+        - beløp
+        - relevans
+        - begrunnelse
+      properties:
+        beløp:
+          type: integer
+          format: uint32
+        relevans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Moment'
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - ReduksjonDto
+        - ReduksjonUpdateDto
+    SkalUnnlates:
+      type: object
+      required:
+        - begrunnelse
+      properties:
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - UnnlatelseDto
+        - UnnlatelseUpdateDto
     SplittPeriode:
       type: object
       required:
@@ -1281,6 +1598,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Element'
+    Uaktsomt:
+      type: object
+      required:
+        - begrunnelse
+        - unnlatelse
+      properties:
+        begrunnelse:
+          type: string
+        unnlatelse:
+          $ref: '#/components/schemas/Unnlatelse'
+      x-kotlin-implements:
+        - AktsomhetDto
+        - AktsomhetUpdateDto
     UnderavsnittElement:
       type: object
       required:
@@ -1296,6 +1626,16 @@ components:
       x-kotlin-implements:
         - RotElementDto
         - RotElementUpdateItemDto
+    Unnlatelse:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/SkalUnnlates'
+        - $ref: '#/components/schemas/SkalIkkeUnnlates'
+      discriminator:
+        propertyName: unnlatelse
+        mapping:
+          skalUnnlates: '#/components/schemas/SkalUnnlates'
+          skalIkkeUnnlates: '#/components/schemas/SkalIkkeUnnlates'
     Unntak:
       type: object
       required:
@@ -1432,6 +1772,91 @@ components:
         - IngenTilbakebetaling
         - DelvisTilbakebetaling
         - FullTilbakebetaling
+    Vilkaar:
+      type: object
+      required:
+        - vilkårsperioder
+        - ferdigvurdert
+        - momenterSærligeGrunner
+        - momenterReduksjonGodTro
+      properties:
+        vilkårsperioder:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vilkaarsperiode'
+        ferdigvurdert:
+          type: boolean
+          readOnly: true
+        momenterSærligeGrunner:
+          type: array
+          items:
+            $ref: '#/components/schemas/Moment'
+          readOnly: true
+        momenterReduksjonGodTro:
+          type: array
+          items:
+            $ref: '#/components/schemas/Moment'
+          readOnly: true
+    Vilkaarsperiode:
+      type: object
+      required:
+        - id
+        - periode
+        - delbarePerioder
+        - feilutbetaltBeløp
+        - vilkårsvurdering
+        - delresultat
+        - fakta
+      properties:
+        id:
+          type: string
+          format: uuid
+        periode:
+          allOf:
+            - $ref: '#/components/schemas/Periode'
+          readOnly: true
+        delbarePerioder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeriodeInfo'
+          readOnly: true
+        feilutbetaltBeløp:
+          type: integer
+          format: uint32
+          readOnly: true
+        vilkårsvurdering:
+          $ref: '#/components/schemas/Vilkaarsvurdering'
+        delresultat:
+          anyOf:
+            - type: string
+              enum:
+                - FULL_TILBAKEKREVING
+                - INGEN_TILBAKEKREVING
+                - DELVIS_TILBAKEKREVING
+            - type: 'null'
+          readOnly: true
+        fakta:
+          allOf:
+            - $ref: '#/components/schemas/Fakta'
+          readOnly: true
+    Vilkaarsvurdering:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/GodTro'
+        - $ref: '#/components/schemas/ForaarsaketAvMottaker'
+        - $ref: '#/components/schemas/ForaarsaketAvNav'
+        - $ref: '#/components/schemas/VilkaarsvurderingIkkeVurdert'
+      discriminator:
+        propertyName: vurdering
+        mapping:
+          god_tro: '#/components/schemas/GodTro'
+          forårsaket_av_mottaker: '#/components/schemas/ForaarsaketAvMottaker'
+          forsto_eller_burde_forstått: '#/components/schemas/ForaarsaketAvNav'
+          ikke_vurdert: '#/components/schemas/VilkaarsvurderingIkkeVurdert'
+    VilkaarsvurderingIkkeVurdert:
+      type: object
+      x-kotlin-implements:
+        - VilkaarsvurderingDto
     Vurdering:
       type: object
       required:
