@@ -982,7 +982,7 @@ components:
         aktsomhet:
           $ref: '#/components/schemas/Aktsomhet'
       x-kotlin-implements:
-        - VilkaarsvurderingDto
+        - VilkaarsvurderingValgDto
     ForhaandsvarselErSendt:
       type: object
       required:
@@ -1054,7 +1054,7 @@ components:
     ForstoEllerBurdeForstaatt:
       type: object
       x-kotlin-implements:
-        - VilkaarsvurderingDto
+        - VilkaarsvurderingValgDto
     Fritekst:
       type: string
       minLength: 3
@@ -1070,7 +1070,7 @@ components:
         beløpIBehold:
           $ref: '#/components/schemas/BelopIBehold'
       x-kotlin-implements:
-        - VilkaarsvurderingDto
+        - VilkaarsvurderingValgDto
     GrovtUaktsomt:
       type: object
       required:
@@ -1784,33 +1784,16 @@ components:
     Vilkaarsperiode:
       type: object
       required:
-        - id
-        - periode
-        - delbarePerioder
         - feilutbetaltBeløp
-        - vilkårsvurdering
         - delresultat
         - fakta
         - simulertBeløp
+        - vilkårsvurdering
       properties:
-        id:
-          type: string
-          format: uuid
-        periode:
-          allOf:
-            - $ref: '#/components/schemas/Periode'
-          readOnly: true
-        delbarePerioder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PeriodeInfo'
-          readOnly: true
         feilutbetaltBeløp:
           type: integer
           format: uint32
           readOnly: true
-        vilkårsvurdering:
-          $ref: '#/components/schemas/Vilkaarsvurdering'
         delresultat:
           anyOf:
             - type: string
@@ -1828,7 +1811,35 @@ components:
           type: integer
           format: uint32
           readOnly: true
+        vilkårsvurdering:
+          $ref: '#/components/schemas/Vilkaarsvurdering'
     Vilkaarsvurdering:
+      type: object
+      required:
+        - id
+        - periode
+        - delbarePerioder
+        - valg
+      properties:
+        id:
+          type: string
+          format: uuid
+        periode:
+          allOf:
+            - $ref: '#/components/schemas/Periode'
+          readOnly: true
+        delbarePerioder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeriodeInfo'
+          readOnly: true
+        valg:
+          $ref: '#/components/schemas/VilkaarsvurderingValg'
+    VilkaarsvurderingIkkeVurdert:
+      type: object
+      x-kotlin-implements:
+        - VilkaarsvurderingValgDto
+    VilkaarsvurderingValg:
       type: object
       oneOf:
         - $ref: '#/components/schemas/GodTro'
@@ -1842,10 +1853,6 @@ components:
           forårsaket_av_mottaker: '#/components/schemas/ForaarsaketAvMottaker'
           forsto_eller_burde_forstått: '#/components/schemas/ForstoEllerBurdeForstaatt'
           ikke_vurdert: '#/components/schemas/VilkaarsvurderingIkkeVurdert'
-    VilkaarsvurderingIkkeVurdert:
-      type: object
-      x-kotlin-implements:
-        - VilkaarsvurderingDto
     Vurdering:
       type: object
       required:

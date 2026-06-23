@@ -32,19 +32,8 @@ model Vilkaar {
 }
 
 model Vilkaarsperiode {
-    @format("uuid")
-    id: string;
-
-    @visibility(Lifecycle.Read)
-    periode: Periode;
-
-    @visibility(Lifecycle.Read)
-    delbarePerioder: Array<PeriodeInfo>;
-
     @visibility(Lifecycle.Read)
     feilutbetaltBeløp: uint32;
-
-    vilkårsvurdering: Vilkaarsvurdering;
 
     @visibility(Lifecycle.Read)
     delresultat:
@@ -58,24 +47,36 @@ model Vilkaarsperiode {
 
     @visibility(Lifecycle.Read)
     simulertBeløp: uint32;
+
+    vilkårsvurdering: Vilkaarsvurdering;
 }
 
 model Fakta {
     rettsligGrunnlag: Array<string>;
 }
 
+model Vilkaarsvurdering {
+    @format("uuid")
+    id: string;
+
+    @visibility(Lifecycle.Read)
+    periode: Periode;
+
+    @visibility(Lifecycle.Read)
+    delbarePerioder: Array<PeriodeInfo>;
+
+    valg: VilkaarsvurderingValg;
+}
+
 @discriminated(#{ discriminatorPropertyName: "vurdering", envelope: "none" })
-union Vilkaarsvurdering {
+union VilkaarsvurderingValg {
     god_tro: GodTro,
     forårsaket_av_mottaker: ForaarsaketAvMottaker,
     forsto_eller_burde_forstått: ForstoEllerBurdeForstaatt,
     ikke_vurdert: VilkaarsvurderingIkkeVurdert,
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["VilkaarsvurderingDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingValgDto"])
 model GodTro {
     begrunnelse: string;
     beløpIBehold: BelopIBehold;
@@ -88,18 +89,12 @@ union BelopIBehold {
     deler: Deler,
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["BelopIBeholdDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["BelopIBeholdDto"])
 model Ingenting {
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["BelopIBeholdDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["BelopIBeholdDto"])
 model Hele {
     begrunnelse: string;
     reduksjon: Reduksjon;
@@ -131,7 +126,7 @@ model Deler {
     reduksjon: Reduksjon;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingValgDto"])
 model ForaarsaketAvMottaker {
     begrunnelse: string;
     aktsomhet: Aktsomhet;
@@ -176,19 +171,13 @@ union SaerligeGrunner {
     ja: JaSaerligeGrunner,
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["SaerligeGrunnerDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["SaerligeGrunnerDto"])
 model NeiSaerligeGrunner {
     særligeGrunnerMot: Array<Moment>;
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["SaerligeGrunnerDto"]
-)
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["SaerligeGrunnerDto"])
 model JaSaerligeGrunner {
     særligeGrunnerFor: Array<Moment>;
     prosentReduksjon: uint8;
@@ -214,8 +203,8 @@ model Forsettlig {
 }
 
 /* TODO */
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingValgDto"])
 model ForstoEllerBurdeForstaatt {}
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["VilkaarsvurderingValgDto"])
 model VilkaarsvurderingIkkeVurdert {}
