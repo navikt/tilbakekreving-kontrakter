@@ -1812,6 +1812,7 @@ components:
       type: object
       required:
         - feilutbetaltBeløp
+        - rettsgebyr
         - delresultat
         - fakta
         - simulertBeløp
@@ -1820,6 +1821,13 @@ components:
         feilutbetaltBeløp:
           type: integer
           format: uint32
+          readOnly: true
+        rettsgebyr:
+          type: string
+          enum:
+            - UNDER_4_RETTSGEBYR
+            - KANSKJE_UNDER_4_RETTSGEBYR
+            - OVER_4_RETTSGEBYR
           readOnly: true
         delresultat:
           anyOf:

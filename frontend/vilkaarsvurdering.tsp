@@ -36,6 +36,12 @@ model Vilkaarsperiode {
     feilutbetaltBeløp: uint32;
 
     @visibility(Lifecycle.Read)
+    rettsgebyr:
+        | "UNDER_4_RETTSGEBYR"
+        | "KANSKJE_UNDER_4_RETTSGEBYR"
+        | "OVER_4_RETTSGEBYR";
+
+    @visibility(Lifecycle.Read)
     delresultat:
         | "FULL_TILBAKEKREVING"
         | "INGEN_TILBAKEKREVING"
