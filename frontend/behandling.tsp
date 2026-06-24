@@ -144,11 +144,12 @@ interface BehandlingApi {
     | ErrorResponse;
 
   @post
-  @route("/vilkårsvurdering")
+  @route("/vilkårsvurdering/periode/{periodeId}")
   lagreVilkaarsvurdering(
     @path @format("uuid") behandlingId: string,
-    @body vilkår: Vilkaar,
-  ): SuccessResponse<Vilkaar> | ErrorResponse;
+    @path @format("uuid") periodeId: string,
+    @body vilkårsvurdering: Vilkaarsvurdering,
+  ): SuccessResponse<Vilkaarsvurdering> | ErrorResponse;
 }
 
 @error

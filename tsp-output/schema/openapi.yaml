@@ -467,10 +467,17 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+  /api/v1/behandling/{behandlingId}/vilkårsvurdering/periode/{periodeId}:
     post:
       operationId: Behandling_lagreVilkaarsvurdering
       parameters:
         - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: periodeId
           in: path
           required: true
           schema:
@@ -482,7 +489,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Vilkaar'
+                $ref: '#/components/schemas/Vilkaarsvurdering'
         '400':
           description: The server could not understand the request due to invalid syntax.
           content:
@@ -502,7 +509,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Vilkaar'
+              $ref: '#/components/schemas/Vilkaarsvurdering'
   /api/v1/behandling/{behandlingId}/vilkårsvurdering/perioder:
     get:
       operationId: Behandling_vilkaarsvurderingsperioder
