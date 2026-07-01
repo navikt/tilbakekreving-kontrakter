@@ -339,6 +339,37 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+  /api/v1/behandling/{behandlingId}/varselbrev/tekster:
+    get:
+      operationId: Behandling_hentVarselbrevTekster
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VarselbrevTekst'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
   /api/v1/behandling/{behandlingId}/vedtak/brev:
     get:
       operationId: Behandling_hentVedtaksbrev
@@ -645,9 +676,28 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+  /api/v1/brev/varselbrev/svg:
+    post:
+      operationId: Brev_lagSvgVarselbrev
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/octet-stream:
+              schema:
+                contentMediaType: application/octet-stream
+      tags:
+        - brev
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VarselbrevData'
   /api/v1/brev/vedtaksbrev/svg:
     post:
-      operationId: Vedtaksbrev_lagSvgVedtaksbrev
+      operationId: Brev_lagSvgVedtaksbrev
       parameters: []
       responses:
         '200':
@@ -1137,6 +1187,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RotElementUpdateItem'
+    HovedavsnittVarselbrev:
+      type: object
+      required:
+        - tittel
+        - innhold
+      properties:
+        tittel:
+          type: string
+          minLength: 3
+          maxLength: 300
+        innhold:
+          type: array
+          items:
+            type: string
     IkkeVurdert:
       type: object
       x-kotlin-implements:
@@ -1505,6 +1569,18 @@ components:
         slåesSammenMedId:
           type: string
           format: uuid
+    Section:
+      type: object
+      required:
+        - tittel
+        - body
+      properties:
+        tittel:
+          type: string
+        body:
+          type: array
+          items:
+            type: string
     SendForhaandsvarsel:
       type: object
       required:
@@ -1701,6 +1777,43 @@ components:
           type: string
           format: date
           readOnly: true
+    VarselbrevData:
+      type: object
+      required:
+        - hovedavsnitt
+        - underavsnitt
+        - brevGjelder
+        - signatur
+        - sendtDato
+        - saksnummer
+      properties:
+        hovedavsnitt:
+          $ref: '#/components/schemas/HovedavsnittVarselbrev'
+        underavsnitt:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnderavsnittElement'
+        brevGjelder:
+          $ref: '#/components/schemas/Brevmottaker'
+        signatur:
+          $ref: '#/components/schemas/Signatur'
+        sendtDato:
+          type: string
+          format: date
+        saksnummer:
+          type: string
+    VarselbrevTekst:
+      type: object
+      required:
+        - overskrift
+        - avsnitter
+      properties:
+        overskrift:
+          type: string
+        avsnitter:
+          type: array
+          items:
+            $ref: '#/components/schemas/Section'
     Varslingsunntak:
       type: string
       enum:

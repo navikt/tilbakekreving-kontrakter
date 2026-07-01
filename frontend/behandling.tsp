@@ -6,6 +6,7 @@ import "./common.tsp";
 import "./behandlingslogg.tsp";
 import "./forhaandsvarsel.tsp";
 import "./journalpost.tsp";
+import "./varselbrev-tekster.tsp";
 
 using Http;
 
@@ -150,6 +151,12 @@ interface BehandlingApi {
     @path @format("uuid") periodeId: string,
     @body vilkårsvurdering: Vilkaarsvurdering,
   ): SuccessResponse<Vilkaarsvurdering> | ErrorResponse;
+
+  @get
+  @route("/varselbrev/tekster")
+  hentVarselbrevTekster(@path @format("uuid") behandlingId: string):
+      | SuccessResponse<VarselbrevTekst>
+      | ErrorResponse;
 }
 
 @error

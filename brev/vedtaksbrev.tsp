@@ -1,5 +1,6 @@
 import "@typespec/http";
 import "@typespec/openapi";
+import "./felles.tsp";
 
 using Http;
 
@@ -86,14 +87,7 @@ model RentekstElement {
     tekst: string;
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["RotElementDto", "RotElementUpdateItemDto"]
-)
-model UnderavsnittElement {
-    tittel: string;
-    underavsnitt: Element[];
-}
+
 
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
@@ -116,23 +110,6 @@ model PakrevdBegrunnelse {
 model Standardtekst {
     tittel: string;
     underavsnitt: Element[];
-}
-
-model Brevmottaker {
-    navn: string;
-    personIdent: string;
-}
-
-model Ytelse {
-    url: string;
-    ubestemtEntall: string;
-    bestemtEntall: string;
-}
-
-model Signatur {
-    enhetNavn: string;
-    ansvarligSaksbehandler: string;
-    besluttendeSaksbehandler: string | null;
 }
 
 model Oppsummeringsdata {

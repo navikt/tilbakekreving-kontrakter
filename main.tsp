@@ -1,6 +1,7 @@
 import "@typespec/http";
 import "./frontend/behandling.tsp";
 import "./brev/vedtaksbrev.tsp";
+import "./brev/varselbrev.tsp";
 
 using Http;
 
@@ -12,7 +13,7 @@ namespace Tilbakekreving {
     @route("/api/v1/behandling/{behandlingId}")
     interface Behandling extends BehandlingApi {}
 
-    @tag("brev")
-    @route("/api/v1/brev/")
-    interface Vedtaksbrev extends VedtaksbrevApi {}
+@tag("brev")
+    @route("/api/v1/brev")
+    interface Brev extends VedtaksbrevApi, VarselbrevApi {}
 }
