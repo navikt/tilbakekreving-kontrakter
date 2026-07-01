@@ -18,6 +18,7 @@ model VarselbrevData{
     brevGjelder: Brevmottaker;
     signatur: Signatur;
     sendtDato: plainDate;
+    saksnummer: string;
 }
 
 model HovedavsnittVarselbrev {

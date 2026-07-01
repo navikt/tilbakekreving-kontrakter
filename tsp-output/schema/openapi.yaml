@@ -1785,6 +1785,7 @@ components:
         - brevGjelder
         - signatur
         - sendtDato
+        - saksnummer
       properties:
         hovedavsnitt:
           $ref: '#/components/schemas/HovedavsnittVarselbrev'
@@ -1799,6 +1800,8 @@ components:
         sendtDato:
           type: string
           format: date
+        saksnummer:
+          type: string
     VarselbrevTekst:
       type: object
       required:
