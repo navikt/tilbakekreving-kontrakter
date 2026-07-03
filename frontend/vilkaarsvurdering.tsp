@@ -29,6 +29,9 @@ model Vilkaar {
 
     @visibility(Lifecycle.Read)
     momenterReduksjonGodTro: Array<Moment>;
+    
+    @visibility(Lifecycle.Read)
+    erUnder4xRettsgebyr: boolean;
 }
 
 model Vilkaarsperiode {
