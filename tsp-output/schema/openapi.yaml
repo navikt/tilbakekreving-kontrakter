@@ -936,6 +936,7 @@ components:
         - muligeRettsligGrunnlag
         - perioder
         - vurdering
+        - rettsgebyrÅrFraSaksbehandler
         - ferdigvurdert
         - usikker4xRettsgebyr
       properties:
@@ -956,6 +957,11 @@ components:
             $ref: '#/components/schemas/FaktaPeriode'
         vurdering:
           $ref: '#/components/schemas/Vurdering'
+        rettsgebyrÅrFraSaksbehandler:
+          anyOf:
+            - type: integer
+              format: uint32
+            - type: 'null'
         ferdigvurdert:
           type: boolean
           readOnly: true
@@ -1345,6 +1351,8 @@ components:
             - type: 'null'
     OppdaterFaktaOmFeilutbetaling:
       type: object
+      required:
+        - rettsgebyrÅrFraSaksbehandler
       properties:
         perioder:
           type: array
@@ -1352,6 +1360,11 @@ components:
             $ref: '#/components/schemas/OppdaterFaktaPeriode'
         vurdering:
           $ref: '#/components/schemas/Vurdering'
+        rettsgebyrÅrFraSaksbehandler:
+          anyOf:
+            - type: integer
+              format: uint32
+            - type: 'null'
     OppdaterFaktaPeriode:
       type: object
       required:
