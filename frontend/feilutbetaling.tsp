@@ -76,6 +76,7 @@ model Oppdaget {
 model OppdaterFaktaOmFeilutbetaling {
     perioder?: Array<OppdaterFaktaPeriode>;
     vurdering?: Vurdering;
+    rettsgebyrÅret: uint32 | null;
 }
 
 model OppdaterFaktaPeriode {
