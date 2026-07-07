@@ -11,6 +11,7 @@ model FaktaOmFeilutbetaling {
     perioder: Array<FaktaPeriode>;
     vurdering: Vurdering;
     ferdigvurdert: boolean;
+    usikker4xRettsgebyr: boolean;
 }
 
 model Feilutbetaling {

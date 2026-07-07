@@ -937,6 +937,7 @@ components:
         - perioder
         - vurdering
         - ferdigvurdert
+        - usikker4xRettsgebyr
       properties:
         feilutbetaling:
           $ref: '#/components/schemas/Feilutbetaling'
@@ -956,6 +957,8 @@ components:
         vurdering:
           $ref: '#/components/schemas/Vurdering'
         ferdigvurdert:
+          type: boolean
+        usikker4xRettsgebyr:
           type: boolean
     FaktaPeriode:
       type: object
