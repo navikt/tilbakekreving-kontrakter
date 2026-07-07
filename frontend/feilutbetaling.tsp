@@ -10,7 +10,11 @@ model FaktaOmFeilutbetaling {
     muligeRettsligGrunnlag: Array<MuligeRettsligGrunnlag>;
     perioder: Array<FaktaPeriode>;
     vurdering: Vurdering;
+
+    @visibility(Lifecycle.Read)
     ferdigvurdert: boolean;
+
+    @visibility(Lifecycle.Read)
     usikker4xRettsgebyr: boolean;
 }
 
@@ -50,6 +54,7 @@ model FaktaPeriode {
 model RettsligGrunnlag {
     @minLength(1)
     bestemmelse: string;
+
     @minLength(1)
     grunnlag: string;
 }
@@ -58,6 +63,7 @@ model Vurdering {
     @minLength(3)
     @maxLength(3000)
     årsak: Fritekst | null;
+
     oppdaget?: Oppdaget;
 }
 
@@ -74,6 +80,7 @@ model OppdaterFaktaOmFeilutbetaling {
 
 model OppdaterFaktaPeriode {
     id: string;
+
     @minItems(1)
     rettsligGrunnlag: Array<RettsligGrunnlag>;
 }

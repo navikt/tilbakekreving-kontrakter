@@ -958,8 +958,10 @@ components:
           $ref: '#/components/schemas/Vurdering'
         ferdigvurdert:
           type: boolean
+          readOnly: true
         usikker4xRettsgebyr:
           type: boolean
+          readOnly: true
     FaktaPeriode:
       type: object
       required:
