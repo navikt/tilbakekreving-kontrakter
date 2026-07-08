@@ -10,6 +10,7 @@ model FaktaOmFeilutbetaling {
     muligeRettsligGrunnlag: Array<MuligeRettsligGrunnlag>;
     perioder: Array<FaktaPeriode>;
     vurdering: Vurdering;
+    rettsgebyrÅrFraSaksbehandler: uint32 | null;
 
     @visibility(Lifecycle.Read)
     ferdigvurdert: boolean;
@@ -76,6 +77,7 @@ model Oppdaget {
 model OppdaterFaktaOmFeilutbetaling {
     perioder?: Array<OppdaterFaktaPeriode>;
     vurdering?: Vurdering;
+    rettsgebyrÅrFraSaksbehandler: uint32 | null;
 }
 
 model OppdaterFaktaPeriode {
