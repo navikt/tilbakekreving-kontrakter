@@ -1970,8 +1970,10 @@ components:
             - $ref: '#/components/schemas/Fakta'
           readOnly: true
         simulertBeløp:
-          type: integer
-          format: uint32
+          anyOf:
+            - type: integer
+              format: uint32
+            - type: 'null'
           readOnly: true
         vilkårsvurdering:
           $ref: '#/components/schemas/Vilkaarsvurdering'

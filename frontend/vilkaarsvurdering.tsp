@@ -29,7 +29,7 @@ model Vilkaar {
 
     @visibility(Lifecycle.Read)
     momenterReduksjonGodTro: Array<Moment>;
-    
+
     @visibility(Lifecycle.Read)
     erUnder4xRettsgebyr: boolean;
 }
@@ -49,7 +49,7 @@ model Vilkaarsperiode {
     fakta: Fakta;
 
     @visibility(Lifecycle.Read)
-    simulertBeløp: uint32;
+    simulertBeløp: uint32 | null;
 
     vilkårsvurdering: Vilkaarsvurdering;
 }
