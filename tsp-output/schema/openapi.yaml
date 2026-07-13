@@ -870,12 +870,12 @@ components:
       type: object
       required:
         - begrunnelse
-        - erDetSærligeGrunner
+        - unnlatelse
       properties:
         begrunnelse:
           type: string
-        erDetSærligeGrunner:
-          $ref: '#/components/schemas/SaerligeGrunner'
+        unnlatelse:
+          $ref: '#/components/schemas/Unnlatelse'
       x-kotlin-implements:
         - ForstaaelseDto
     Deler:
@@ -1142,12 +1142,12 @@ components:
       type: object
       required:
         - begrunnelse
-        - erDetSærligeGrunner
+        - unnlatelse
       properties:
         begrunnelse:
           type: string
-        erDetSærligeGrunner:
-          $ref: '#/components/schemas/SaerligeGrunner'
+        unnlatelse:
+          $ref: '#/components/schemas/Unnlatelse'
       x-kotlin-implements:
         - ForstaaelseDto
     ForstoEllerBurdeForstaatt:
@@ -1248,6 +1248,15 @@ components:
           type: array
           items:
             type: string
+    IkkeAktuelt:
+      type: object
+      required:
+        - erDetSærligeGrunner
+      properties:
+        erDetSærligeGrunner:
+          $ref: '#/components/schemas/SaerligeGrunner'
+      x-kotlin-implements:
+        - UnnlatelseDto
     IkkeVurdert:
       type: object
       x-kotlin-implements:
@@ -1772,11 +1781,13 @@ components:
       oneOf:
         - $ref: '#/components/schemas/SkalUnnlates'
         - $ref: '#/components/schemas/SkalIkkeUnnlates'
+        - $ref: '#/components/schemas/IkkeAktuelt'
       discriminator:
         propertyName: unnlatelse
         mapping:
           skalUnnlates: '#/components/schemas/SkalUnnlates'
           skalIkkeUnnlates: '#/components/schemas/SkalIkkeUnnlates'
+          ikkeAktuelt: '#/components/schemas/IkkeAktuelt'
     Unntak:
       type: object
       required:
