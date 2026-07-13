@@ -866,6 +866,16 @@ components:
           type: string
         personIdent:
           type: string
+    BurdeForstaatt:
+      type: object
+      required:
+        - begrunnelse
+        - erDetSærligeGrunner
+      properties:
+        begrunnelse:
+          type: string
+        erDetSærligeGrunner:
+          $ref: '#/components/schemas/SaerligeGrunner'
     Deler:
       type: object
       required:
@@ -1042,11 +1052,8 @@ components:
     ForaarsaketAvMottaker:
       type: object
       required:
-        - begrunnelse
         - aktsomhet
       properties:
-        begrunnelse:
-          type: string
         aktsomhet:
           $ref: '#/components/schemas/Aktsomhet'
       x-kotlin-implements:
@@ -1119,8 +1126,33 @@ components:
           type: string
       x-kotlin-implements:
         - AktsomhetDto
+    Forstaaelse:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/Forsto'
+        - $ref: '#/components/schemas/BurdeForstaatt'
+      discriminator:
+        propertyName: forståelse
+        mapping:
+          forsto: '#/components/schemas/Forsto'
+          burdeForstaatt: '#/components/schemas/BurdeForstaatt'
+    Forsto:
+      type: object
+      required:
+        - begrunnelse
+        - erDetSærligeGrunner
+      properties:
+        begrunnelse:
+          type: string
+        erDetSærligeGrunner:
+          $ref: '#/components/schemas/SaerligeGrunner'
     ForstoEllerBurdeForstaatt:
       type: object
+      required:
+        - forståelse
+      properties:
+        forståelse:
+          $ref: '#/components/schemas/Forstaaelse'
       x-kotlin-implements:
         - VilkaarsvurderingValgDto
     Fritekst:

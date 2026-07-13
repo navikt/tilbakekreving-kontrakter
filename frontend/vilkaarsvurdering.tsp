@@ -139,7 +139,6 @@ model Deler {
     #["VilkaarsvurderingValgDto"]
 )
 model ForaarsaketAvMottaker {
-    begrunnelse: string;
     aktsomhet: Aktsomhet;
 }
 
@@ -215,12 +214,29 @@ model Forsettlig {
     begrunnelse: string;
 }
 
-/* TODO */
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
     #["VilkaarsvurderingValgDto"]
 )
-model ForstoEllerBurdeForstaatt {}
+model ForstoEllerBurdeForstaatt {
+    forståelse: Forstaaelse;
+}
+
+@discriminated(#{ discriminatorPropertyName: "forståelse", envelope: "none" })
+union Forstaaelse {
+    forsto: Forsto,
+    burdeForstaatt: BurdeForstaatt,
+}
+
+model Forsto {
+    begrunnelse: string;
+    erDetSærligeGrunner: SaerligeGrunner;
+}
+
+model BurdeForstaatt {
+    begrunnelse: string;
+    erDetSærligeGrunner: SaerligeGrunner;
+}
 
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
