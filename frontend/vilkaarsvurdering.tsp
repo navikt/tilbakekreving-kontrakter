@@ -225,14 +225,16 @@ model ForstoEllerBurdeForstaatt {
 @discriminated(#{ discriminatorPropertyName: "forståelse", envelope: "none" })
 union Forstaaelse {
     forsto: Forsto,
-    burdeForstaatt: BurdeForstaatt,
+    burdeForstått: BurdeForstaatt,
 }
 
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ForstaaelseDto"])
 model Forsto {
     begrunnelse: string;
     erDetSærligeGrunner: SaerligeGrunner;
 }
 
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ForstaaelseDto"])
 model BurdeForstaatt {
     begrunnelse: string;
     erDetSærligeGrunner: SaerligeGrunner;

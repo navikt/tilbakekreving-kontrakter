@@ -876,6 +876,8 @@ components:
           type: string
         erDetSærligeGrunner:
           $ref: '#/components/schemas/SaerligeGrunner'
+      x-kotlin-implements:
+        - ForstaaelseDto
     Deler:
       type: object
       required:
@@ -1135,7 +1137,7 @@ components:
         propertyName: forståelse
         mapping:
           forsto: '#/components/schemas/Forsto'
-          burdeForstaatt: '#/components/schemas/BurdeForstaatt'
+          burdeForstått: '#/components/schemas/BurdeForstaatt'
     Forsto:
       type: object
       required:
@@ -1146,6 +1148,8 @@ components:
           type: string
         erDetSærligeGrunner:
           $ref: '#/components/schemas/SaerligeGrunner'
+      x-kotlin-implements:
+        - ForstaaelseDto
     ForstoEllerBurdeForstaatt:
       type: object
       required:
