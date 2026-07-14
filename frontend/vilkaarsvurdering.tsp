@@ -159,6 +159,7 @@ model Uaktsomt {
 union Unnlatelse {
     skalUnnlates: SkalUnnlates,
     skalIkkeUnnlates: SkalIkkeUnnlates,
+    ikkeAktuelt: IkkeAktuelt,
 }
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UnnlatelseDto"])
@@ -169,6 +170,11 @@ model SkalUnnlates {
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UnnlatelseDto"])
 model SkalIkkeUnnlates {
     begrunnelse: string;
+    erDetSærligeGrunner: SaerligeGrunner;
+}
+
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UnnlatelseDto"])
+model IkkeAktuelt {
     erDetSærligeGrunner: SaerligeGrunner;
 }
 
@@ -231,13 +237,13 @@ union Forstaaelse {
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ForstaaelseDto"])
 model Forsto {
     begrunnelse: string;
-    erDetSærligeGrunner: SaerligeGrunner;
+    unnlatelse: Unnlatelse;
 }
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ForstaaelseDto"])
 model BurdeForstaatt {
     begrunnelse: string;
-    erDetSærligeGrunner: SaerligeGrunner;
+    unnlatelse: Unnlatelse;
 }
 
 @TypeSpec.OpenAPI.extension(
