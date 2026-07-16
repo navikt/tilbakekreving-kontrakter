@@ -68,6 +68,7 @@ model Vilkaarsvurdering {
     @visibility(Lifecycle.Read)
     delbarePerioder: Array<PeriodeInfo>;
 
+    begrunnelse: string;
     valg: VilkaarsvurderingValg;
 }
 

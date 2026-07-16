@@ -2030,6 +2030,7 @@ components:
         - id
         - periode
         - delbarePerioder
+        - begrunnelse
         - valg
       properties:
         id:
@@ -2044,6 +2045,8 @@ components:
           items:
             $ref: '#/components/schemas/PeriodeInfo'
           readOnly: true
+        begrunnelse:
+          type: string
         valg:
           $ref: '#/components/schemas/VilkaarsvurderingValg'
     VilkaarsvurderingIkkeVurdert:
