@@ -155,8 +155,14 @@ interface BehandlingApi {
   @get
   @route("/varselbrev/tekster")
   hentVarselbrevTekster(@path @format("uuid") behandlingId: string):
-      | SuccessResponse<VarselbrevTekst>
-      | ErrorResponse;
+    | SuccessResponse<VarselbrevTekst>
+    | ErrorResponse;
+
+  @put
+  @route("/kravgrunnlag/benytt-nyeste")
+  benyttNyesteKravgrunnlag(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<void>
+    | ErrorResponse;
 }
 
 @error

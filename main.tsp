@@ -13,7 +13,7 @@ namespace Tilbakekreving {
     @route("/api/v1/behandling/{behandlingId}")
     interface Behandling extends BehandlingApi {}
 
-@tag("brev")
+    @tag("brev")
     @route("/api/v1/brev")
     interface Brev extends VedtaksbrevApi, VarselbrevApi {}
 }
