@@ -58,13 +58,7 @@ model Fakta {
     rettsligGrunnlag: Array<string>;
 }
 
-model Vilkaarsvurdering {
-    @format("uuid")
-    id: string;
-
-    @visibility(Lifecycle.Read)
-    periode: Periode;
-
+model Vilkaarsvurdering is PeriodeVurdering {
     @visibility(Lifecycle.Read)
     delbarePerioder: Array<PeriodeInfo>;
 

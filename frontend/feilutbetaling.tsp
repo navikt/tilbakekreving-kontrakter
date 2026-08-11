@@ -41,9 +41,7 @@ model BestemmelseEllerGrunnlag {
     beskrivelse: string;
 }
 
-model FaktaPeriode {
-    id: string;
-    ...Periode;
+model FaktaPeriode is PeriodeVurdering {
     feilutbetaltBeløp: uint32;
     splittbarePerioder: Array<OmitProperties<
         FaktaPeriode,

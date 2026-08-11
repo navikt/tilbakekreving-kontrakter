@@ -755,6 +755,15 @@ components:
           uaktsomt: '#/components/schemas/Uaktsomt'
           grovtUaktsomt: '#/components/schemas/GrovtUaktsomt'
           forsettlig: '#/components/schemas/Forsettlig'
+    ArsakTilTilbakeforing:
+      type: string
+      enum:
+        - ØktBeløp
+        - LavereBeløp
+        - NyPeriode
+        - EndretPeriode
+        - EndretPeriodeOgØktBeløp
+        - EndretPeriodeOgLavereBeløp
     Avsnitt:
       type: object
       required:
@@ -849,9 +858,11 @@ components:
         fom:
           type: string
           format: date
+          readOnly: true
         tom:
           type: string
           format: date
+          readOnly: true
         feilutbetaltBeløp:
           type: integer
           format: uint32
@@ -1019,12 +1030,19 @@ components:
       properties:
         id:
           type: string
+          format: uuid
         fom:
           type: string
           format: date
+          readOnly: true
         tom:
           type: string
           format: date
+          readOnly: true
+        tilbakeført:
+          allOf:
+            - $ref: '#/components/schemas/ArsakTilTilbakeforing'
+          readOnly: true
         feilutbetaltBeløp:
           type: integer
           format: uint32
@@ -1041,12 +1059,19 @@ components:
             properties:
               id:
                 type: string
+                format: uuid
               fom:
                 type: string
                 format: date
+                readOnly: true
               tom:
                 type: string
                 format: date
+                readOnly: true
+              tilbakeført:
+                allOf:
+                  - $ref: '#/components/schemas/ArsakTilTilbakeforing'
+                readOnly: true
               feilutbetaltBeløp:
                 type: integer
                 format: uint32
@@ -1073,9 +1098,11 @@ components:
         fom:
           type: string
           format: date
+          readOnly: true
         tom:
           type: string
           format: date
+          readOnly: true
         revurdering:
           $ref: '#/components/schemas/Revurdering'
     ForaarsaketAvMottaker:
@@ -1548,9 +1575,11 @@ components:
         fom:
           type: string
           format: date
+          readOnly: true
         tom:
           type: string
           format: date
+          readOnly: true
     PeriodeInfo:
       type: object
       required:
@@ -2055,16 +2084,25 @@ components:
       type: object
       required:
         - id
-        - periode
+        - fom
+        - tom
         - delbarePerioder
         - valg
       properties:
         id:
           type: string
           format: uuid
-        periode:
+        fom:
+          type: string
+          format: date
+          readOnly: true
+        tom:
+          type: string
+          format: date
+          readOnly: true
+        tilbakeført:
           allOf:
-            - $ref: '#/components/schemas/Periode'
+            - $ref: '#/components/schemas/ArsakTilTilbakeforing'
           readOnly: true
         delbarePerioder:
           type: array
