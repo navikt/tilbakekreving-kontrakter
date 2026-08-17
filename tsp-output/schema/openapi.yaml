@@ -963,7 +963,7 @@ components:
         begrunnelse:
           type: string
         reduksjon:
-          $ref: '#/components/schemas/Reduksjon'
+          $ref: '#/components/schemas/ReduksjonArsaker'
       x-kotlin-implements:
         - BelopIBeholdDto
     DokumentInfo:
@@ -1307,7 +1307,7 @@ components:
         begrunnelse:
           type: string
         erDetSærligeGrunner:
-          $ref: '#/components/schemas/SaerligeGrunner'
+          $ref: '#/components/schemas/ReduksjonArsaker'
       x-kotlin-implements:
         - AktsomhetDto
     Hele:
@@ -1319,7 +1319,7 @@ components:
         begrunnelse:
           type: string
         reduksjon:
-          $ref: '#/components/schemas/Reduksjon'
+          $ref: '#/components/schemas/ReduksjonArsaker'
       x-kotlin-implements:
         - BelopIBeholdDto
     Hovedavsnitt:
@@ -1377,7 +1377,7 @@ components:
         - erDetSærligeGrunner
       properties:
         erDetSærligeGrunner:
-          $ref: '#/components/schemas/SaerligeGrunner'
+          $ref: '#/components/schemas/ReduksjonArsaker'
       x-kotlin-implements:
         - UnnlatelseDto
     IkkeVurdert:
@@ -1415,7 +1415,7 @@ components:
             - type: string
             - type: 'null'
       x-kotlin-implements:
-        - SaerligeGrunnerDto
+        - ReduksjonArsakerDto
     KravgrunnlagForskjell:
       type: object
       oneOf:
@@ -1504,7 +1504,7 @@ components:
             - type: string
             - type: 'null'
       x-kotlin-implements:
-        - SaerligeGrunnerDto
+        - ReduksjonArsakerDto
     NyPeriode:
       type: object
       required:
@@ -1690,16 +1690,20 @@ components:
           format: uuid
         periode:
           $ref: '#/components/schemas/Periode'
-    Reduksjon:
+    ReduksjonArsaker:
       type: object
       oneOf:
-        - $ref: '#/components/schemas/SkalReduseres'
+        - $ref: '#/components/schemas/NeiSaerligeGrunner'
+        - $ref: '#/components/schemas/JaSaerligeGrunner'
         - $ref: '#/components/schemas/SkalIkkeReduseres'
+        - $ref: '#/components/schemas/SkalReduseres'
       discriminator:
-        propertyName: reduksjon
+        propertyName: erDetReduksjonÅrsaker
         mapping:
-          skalReduseres: '#/components/schemas/SkalReduseres'
-          skalIkkeReduseres: '#/components/schemas/SkalIkkeReduseres'
+          nei: '#/components/schemas/NeiSaerligeGrunner'
+          ja: '#/components/schemas/JaSaerligeGrunner'
+          neiGodTro: '#/components/schemas/SkalIkkeReduseres'
+          jaGodTro: '#/components/schemas/SkalReduseres'
     RentekstElement:
       type: object
       required:
@@ -1765,16 +1769,6 @@ components:
           rentekst: '#/components/schemas/RentekstElement'
           underavsnitt: '#/components/schemas/UnderavsnittElement'
           påkrevd_begrunnelse: '#/components/schemas/PakrevdBegrunnelseUpdateItem'
-    SaerligeGrunner:
-      type: object
-      oneOf:
-        - $ref: '#/components/schemas/NeiSaerligeGrunner'
-        - $ref: '#/components/schemas/JaSaerligeGrunner'
-      discriminator:
-        propertyName: erDetSaerligeGrunner
-        mapping:
-          nei: '#/components/schemas/NeiSaerligeGrunner'
-          ja: '#/components/schemas/JaSaerligeGrunner'
     Sammenslaaing:
       type: object
       required:
@@ -1839,7 +1833,7 @@ components:
         begrunnelse:
           type: string
       x-kotlin-implements:
-        - ReduksjonDto
+        - ReduksjonArsakerDto
     SkalIkkeUnnlates:
       type: object
       required:
@@ -1849,18 +1843,18 @@ components:
         begrunnelse:
           type: string
         erDetSærligeGrunner:
-          $ref: '#/components/schemas/SaerligeGrunner'
+          $ref: '#/components/schemas/ReduksjonArsaker'
       x-kotlin-implements:
         - UnnlatelseDto
     SkalReduseres:
       type: object
       required:
-        - beløp
+        - prosentReduksjon
         - relevans
         - annetBegrunnelse
         - begrunnelse
       properties:
-        beløp:
+        prosentReduksjon:
           type: integer
           format: uint32
         relevans:
@@ -1874,7 +1868,7 @@ components:
         begrunnelse:
           type: string
       x-kotlin-implements:
-        - ReduksjonDto
+        - ReduksjonArsakerDto
     SkalUnnlates:
       type: object
       required:
