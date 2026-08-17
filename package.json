@@ -9,7 +9,7 @@
   "dependencies": {
     "@typespec/compiler": "latest",
     "@typespec/http": "latest",
-    "@typespec/json-schema": "^1.13.0",
+    "@typespec/json-schema": "latest",
     "@typespec/openapi": "latest",
     "@typespec/openapi3": "latest",
     "@typespec/rest": "latest"

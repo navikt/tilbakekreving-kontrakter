@@ -1040,8 +1040,7 @@ components:
           format: date
           readOnly: true
         tilbakeført:
-          allOf:
-            - $ref: '#/components/schemas/ArsakTilTilbakeforing'
+          $ref: '#/components/schemas/ArsakTilTilbakeforing'
           readOnly: true
         feilutbetaltBeløp:
           type: integer
@@ -1069,8 +1068,7 @@ components:
                 format: date
                 readOnly: true
               tilbakeført:
-                allOf:
-                  - $ref: '#/components/schemas/ArsakTilTilbakeforing'
+                $ref: '#/components/schemas/ArsakTilTilbakeforing'
                 readOnly: true
               feilutbetaltBeløp:
                 type: integer
@@ -2060,23 +2058,18 @@ components:
           format: uint32
           readOnly: true
         delresultat:
-          anyOf:
-            - type: string
-              enum:
-                - FULL_TILBAKEKREVING
-                - INGEN_TILBAKEKREVING
-                - DELVIS_TILBAKEKREVING
-            - type: 'null'
+          type: string
+          enum:
+            - FULL_TILBAKEKREVING
+            - INGEN_TILBAKEKREVING
+            - DELVIS_TILBAKEKREVING
           readOnly: true
         fakta:
-          allOf:
-            - $ref: '#/components/schemas/Fakta'
+          $ref: '#/components/schemas/Fakta'
           readOnly: true
         simulertBeløp:
-          anyOf:
-            - type: integer
-              format: uint32
-            - type: 'null'
+          type: integer
+          format: uint32
           readOnly: true
         vilkårsvurdering:
           $ref: '#/components/schemas/Vilkaarsvurdering'
@@ -2101,8 +2094,7 @@ components:
           format: date
           readOnly: true
         tilbakeført:
-          allOf:
-            - $ref: '#/components/schemas/ArsakTilTilbakeforing'
+          $ref: '#/components/schemas/ArsakTilTilbakeforing'
           readOnly: true
         delbarePerioder:
           type: array

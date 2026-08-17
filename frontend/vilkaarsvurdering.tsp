@@ -42,14 +42,13 @@ model Vilkaarsperiode {
     delresultat:
         | "FULL_TILBAKEKREVING"
         | "INGEN_TILBAKEKREVING"
-        | "DELVIS_TILBAKEKREVING"
-        | null;
+        | "DELVIS_TILBAKEKREVING";
 
     @visibility(Lifecycle.Read)
     fakta: Fakta;
 
     @visibility(Lifecycle.Read)
-    simulertBeløp: uint32 | null;
+    simulertBeløp: uint32;
 
     vilkårsvurdering: Vilkaarsvurdering;
 }
