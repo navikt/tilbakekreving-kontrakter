@@ -163,6 +163,40 @@ interface BehandlingApi {
   benyttNyesteKravgrunnlag(@path @format("uuid") behandlingId: string):
     | SuccessResponse<void>
     | ErrorResponse;
+
+  @get
+  @route("/")
+  hentBehandling(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Behandling>
+    | ErrorResponse;
+}
+
+model Behandling {
+  kravgrunnlagEndret?: Array<KravgrunnlagForskjell>;
+}
+
+@discriminated(#{ discriminatorPropertyName: "type", envelope: "none" })
+union KravgrunnlagForskjell {
+  ny_periode: NyPeriode,
+  endret_periode: EndretPeriode,
+}
+
+@TypeSpec.OpenAPI.extension(
+  "x-kotlin-implements",
+  #["KravgrunnlagForskjellDto"]
+)
+model NyPeriode {
+  ...Periode;
+  beløp: uint32;
+}
+
+@TypeSpec.OpenAPI.extension(
+  "x-kotlin-implements",
+  #["KravgrunnlagForskjellDto"]
+)
+model EndretPeriode {
+  ...Periode;
+  endringIBeløp: int32;
 }
 
 @error

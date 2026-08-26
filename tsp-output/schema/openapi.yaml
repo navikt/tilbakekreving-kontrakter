@@ -6,6 +6,37 @@ tags:
   - name: behandling
   - name: brev
 paths:
+  /api/v1/behandling/{behandlingId}/:
+    get:
+      operationId: Behandling_hentBehandling
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Behandling'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
   /api/v1/behandling/{behandlingId}/behandlingslogg:
     get:
       operationId: Behandling_behandlingslogg
@@ -810,6 +841,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RotElementUpdateItem'
+    Behandling:
+      type: object
+      properties:
+        kravgrunnlagEndret:
+          type: array
+          items:
+            $ref: '#/components/schemas/KravgrunnlagForskjell'
     BelopIBehold:
       type: object
       oneOf:
@@ -959,6 +997,26 @@ components:
         propertyName: type
         mapping:
           rentekst: '#/components/schemas/RentekstElement'
+    EndretPeriode:
+      type: object
+      required:
+        - fom
+        - tom
+        - endringIBeløp
+      properties:
+        fom:
+          type: string
+          format: date
+          readOnly: true
+        tom:
+          type: string
+          format: date
+          readOnly: true
+        endringIBeløp:
+          type: integer
+          format: int32
+      x-kotlin-implements:
+        - KravgrunnlagForskjellDto
     Error:
       type: object
       required:
@@ -1345,6 +1403,16 @@ components:
             - type: 'null'
       x-kotlin-implements:
         - SaerligeGrunnerDto
+    KravgrunnlagForskjell:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/NyPeriode'
+        - $ref: '#/components/schemas/EndretPeriode'
+      discriminator:
+        propertyName: type
+        mapping:
+          ny_periode: '#/components/schemas/NyPeriode'
+          endret_periode: '#/components/schemas/EndretPeriode'
     Logginnslag:
       type: object
       required:
@@ -1424,6 +1492,26 @@ components:
             - type: 'null'
       x-kotlin-implements:
         - SaerligeGrunnerDto
+    NyPeriode:
+      type: object
+      required:
+        - fom
+        - tom
+        - beløp
+      properties:
+        fom:
+          type: string
+          format: date
+          readOnly: true
+        tom:
+          type: string
+          format: date
+          readOnly: true
+        beløp:
+          type: integer
+          format: uint32
+      x-kotlin-implements:
+        - KravgrunnlagForskjellDto
     Oppdaget:
       type: object
       required:
