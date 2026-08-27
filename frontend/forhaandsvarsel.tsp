@@ -1,4 +1,5 @@
 import "@typespec/openapi";
+import "./common.tsp";
 
 model ForhaandsvarselResponse {
     forhaandsvarselSteg: ForhaandsvarselSteg;
@@ -22,7 +23,7 @@ model IkkeVurdert{}
     "x-kotlin-implements",
     #["ForhaandsvarselStegDto"]
 )
-model ForhaandsvarselErSendt {
+model ForhaandsvarselErSendt is SaksbehandlingSteg {
     forhåndsvarselInfo: ForhaandsvarselInfo;
     uttalelsesfrist: Uttalelsesfrist;
 }
@@ -31,7 +32,7 @@ model ForhaandsvarselErSendt {
     "x-kotlin-implements",
     #["ForhaandsvarselStegDto"]
 )
-model ForhaandsvarselUnntak {
+model ForhaandsvarselUnntak is SaksbehandlingSteg {
     begrunnelseForUnntak: Varslingsunntak;
     beskrivelse: string;
 }

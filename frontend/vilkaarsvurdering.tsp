@@ -18,11 +18,8 @@ model Sammenslaaing {
     slåesSammenMedId: string;
 }
 
-model Vilkaar {
+model Vilkaar is SaksbehandlingSteg {
     vilkårsperioder: Array<Vilkaarsperiode>;
-
-    @visibility(Lifecycle.Read)
-    ferdigvurdert: boolean;
 
     @visibility(Lifecycle.Read)
     momenterSærligeGrunner: Array<Moment>;

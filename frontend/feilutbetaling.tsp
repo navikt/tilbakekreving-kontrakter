@@ -4,16 +4,13 @@ import "./common.tsp";
 @maxLength(3000)
 scalar Fritekst extends string;
 
-model FaktaOmFeilutbetaling {
+model FaktaOmFeilutbetaling is SaksbehandlingSteg {
     feilutbetaling: Feilutbetaling;
     tidligereVarsletBeløp: uint32 | null;
     muligeRettsligGrunnlag: Array<MuligeRettsligGrunnlag>;
     perioder: Array<FaktaPeriode>;
     vurdering: Vurdering;
     rettsgebyrÅrFraSaksbehandler: uint32 | null;
-
-    @visibility(Lifecycle.Read)
-    ferdigvurdert: boolean;
 
     @visibility(Lifecycle.Read)
     usikker4xRettsgebyr: boolean;

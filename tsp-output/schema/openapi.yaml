@@ -789,12 +789,8 @@ components:
     ArsakTilTilbakeforing:
       type: string
       enum:
-        - ØktBeløp
-        - LavereBeløp
-        - NyPeriode
-        - EndretPeriode
-        - EndretPeriodeOgØktBeløp
-        - EndretPeriodeOgLavereBeløp
+        - NyttKravgrunnlag
+        - TilbakemeldingFraSaksbehandler
     Avsnitt:
       type: object
       required:
@@ -1039,15 +1035,21 @@ components:
     FaktaOmFeilutbetaling:
       type: object
       required:
+        - ferdigvurdert
         - feilutbetaling
         - tidligereVarsletBeløp
         - muligeRettsligGrunnlag
         - perioder
         - vurdering
         - rettsgebyrÅrFraSaksbehandler
-        - ferdigvurdert
         - usikker4xRettsgebyr
       properties:
+        tilbakeført:
+          $ref: '#/components/schemas/ArsakTilTilbakeforing'
+          readOnly: true
+        ferdigvurdert:
+          type: boolean
+          readOnly: true
         feilutbetaling:
           $ref: '#/components/schemas/Feilutbetaling'
         tidligereVarsletBeløp:
@@ -1070,9 +1072,6 @@ components:
             - type: integer
               format: uint32
             - type: 'null'
-        ferdigvurdert:
-          type: boolean
-          readOnly: true
         usikker4xRettsgebyr:
           type: boolean
           readOnly: true
@@ -1097,8 +1096,8 @@ components:
           type: string
           format: date
           readOnly: true
-        tilbakeført:
-          $ref: '#/components/schemas/ArsakTilTilbakeforing'
+        endringIKravgrunnlag:
+          $ref: '#/components/schemas/KravgrunnlagForskjell'
           readOnly: true
         feilutbetaltBeløp:
           type: integer
@@ -1125,8 +1124,8 @@ components:
                 type: string
                 format: date
                 readOnly: true
-              tilbakeført:
-                $ref: '#/components/schemas/ArsakTilTilbakeforing'
+              endringIKravgrunnlag:
+                $ref: '#/components/schemas/KravgrunnlagForskjell'
                 readOnly: true
               feilutbetaltBeløp:
                 type: integer
@@ -1173,9 +1172,16 @@ components:
     ForhaandsvarselErSendt:
       type: object
       required:
+        - ferdigvurdert
         - forhåndsvarselInfo
         - uttalelsesfrist
       properties:
+        tilbakeført:
+          $ref: '#/components/schemas/ArsakTilTilbakeforing'
+          readOnly: true
+        ferdigvurdert:
+          type: boolean
+          readOnly: true
         forhåndsvarselInfo:
           $ref: '#/components/schemas/ForhaandsvarselInfo'
         uttalelsesfrist:
@@ -1220,9 +1226,16 @@ components:
     ForhaandsvarselUnntak:
       type: object
       required:
+        - ferdigvurdert
         - begrunnelseForUnntak
         - beskrivelse
       properties:
+        tilbakeført:
+          $ref: '#/components/schemas/ArsakTilTilbakeforing'
+          readOnly: true
+        ferdigvurdert:
+          type: boolean
+          readOnly: true
         begrunnelseForUnntak:
           $ref: '#/components/schemas/Varslingsunntak'
         beskrivelse:
@@ -2106,19 +2119,22 @@ components:
     Vilkaar:
       type: object
       required:
-        - vilkårsperioder
         - ferdigvurdert
+        - vilkårsperioder
         - momenterSærligeGrunner
         - momenterReduksjonGodTro
         - erUnder4xRettsgebyr
       properties:
+        tilbakeført:
+          $ref: '#/components/schemas/ArsakTilTilbakeforing'
+          readOnly: true
+        ferdigvurdert:
+          type: boolean
+          readOnly: true
         vilkårsperioder:
           type: array
           items:
             $ref: '#/components/schemas/Vilkaarsperiode'
-        ferdigvurdert:
-          type: boolean
-          readOnly: true
         momenterSærligeGrunner:
           type: array
           items:
@@ -2181,8 +2197,8 @@ components:
           type: string
           format: date
           readOnly: true
-        tilbakeført:
-          $ref: '#/components/schemas/ArsakTilTilbakeforing'
+        endringIKravgrunnlag:
+          $ref: '#/components/schemas/KravgrunnlagForskjell'
           readOnly: true
         delbarePerioder:
           type: array
