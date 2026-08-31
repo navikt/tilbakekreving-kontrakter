@@ -859,9 +859,16 @@ components:
     Beregningsresultat:
       type: object
       required:
+        - ferdigvurdert
         - beregningsresultatsperioder
         - vedtaksresultat
       properties:
+        tilbakeført:
+          $ref: '#/components/schemas/ArsakTilTilbakeforing'
+          readOnly: true
+        ferdigvurdert:
+          type: boolean
+          readOnly: true
         beregningsresultatsperioder:
           type: array
           items:
