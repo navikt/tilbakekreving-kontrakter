@@ -93,25 +93,19 @@ model Ingenting {
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["BelopIBeholdDto"])
 model Hele {
     begrunnelse: string;
-    reduksjon: Reduksjon;
+    reduksjon: ReduksjonArsaker;
 }
 
-@discriminated(#{ discriminatorPropertyName: "reduksjon", envelope: "none" })
-union Reduksjon {
-    skalReduseres: SkalReduseres,
-    skalIkkeReduseres: SkalIkkeReduseres,
-}
-
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ReduksjonDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ReduksjonArsakerDto"])
 model SkalIkkeReduseres {
     relevans: Array<Moment>;
     annetBegrunnelse: string | null;
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ReduksjonDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ReduksjonArsakerDto"])
 model SkalReduseres {
-    beløp: uint32;
+    prosentReduksjon: uint32;
     relevans: Array<Moment>;
     annetBegrunnelse: string | null;
     begrunnelse: string;
@@ -121,7 +115,7 @@ model SkalReduseres {
 model Deler {
     beløp: uint32;
     begrunnelse: string;
-    reduksjon: Reduksjon;
+    reduksjon: ReduksjonArsaker;
 }
 
 @TypeSpec.OpenAPI.extension(
@@ -160,31 +154,33 @@ model SkalUnnlates {
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UnnlatelseDto"])
 model SkalIkkeUnnlates {
     begrunnelse: string;
-    erDetSærligeGrunner: SaerligeGrunner;
+    erDetSærligeGrunner: ReduksjonArsaker;
 }
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UnnlatelseDto"])
 model IkkeAktuelt {
-    erDetSærligeGrunner: SaerligeGrunner;
+    erDetSærligeGrunner: ReduksjonArsaker;
 }
 
 @discriminated(#{
-    discriminatorPropertyName: "erDetSaerligeGrunner",
+    discriminatorPropertyName: "erDetReduksjonÅrsaker",
     envelope: "none",
 })
-union SaerligeGrunner {
+union ReduksjonArsaker {
     nei: NeiSaerligeGrunner,
     ja: JaSaerligeGrunner,
+    neiGodTro: SkalIkkeReduseres,
+    jaGodTro: SkalReduseres,
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["SaerligeGrunnerDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ReduksjonArsakerDto"])
 model NeiSaerligeGrunner {
     særligeGrunnerMot: Array<Moment>;
     begrunnelse: string;
     annetBegrunnelse: string | null;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["SaerligeGrunnerDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ReduksjonArsakerDto"])
 model JaSaerligeGrunner {
     særligeGrunnerFor: Array<Moment>;
     prosentReduksjon: uint8;
@@ -202,7 +198,7 @@ model Moment {
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["AktsomhetDto"])
 model GrovtUaktsomt {
     begrunnelse: string;
-    erDetSærligeGrunner: SaerligeGrunner;
+    erDetSærligeGrunner: ReduksjonArsaker;
 }
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["AktsomhetDto"])
