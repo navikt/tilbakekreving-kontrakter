@@ -999,7 +999,9 @@ components:
       required:
         - fom
         - tom
-        - endringIBeløp
+        - gammelPeriode
+        - nyttBeløp
+        - gammeltBeløp
       properties:
         fom:
           type: string
@@ -1009,9 +1011,14 @@ components:
           type: string
           format: date
           readOnly: true
-        endringIBeløp:
+        gammelPeriode:
+          $ref: '#/components/schemas/Periode'
+        nyttBeløp:
           type: integer
-          format: int32
+          format: uint32
+        gammeltBeløp:
+          type: integer
+          format: uint32
       x-kotlin-implements:
         - KravgrunnlagForskjellDto
     Error:

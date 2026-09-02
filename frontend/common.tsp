@@ -44,7 +44,9 @@ model NyPeriode {
 )
 model EndretPeriode {
     ...Periode;
-    endringIBeløp: int32;
+    gammelPeriode: Periode;
+    nyttBeløp: uint32;
+    gammeltBeløp: uint32;
 }
 
 enum ArsakTilTilbakeforing {
