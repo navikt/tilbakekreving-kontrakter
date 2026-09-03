@@ -26,7 +26,7 @@ model Beregningsresultatsperiode {
     tilbakekrevesBeløpEtterSkatt: uint32;
 }
 
-model Beregningsresultat {
+model Beregningsresultat is SaksbehandlingSteg {
     beregningsresultatsperioder: Array<Beregningsresultatsperiode>;
     vedtaksresultat: Vedtaksresultat;
 }
