@@ -877,6 +877,7 @@ components:
         - GrovUaktsomhet
         - BurdeForstått
         - Forstod
+        - Foreldet
     Beregningsresultatsperiode:
       type: object
       required:
