@@ -1168,6 +1168,26 @@ components:
           readOnly: true
         revurdering:
           $ref: '#/components/schemas/Revurdering'
+    FjernetPeriode:
+      type: object
+      required:
+        - fom
+        - tom
+        - beløp
+      properties:
+        fom:
+          type: string
+          format: date
+          readOnly: true
+        tom:
+          type: string
+          format: date
+          readOnly: true
+        beløp:
+          type: integer
+          format: uint32
+      x-kotlin-implements:
+        - KravgrunnlagForskjellDto
     ForaarsaketAvMottaker:
       type: object
       required:
@@ -1429,11 +1449,13 @@ components:
       oneOf:
         - $ref: '#/components/schemas/NyPeriode'
         - $ref: '#/components/schemas/EndretPeriode'
+        - $ref: '#/components/schemas/FjernetPeriode'
       discriminator:
         propertyName: type
         mapping:
           ny_periode: '#/components/schemas/NyPeriode'
           endret_periode: '#/components/schemas/EndretPeriode'
+          fjernet_periode: '#/components/schemas/FjernetPeriode'
     Logginnslag:
       type: object
       required:

@@ -1,6 +1,7 @@
 model SaksbehandlingSteg {
     @visibility(Lifecycle.Read)
     tilbakeført?: ArsakTilTilbakeforing;
+
     @visibility(Lifecycle.Read)
     ferdigvurdert: boolean;
 }
@@ -27,6 +28,7 @@ model PeriodeVurdering {
 union KravgrunnlagForskjell {
     ny_periode: NyPeriode,
     endret_periode: EndretPeriode,
+    fjernet_periode: FjernetPeriode,
 }
 
 @TypeSpec.OpenAPI.extension(
@@ -47,6 +49,15 @@ model EndretPeriode {
     gammelPeriode: Periode;
     nyttBeløp: uint32;
     gammeltBeløp: uint32;
+}
+
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["KravgrunnlagForskjellDto"]
+)
+model FjernetPeriode {
+    ...Periode;
+    beløp: uint32;
 }
 
 enum ArsakTilTilbakeforing {
