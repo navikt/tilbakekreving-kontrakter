@@ -123,8 +123,8 @@ model OppsummertPeriode {
     fom: string;
     tom: string;
     feilutbetaltBeløp: string;
-    reduksjonBeløp: string;
-    renteBeløp: string;
+    redusertBeløp: string;
+    rentebeløp: string;
     skatt: string | null;
     tilbakekrevingsbeløp: string;
     tilbakekrevesBeløpEtterSkatt: string;

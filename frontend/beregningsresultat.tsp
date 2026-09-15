@@ -24,9 +24,9 @@ model Beregningsresultatsperiode {
     renteprosent: uint32 | null;
     tilbakekrevingsbeløp: uint32;
     tilbakekrevesBeløpEtterSkatt: uint32;
-    renteBeløp: uint32;
-    skatteBeløp: uint32;
-    reduksjon: uint32;
+    rentebeløp: uint32;
+    skattebeløp: uint32;
+    redusertBeløp: uint32;
 }
 
 model Beregningsresultat {
