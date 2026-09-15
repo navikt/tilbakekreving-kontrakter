@@ -889,6 +889,9 @@ components:
         - renteprosent
         - tilbakekrevingsbeløp
         - tilbakekrevesBeløpEtterSkatt
+        - rentebeløp
+        - skattebeløp
+        - redusertBeløp
       properties:
         fom:
           type: string
@@ -917,6 +920,15 @@ components:
           type: integer
           format: uint32
         tilbakekrevesBeløpEtterSkatt:
+          type: integer
+          format: uint32
+        rentebeløp:
+          type: integer
+          format: uint32
+        skattebeløp:
+          type: integer
+          format: uint32
+        redusertBeløp:
           type: integer
           format: uint32
     BestemmelseEllerGrunnlag:
@@ -1630,9 +1642,9 @@ components:
         - fom
         - tom
         - feilutbetaltBeløp
-        - vurdering
-        - andelAvBeløp
-        - renteprosent
+        - redusertBeløp
+        - rentebeløp
+        - skatt
         - tilbakekrevingsbeløp
         - tilbakekrevesBeløpEtterSkatt
       properties:
@@ -1642,12 +1654,14 @@ components:
           type: string
         feilutbetaltBeløp:
           type: string
-        vurdering:
+        redusertBeløp:
           type: string
-        andelAvBeløp:
+        rentebeløp:
           type: string
-        renteprosent:
-          type: string
+        skatt:
+          anyOf:
+            - type: string
+            - type: 'null'
         tilbakekrevingsbeløp:
           type: string
         tilbakekrevesBeløpEtterSkatt:

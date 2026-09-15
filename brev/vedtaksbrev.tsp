@@ -123,9 +123,9 @@ model OppsummertPeriode {
     fom: string;
     tom: string;
     feilutbetaltBeløp: string;
-    vurdering: string;
-    andelAvBeløp: string;
-    renteprosent: string;
+    redusertBeløp: string;
+    rentebeløp: string;
+    skatt: string | null;
     tilbakekrevingsbeløp: string;
     tilbakekrevesBeløpEtterSkatt: string;
 }
