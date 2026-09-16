@@ -2245,6 +2245,8 @@ components:
           readOnly: true
         valg:
           $ref: '#/components/schemas/VilkaarsvurderingValg'
+        tilbakeført:
+          $ref: '#/components/schemas/ArsakTilTilbakeforing'
     VilkaarsvurderingIkkeVurdert:
       type: object
       x-kotlin-implements:

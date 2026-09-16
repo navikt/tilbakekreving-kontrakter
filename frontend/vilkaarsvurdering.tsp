@@ -59,6 +59,7 @@ model Vilkaarsvurdering is PeriodeVurdering {
     delbarePerioder: Array<PeriodeInfo>;
 
     valg: VilkaarsvurderingValg;
+    tilbakeført?: ArsakTilTilbakeforing;
 }
 
 @discriminated(#{ discriminatorPropertyName: "vurdering", envelope: "none" })
