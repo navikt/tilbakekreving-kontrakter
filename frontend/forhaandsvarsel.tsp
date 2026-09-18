@@ -1,38 +1,29 @@
 import "@typespec/openapi";
 import "./common.tsp";
 
-model ForhaandsvarselResponse {
+model ForhaandsvarselResponse is SaksbehandlingSteg {
     forhaandsvarselSteg: ForhaandsvarselSteg;
     brukeruttalelse: Uttalelse | null;
 }
 
 @discriminated(#{ discriminatorPropertyName: "type", envelope: "none" })
 union ForhaandsvarselSteg {
-  ikke_vurdert: IkkeVurdert,
-  sendt: ForhaandsvarselErSendt,
-  unntak: ForhaandsvarselUnntak,
+    ikke_vurdert: IkkeVurdert,
+    sendt: ForhaandsvarselErSendt,
+    unntak: ForhaandsvarselUnntak,
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["ForhaandsvarselStegDto"]
-)
-model IkkeVurdert{}
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ForhaandsvarselStegDto"])
+model IkkeVurdert {}
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["ForhaandsvarselStegDto"]
-)
-model ForhaandsvarselErSendt is SaksbehandlingSteg {
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ForhaandsvarselStegDto"])
+model ForhaandsvarselErSendt {
     forhåndsvarselInfo: ForhaandsvarselInfo;
     uttalelsesfrist: Uttalelsesfrist;
 }
 
-@TypeSpec.OpenAPI.extension(
-    "x-kotlin-implements",
-    #["ForhaandsvarselStegDto"]
-)
-model ForhaandsvarselUnntak is SaksbehandlingSteg {
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["ForhaandsvarselStegDto"])
+model ForhaandsvarselUnntak {
     begrunnelseForUnntak: Varslingsunntak;
     beskrivelse: string;
 }
@@ -78,5 +69,5 @@ enum Varslingsunntak {
     IKKE_PRAKTISK_MULIG,
     UKJENT_ADRESSE_ELLER_URIMELIG_ETTERSPORING,
     ÅPENBART_UNØDVENDIG,
-    ALLEREDE_UTTALET_SEG
+    ALLEREDE_UTTALET_SEG,
 }

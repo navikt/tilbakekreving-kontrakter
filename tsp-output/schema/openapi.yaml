@@ -1212,16 +1212,9 @@ components:
     ForhaandsvarselErSendt:
       type: object
       required:
-        - ferdigvurdert
         - forhåndsvarselInfo
         - uttalelsesfrist
       properties:
-        tilbakeført:
-          $ref: '#/components/schemas/ArsakTilTilbakeforing'
-          readOnly: true
-        ferdigvurdert:
-          type: boolean
-          readOnly: true
         forhåndsvarselInfo:
           $ref: '#/components/schemas/ForhaandsvarselInfo'
         uttalelsesfrist:
@@ -1242,9 +1235,16 @@ components:
     ForhaandsvarselResponse:
       type: object
       required:
+        - ferdigvurdert
         - forhaandsvarselSteg
         - brukeruttalelse
       properties:
+        tilbakeført:
+          $ref: '#/components/schemas/ArsakTilTilbakeforing'
+          readOnly: true
+        ferdigvurdert:
+          type: boolean
+          readOnly: true
         forhaandsvarselSteg:
           $ref: '#/components/schemas/ForhaandsvarselSteg'
         brukeruttalelse:
@@ -1266,16 +1266,9 @@ components:
     ForhaandsvarselUnntak:
       type: object
       required:
-        - ferdigvurdert
         - begrunnelseForUnntak
         - beskrivelse
       properties:
-        tilbakeført:
-          $ref: '#/components/schemas/ArsakTilTilbakeforing'
-          readOnly: true
-        ferdigvurdert:
-          type: boolean
-          readOnly: true
         begrunnelseForUnntak:
           $ref: '#/components/schemas/Varslingsunntak'
         beskrivelse:
