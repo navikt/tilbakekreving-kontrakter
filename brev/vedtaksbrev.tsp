@@ -87,8 +87,6 @@ model RentekstElement {
     tekst: string;
 }
 
-
-
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
     #["RotElementDto", "RotElementUpdateItemDto"]
