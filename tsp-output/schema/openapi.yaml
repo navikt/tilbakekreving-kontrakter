@@ -1056,7 +1056,7 @@ components:
         - perioder
         - vurdering
         - rettsgebyrÅrFraSaksbehandler
-        - usikker4xRettsgebyr
+        - status4xRettsgebyret
       properties:
         tilbakeført:
           $ref: '#/components/schemas/ArsakTilTilbakeforing'
@@ -1086,8 +1086,12 @@ components:
             - type: integer
               format: uint32
             - type: 'null'
-        usikker4xRettsgebyr:
-          type: boolean
+        status4xRettsgebyret:
+          type: string
+          enum:
+            - USIKKER
+            - OVER
+            - UNDER
           readOnly: true
     FaktaPeriode:
       type: object

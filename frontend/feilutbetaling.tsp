@@ -13,7 +13,7 @@ model FaktaOmFeilutbetaling is SaksbehandlingSteg {
     rettsgebyrÅrFraSaksbehandler: uint32 | null;
 
     @visibility(Lifecycle.Read)
-    usikker4xRettsgebyr: boolean;
+    status4xRettsgebyret: "USIKKER" | "OVER" | "UNDER";
 }
 
 model Feilutbetaling {
