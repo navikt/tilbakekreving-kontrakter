@@ -884,14 +884,12 @@ components:
         - fom
         - tom
         - feilutbetaltBeløp
+        - beløpIbehold
         - vurdering
-        - andelAvBeløp
+        - reduksjonprosent
         - renteprosent
-        - tilbakekrevingsbeløp
-        - tilbakekrevesBeløpEtterSkatt
-        - rentebeløp
         - skattebeløp
-        - redusertBeløp
+        - tilbakekrevingsbeløp
       properties:
         fom:
           type: string
@@ -904,9 +902,14 @@ components:
         feilutbetaltBeløp:
           type: integer
           format: uint32
+        beløpIbehold:
+          anyOf:
+            - type: integer
+              format: uint32
+            - type: 'null'
         vurdering:
           $ref: '#/components/schemas/BeregningsresultatVurdering'
-        andelAvBeløp:
+        reduksjonprosent:
           anyOf:
             - type: integer
               format: uint32
@@ -916,19 +919,10 @@ components:
             - type: integer
               format: uint32
             - type: 'null'
-        tilbakekrevingsbeløp:
-          type: integer
-          format: uint32
-        tilbakekrevesBeløpEtterSkatt:
-          type: integer
-          format: uint32
-        rentebeløp:
-          type: integer
-          format: uint32
         skattebeløp:
           type: integer
           format: uint32
-        redusertBeløp:
+        tilbakekrevingsbeløp:
           type: integer
           format: uint32
     BestemmelseEllerGrunnlag:
