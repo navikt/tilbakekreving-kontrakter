@@ -976,17 +976,17 @@ components:
     DokumentInfo:
       type: object
       required:
+        - brevSendt
         - journalpostId
         - dokumentId
       properties:
+        brevSendt:
+          type: string
+          format: date
         journalpostId:
-          anyOf:
-            - type: string
-            - type: 'null'
+          type: string
         dokumentId:
-          anyOf:
-            - type: string
-            - type: 'null'
+          type: string
     DokumentType:
       type: string
       enum:
@@ -1236,6 +1236,7 @@ components:
         - ferdigvurdert
         - forhaandsvarselSteg
         - brukeruttalelse
+        - sendtVarselbrev
       properties:
         tilbakeført:
           $ref: '#/components/schemas/ArsakTilTilbakeforing'
@@ -1248,6 +1249,10 @@ components:
         brukeruttalelse:
           anyOf:
             - $ref: '#/components/schemas/Uttalelse'
+            - type: 'null'
+        sendtVarselbrev:
+          anyOf:
+            - $ref: '#/components/schemas/DokumentInfo'
             - type: 'null'
     ForhaandsvarselSteg:
       type: object

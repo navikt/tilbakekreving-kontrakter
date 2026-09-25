@@ -1,6 +1,7 @@
 model DokumentInfo {
-    journalpostId: string | null;
-    dokumentId: string | null;
+    brevSendt: plainDate;
+    journalpostId: string;
+    dokumentId: string;
 }
 
 enum DokumentType {

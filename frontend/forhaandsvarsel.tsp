@@ -4,6 +4,7 @@ import "./common.tsp";
 model ForhaandsvarselResponse is SaksbehandlingSteg {
     forhaandsvarselSteg: ForhaandsvarselSteg;
     brukeruttalelse: Uttalelse | null;
+    sendtVarselbrev: DokumentInfo | null;
 }
 
 @discriminated(#{ discriminatorPropertyName: "type", envelope: "none" })
