@@ -19,10 +19,10 @@ enum Vedtaksresultat {
 model Beregningsresultatsperiode {
     ...Periode;
     feilutbetaltBeløp: uint32;
-    beløpIbehold: uint32 | null;
     vurdering: BeregningsresultatVurdering;
-    reduksjonprosent: uint32 | null;
-    renteprosent: uint32 | null;
+    beløpIBehold: uint32 | null;
+    reduksjon: uint32 | null;
+    rentebeløp: uint32;
     skattebeløp: uint32;
     tilbakekrevingsbeløp: uint32;
 }
@@ -30,4 +30,10 @@ model Beregningsresultatsperiode {
 model Beregningsresultat {
     beregningsresultatsperioder: Array<Beregningsresultatsperiode>;
     vedtaksresultat: Vedtaksresultat;
+    totaltFeilutbetaltBeløp: uint32;
+    totaltBeløpIBehold: uint32;
+    totaltReduksjon: uint32;
+    totaltRentebeløp: uint32;
+    totaltSkattebeløp: uint32;
+    totaltTilbakekrevingsbeløp: uint32;
 }
