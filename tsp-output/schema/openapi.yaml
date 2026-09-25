@@ -861,6 +861,12 @@ components:
       required:
         - beregningsresultatsperioder
         - vedtaksresultat
+        - totaltFeilutbetaltBeløp
+        - totaltBeløpIBehold
+        - totaltReduksjon
+        - totaltRentebeløp
+        - totaltSkattebeløp
+        - totaltTilbakekrevingsbeløp
       properties:
         beregningsresultatsperioder:
           type: array
@@ -868,6 +874,24 @@ components:
             $ref: '#/components/schemas/Beregningsresultatsperiode'
         vedtaksresultat:
           $ref: '#/components/schemas/Vedtaksresultat'
+        totaltFeilutbetaltBeløp:
+          type: integer
+          format: uint32
+        totaltBeløpIBehold:
+          type: integer
+          format: uint32
+        totaltReduksjon:
+          type: integer
+          format: uint32
+        totaltRentebeløp:
+          type: integer
+          format: uint32
+        totaltSkattebeløp:
+          type: integer
+          format: uint32
+        totaltTilbakekrevingsbeløp:
+          type: integer
+          format: uint32
     BeregningsresultatVurdering:
       type: string
       enum:
@@ -884,10 +908,10 @@ components:
         - fom
         - tom
         - feilutbetaltBeløp
-        - beløpIbehold
         - vurdering
-        - reduksjonprosent
-        - renteprosent
+        - beløpIBehold
+        - reduksjon
+        - rentebeløp
         - skattebeløp
         - tilbakekrevingsbeløp
       properties:
@@ -902,23 +926,21 @@ components:
         feilutbetaltBeløp:
           type: integer
           format: uint32
-        beløpIbehold:
-          anyOf:
-            - type: integer
-              format: uint32
-            - type: 'null'
         vurdering:
           $ref: '#/components/schemas/BeregningsresultatVurdering'
-        reduksjonprosent:
+        beløpIBehold:
           anyOf:
             - type: integer
               format: uint32
             - type: 'null'
-        renteprosent:
+        reduksjon:
           anyOf:
             - type: integer
               format: uint32
             - type: 'null'
+        rentebeløp:
+          type: integer
+          format: uint32
         skattebeløp:
           type: integer
           format: uint32
