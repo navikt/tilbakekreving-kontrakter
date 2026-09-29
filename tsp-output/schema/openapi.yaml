@@ -1001,6 +1001,7 @@ components:
         - brevSendt
         - journalpostId
         - dokumentId
+        - uttalelsesfrist
       properties:
         brevSendt:
           type: string
@@ -1009,6 +1010,9 @@ components:
           type: string
         dokumentId:
           type: string
+        uttalelsesfrist:
+          type: string
+          format: date
     DokumentType:
       type: string
       enum:
