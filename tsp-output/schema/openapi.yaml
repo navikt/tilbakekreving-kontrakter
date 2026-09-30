@@ -397,6 +397,43 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+  /api/v1/behandling/{behandlingId}/revurdering:
+    post:
+      operationId: Behandling_opprettRevurdering
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TilbakekrevingRevurdering'
   /api/v1/behandling/{behandlingId}/varselbrev/tekster:
     get:
       operationId: Behandling_hentVarselbrevTekster
@@ -1960,6 +1997,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Element'
+    TilbakekrevingRevurdering:
+      type: object
+      required:
+        - revurderingsarsak
+      properties:
+        revurderingsarsak:
+          $ref: '#/components/schemas/TilbakekrevingRevurderingsarsak'
+    TilbakekrevingRevurderingsarsak:
+      type: string
+      enum:
+        - REVURDERING_KLAGE_NFP
+        - REVURDERING_KLAGE_KA
+        - REVURDERING_OPPLYSNINGER_OM_VILKÅR
+        - REVURDERING_OPPLYSNINGER_OM_FORELDELSE
+        - REVURDERING_FEILUTBETALT_BELØP_HELT_ELLER_DELVIS_BORTFALT
     Uaktsomt:
       type: object
       required:
