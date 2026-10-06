@@ -5,6 +5,7 @@ model ForhaandsvarselResponse is SaksbehandlingSteg {
     forhaandsvarselSteg: ForhaandsvarselSteg;
     brukeruttalelse: Uttalelse | null;
     sendtVarselbrev: DokumentInfo | null;
+    uttalelsesfrist: Uttalelsesfrist | null;
 }
 
 @discriminated(#{ discriminatorPropertyName: "type", envelope: "none" })

@@ -1292,6 +1292,7 @@ components:
         - forhaandsvarselSteg
         - brukeruttalelse
         - sendtVarselbrev
+        - uttalelsesfrist
       properties:
         tilbakeført:
           $ref: '#/components/schemas/ArsakTilTilbakeforing'
@@ -1308,6 +1309,10 @@ components:
         sendtVarselbrev:
           anyOf:
             - $ref: '#/components/schemas/DokumentInfo'
+            - type: 'null'
+        uttalelsesfrist:
+          anyOf:
+            - $ref: '#/components/schemas/Uttalelsesfrist'
             - type: 'null'
     ForhaandsvarselSteg:
       type: object
