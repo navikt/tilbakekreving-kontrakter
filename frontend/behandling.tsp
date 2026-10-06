@@ -7,6 +7,7 @@ import "./behandlingslogg.tsp";
 import "./forhaandsvarsel.tsp";
 import "./journalpost.tsp";
 import "./varselbrev-tekster.tsp";
+import "./revurdering.tsp";
 
 using Http;
 
@@ -169,6 +170,12 @@ interface BehandlingApi {
   hentBehandling(@path @format("uuid") behandlingId: string):
     | SuccessResponse<Behandling>
     | ErrorResponse;
+
+  @post
+  @route("/revurdering")
+  opprettRevurdering(
+    @path @format("uuid") behandlingId: string,
+    @body revurdering: TilbakekrevingRevurdering): SuccessResponse<void>| ErrorResponse;
 }
 
 model Behandling {
