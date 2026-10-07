@@ -1,5 +1,6 @@
 import "@typespec/http";
 import "./frontend/behandling.tsp";
+import "./frontend/dokumenter.tsp";
 import "./brev/vedtaksbrev.tsp";
 import "./brev/varselbrev.tsp";
 
@@ -12,6 +13,9 @@ namespace Tilbakekreving {
     @tag("behandling")
     @route("/api/v1/behandling/{behandlingId}")
     interface Behandling extends BehandlingApi {}
+
+    @tag("dokumenter")
+    interface Dokumenter extends VedtaksdokumentApi {}
 
     @tag("brev")
     @route("/api/v1/brev")
