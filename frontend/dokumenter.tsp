@@ -1,4 +1,5 @@
 import "@typespec/http";
+import "./behandling.tsp";
 
 using Http;
 
@@ -9,34 +10,14 @@ model Vedtaksdokument {
     dokumentInfoId: string;
 }
 
-enum RessursStatus {
-    SUKSESS,
-    FEILET,
-    IKKE_HENTET,
-    IKKE_TILGANG,
-    FUNKSJONELL_FEIL,
-}
-
-model Ressurs<T> {
-    data: T | null;
-    status: RessursStatus;
-    melding: string;
-    frontendFeilmelding?: string | null;
-    stacktrace: string | null;
-}
-
-alias RessursSuccessResponse<Body> = {
-    @body body: Ressurs<Body>;
-};
-
-alias RessursErrorResponse<Body> = {
+alias VedtaksdokumentErrorResponse = {
     @statusCode statusCode: 400 | 401 | 403;
-    @body body: Ressurs<Body>;
+    @body error: Error;
 };
 
 interface VedtaksdokumentApi {
     @get
-    @route("/api/dokumenter/vedtak/{vedtakId}/v1")
+    @route("/vedtak/{vedtakId}")
     @doc("""
     Henter alle brev for vedtaket. Ta bare med brev som har både journalpostId
     og dokumentInfoId. Samle treff fra flere iverksettelser i gammel og ny modell,
@@ -56,9 +37,7 @@ interface VedtaksdokumentApi {
         @doc("1–64 ASCII-sifre. Innledende nuller er tillatt, og tallverdien kan ikke overstige 9223372036854775807.")
         @minLength(1)
         @maxLength(64)
-        @pattern("^[0-9]{1,64}$")
+        @pattern("^[0-9]+$")
         vedtakId: VedtakId,
-    ):
-        | RessursSuccessResponse<Array<Vedtaksdokument>>
-        | RessursErrorResponse<Array<Vedtaksdokument>>;
+    ): SuccessResponse<Array<Vedtaksdokument>> | VedtaksdokumentErrorResponse;
 }
