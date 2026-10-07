@@ -4,6 +4,7 @@ info:
   version: 0.0.0
 tags:
   - name: behandling
+  - name: dokumenter
   - name: brev
 paths:
   /api/v1/behandling/{behandlingId}/:
@@ -805,6 +806,61 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/VedtaksbrevData'
+  /api/v1/dokumenter/vedtak/{vedtakId}:
+    get:
+      operationId: Dokumenter_hentVedtaksdokumenter
+      description: |-
+        Henter alle brev for vedtaket. Ta bare med brev som har både journalpostId
+        og dokumentInfoId. Samle treff fra flere iverksettelser i gammel og ny modell,
+        fjern duplikater, og returner tom liste når det ikke finnes treff.
+
+        Den nye modellen kan hente brev fra flere behandlinger på samme sak.
+        Tvangsgrunnlag API kontrollerer koblingen mellom skyldner og vedtakId.
+        Familie-tilbake håndterer autentisering og tilgang.
+
+        vedtakId må bestå av 1–64 ASCII-sifre, med en tallverdi på høyst
+        9223372036854775807. Innledende nuller er tillatt.
+        Returner 400 ved ugyldig vedtakId, 401 ved ugyldig eller manglende
+        autentisering og 403 når kalleren mangler tilgang.
+      parameters:
+        - name: vedtakId
+          in: path
+          required: true
+          description: 1–64 ASCII-sifre. Innledende nuller er tillatt, og tallverdien kan ikke overstige 9223372036854775807.
+          schema:
+            type: string
+            pattern: ^[0-9]+$
+            minLength: 1
+            maxLength: 64
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vedtaksdokument'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access is forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - dokumenter
 components:
   schemas:
     Aktsomhet:
@@ -2217,6 +2273,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AvsnittUpdateItem'
+    Vedtaksdokument:
+      type: object
+      required:
+        - journalpostId
+        - dokumentInfoId
+      properties:
+        journalpostId:
+          type: string
+        dokumentInfoId:
+          type: string
     Vedtaksresultat:
       type: string
       enum:
