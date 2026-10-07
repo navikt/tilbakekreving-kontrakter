@@ -806,7 +806,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/VedtaksbrevData'
-  /vedtak/{vedtakId}:
+  /api/v1/dokumenter/vedtak/{vedtakId}:
     get:
       operationId: Dokumenter_hentVedtaksdokumenter
       description: |-

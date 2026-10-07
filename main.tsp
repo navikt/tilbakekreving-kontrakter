@@ -15,6 +15,7 @@ namespace Tilbakekreving {
     interface Behandling extends BehandlingApi {}
 
     @tag("dokumenter")
+    @route("/api/v1/dokumenter")
     interface Dokumenter extends VedtaksdokumentApi {}
 
     @tag("brev")
