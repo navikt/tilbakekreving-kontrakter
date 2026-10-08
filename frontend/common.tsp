@@ -63,4 +63,5 @@ model FjernetPeriode {
 enum ArsakTilTilbakeforing {
     NyttKravgrunnlag,
     TilbakemeldingFraSaksbehandler,
+    Revurdering
 }
