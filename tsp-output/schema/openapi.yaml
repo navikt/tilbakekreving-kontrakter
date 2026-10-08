@@ -880,6 +880,7 @@ components:
       enum:
         - NyttKravgrunnlag
         - TilbakemeldingFraSaksbehandler
+        - Revurdering
     Avsnitt:
       type: object
       required:
