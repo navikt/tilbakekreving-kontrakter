@@ -3,7 +3,7 @@ import "./common.tsp";
 
 model ForhaandsvarselResponse is SaksbehandlingSteg {
     forhaandsvarselSteg: ForhaandsvarselSteg;
-    brukeruttalelse: Uttalelse | null;
+    brukeruttalelse: UttalelseVurdering | null;
     sendtVarselbrev: DokumentInfo | null;
     uttalelsesfrist: Uttalelsesfrist | null;
 }
@@ -35,12 +35,34 @@ model ForhaandsvarselInfo {
     varselbrevSendtTid: plainDate;
 }
 
-model Uttalelse {
-    harBrukerUttaltSeg: UttalelseVurdering;
-    uttalelsesdato?: plainDate;
-    hvorBrukerenUttalteSeg?: string;
-    beskrivelse?: string;
+@discriminated(#{
+    discriminatorPropertyName: "harBrukerUttaltSeg",
+    envelope: "none",
+})
+union UttalelseVurdering {
+    JA: Brukeruttalelse,
+    HAR_TIDLIGERE_VURDERING: TidligereBrukeruttalelse,
+    NEI: IngenUttalelse,
+    IKKE_VURDERT: BrukeruttalelseIkkeVurdert,
 }
+
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UttalelseVurderingDto"])
+model Brukeruttalelse {
+    uttalelsesdato: plainDate;
+    hvorBrukerenUttalteSeg: string;
+    beskrivelse: string;
+}
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UttalelseVurderingDto"])
+model TidligereBrukeruttalelse extends Brukeruttalelse {}
+
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UttalelseVurderingDto"])
+model IngenUttalelse {
+    kommentar: string;
+    beskrivelse: string;
+}
+
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UttalelseVurderingDto"])
+model BrukeruttalelseIkkeVurdert {}
 
 model Uttalelsesfrist {
     nyFrist?: plainDate;
@@ -57,12 +79,6 @@ model SendForhaandsvarsel {
 model Unntak {
     begrunnelseForUnntak: Varslingsunntak;
     beskrivelse: string;
-}
-
-enum UttalelseVurdering {
-    JA,
-    NEI,
-    IKKE_VURDERT,
 }
 
 enum Varslingsunntak {

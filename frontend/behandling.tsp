@@ -101,7 +101,7 @@ interface BehandlingApi {
   @route("/forhåndsvarsel/uttalelse")
   lagreBrukersuttalelse(
     @path @format("uuid") behandlingId: string,
-    @body uttalelse: Uttalelse,
+    @body uttalelse: UttalelseVurdering,
   ): SuccessResponse<void> | ErrorResponse;
 
   @put
