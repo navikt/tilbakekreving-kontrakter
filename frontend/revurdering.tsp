@@ -1,5 +1,7 @@
 model TilbakekrevingRevurdering{
     revurderingsarsak: TilbakekrevingRevurderingsarsak;
+    fagsakdId: string;
+    fagsystem: string;
 }
 
 enum TilbakekrevingRevurderingsarsak {
