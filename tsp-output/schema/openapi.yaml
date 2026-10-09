@@ -1603,12 +1603,14 @@ components:
         - $ref: '#/components/schemas/NyPeriode'
         - $ref: '#/components/schemas/EndretPeriode'
         - $ref: '#/components/schemas/FjernetPeriode'
+        - $ref: '#/components/schemas/UendretPeriode'
       discriminator:
         propertyName: type
         mapping:
           ny_periode: '#/components/schemas/NyPeriode'
           endret_periode: '#/components/schemas/EndretPeriode'
           fjernet_periode: '#/components/schemas/FjernetPeriode'
+          uendret_periode: '#/components/schemas/UendretPeriode'
     Logginnslag:
       type: object
       required:
@@ -2112,6 +2114,26 @@ components:
           $ref: '#/components/schemas/Unnlatelse'
       x-kotlin-implements:
         - AktsomhetDto
+    UendretPeriode:
+      type: object
+      required:
+        - fom
+        - tom
+        - beløp
+      properties:
+        fom:
+          type: string
+          format: date
+          readOnly: true
+        tom:
+          type: string
+          format: date
+          readOnly: true
+        beløp:
+          type: integer
+          format: uint32
+      x-kotlin-implements:
+        - KravgrunnlagForskjellDto
     UnderavsnittElement:
       type: object
       required:

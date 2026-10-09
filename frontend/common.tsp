@@ -29,6 +29,7 @@ union KravgrunnlagForskjell {
     ny_periode: NyPeriode,
     endret_periode: EndretPeriode,
     fjernet_periode: FjernetPeriode,
+    uendret_periode: UendretPeriode,
 }
 
 @TypeSpec.OpenAPI.extension(
@@ -36,6 +37,15 @@ union KravgrunnlagForskjell {
     #["KravgrunnlagForskjellDto"]
 )
 model NyPeriode {
+    ...Periode;
+    beløp: uint32;
+}
+
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["KravgrunnlagForskjellDto"]
+)
+model UendretPeriode {
     ...Periode;
     beløp: uint32;
 }
