@@ -1560,11 +1560,8 @@ components:
       type: object
       required:
         - kommentar
-        - beskrivelse
       properties:
         kommentar:
-          type: string
-        beskrivelse:
           type: string
       x-kotlin-implements:
         - UttalelseVurderingDto

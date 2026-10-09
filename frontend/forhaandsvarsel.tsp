@@ -58,7 +58,6 @@ model TidligereBrukeruttalelse extends Brukeruttalelse {}
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UttalelseVurderingDto"])
 model IngenUttalelse {
     kommentar: string;
-    beskrivelse: string;
 }
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["UttalelseVurderingDto"])
