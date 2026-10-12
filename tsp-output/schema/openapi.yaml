@@ -2096,15 +2096,9 @@ components:
       type: object
       required:
         - revurderingsarsak
-        - fagsakdId
-        - fagsystem
       properties:
         revurderingsarsak:
           $ref: '#/components/schemas/TilbakekrevingRevurderingsarsak'
-        fagsakdId:
-          type: string
-        fagsystem:
-          type: string
     TilbakekrevingRevurderingsarsak:
       type: string
       enum:
