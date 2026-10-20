@@ -15,6 +15,10 @@ model Signatur {
     besluttendeSaksbehandler: string | null;
 }
 
+model SignaturAutomatisk {
+    enhetNavn: string;
+}
+
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
     #["RotElementDto", "RotElementUpdateItemDto"]

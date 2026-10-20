@@ -3,6 +3,7 @@ import "./frontend/behandling.tsp";
 import "./frontend/dokumenter.tsp";
 import "./brev/vedtaksbrev.tsp";
 import "./brev/varselbrev.tsp";
+import "./brev/bortfaltKravbrev.tsp";
 
 using Http;
 
@@ -20,5 +21,5 @@ namespace Tilbakekreving {
 
     @tag("brev")
     @route("/api/v1/brev")
-    interface Brev extends VedtaksbrevApi, VarselbrevApi {}
+    interface Brev extends VedtaksbrevApi, VarselbrevApi, BortfaltKravbrevApi {}
 }
