@@ -27,7 +27,6 @@ interface BehandlingApi {
     | SuccessResponse<FaktaOmFeilutbetaling>
     | ErrorResponse;
 
-  #suppress "@typespec/http/patch-implicit-optional" ""
   @patch
   @route("/feilutbetaling")
   oppdaterFakta(
@@ -175,7 +174,8 @@ interface BehandlingApi {
   @route("/revurdering")
   opprettRevurdering(
     @path @format("uuid") behandlingId: string,
-    @body revurdering: TilbakekrevingRevurdering): SuccessResponse<void>| ErrorResponse;
+    @body revurdering: TilbakekrevingRevurdering,
+  ): SuccessResponse<OpprettRevurderingResponse> | ErrorResponse;
 }
 
 model Behandling {
