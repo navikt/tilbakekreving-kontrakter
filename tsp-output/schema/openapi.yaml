@@ -411,6 +411,10 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpprettRevurderingResponse'
         '400':
           description: The server could not understand the request due to invalid syntax.
           content:
@@ -1818,6 +1822,13 @@ components:
           items:
             $ref: '#/components/schemas/RettsligGrunnlag'
           minItems: 1
+    OpprettRevurderingResponse:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
     Oppsummeringsdata:
       type: object
       required:
