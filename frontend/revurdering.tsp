@@ -28,25 +28,25 @@ union Revurderingsinstans {
     "Domstolen",
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RevurderingsarsakDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilbakekrevingRevurderingsarsakDto"])
 model FeilutbetaltBelopEndret {
     instans: Revurderingsinstans;
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RevurderingsarsakDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilbakekrevingRevurderingsarsakDto"])
 model EtterKlage {
     instans: Revurderingsinstans;
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RevurderingsarsakDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilbakekrevingRevurderingsarsakDto"])
 model UtenKlage {
     instans: "Førsteinstansen" | "Klageinstansen";
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["RevurderingsarsakDto"])
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilbakekrevingRevurderingsarsakDto"])
 model Foreldelse {
     begrunnelse: string;
 }

@@ -1226,7 +1226,7 @@ components:
         begrunnelse:
           type: string
       x-kotlin-implements:
-        - RevurderingsarsakDto
+        - TilbakekrevingRevurderingsarsakDto
     Fakta:
       type: object
       required:
@@ -1379,7 +1379,7 @@ components:
         begrunnelse:
           type: string
       x-kotlin-implements:
-        - RevurderingsarsakDto
+        - TilbakekrevingRevurderingsarsakDto
     FjernetPeriode:
       type: object
       required:
@@ -1417,7 +1417,7 @@ components:
         begrunnelse:
           type: string
       x-kotlin-implements:
-        - RevurderingsarsakDto
+        - TilbakekrevingRevurderingsarsakDto
     ForhaandsvarselErSendt:
       type: object
       required:
@@ -2318,7 +2318,7 @@ components:
         begrunnelse:
           type: string
       x-kotlin-implements:
-        - RevurderingsarsakDto
+        - TilbakekrevingRevurderingsarsakDto
     UttalelseVurdering:
       type: object
       oneOf:
