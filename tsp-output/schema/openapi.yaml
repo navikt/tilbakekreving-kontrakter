@@ -768,25 +768,6 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
-  /api/v1/brev/bortfalt-krav/svg:
-    post:
-      operationId: Brev_lagSvgBortfaltKravbrev
-      parameters: []
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/octet-stream:
-              schema:
-                contentMediaType: application/octet-stream
-      tags:
-        - brev
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BortfaltKravbrevData'
   /api/v1/brev/varselbrev/svg:
     post:
       operationId: Brev_lagSvgVarselbrev
@@ -1064,30 +1045,6 @@ components:
         nøkkel:
           type: string
         beskrivelse:
-          type: string
-    BortfaltKravbrevData:
-      type: object
-      required:
-        - hovedavsnitt
-        - underavsnitt
-        - brevGjelder
-        - signatur
-        - sendtDato
-        - saksnummer
-      properties:
-        hovedavsnitt:
-          $ref: '#/components/schemas/HovedavsnittBortfaltKravbrev'
-        underavsnitt:
-          type: array
-          items:
-            $ref: '#/components/schemas/UnderavsnittElement'
-        brevGjelder:
-          $ref: '#/components/schemas/Brevmottaker'
-        signatur:
-          $ref: '#/components/schemas/SignaturAutomatisk'
-        sendtDato:
-          type: string
-        saksnummer:
           type: string
     Brevmottaker:
       type: object
@@ -1558,7 +1515,7 @@ components:
             $ref: '#/components/schemas/RotElement'
         hjemler:
           type: string
-    HovedavsnittBortfaltKravbrev:
+    HovedavsnittInformasjonsbrev:
       type: object
       required:
         - tittel
@@ -1613,6 +1570,30 @@ components:
       type: object
       x-kotlin-implements:
         - ForhaandsvarselStegDto
+    InformasjonsbrevData:
+      type: object
+      required:
+        - hovedavsnitt
+        - underavsnitt
+        - brevGjelder
+        - signatur
+        - sendtDato
+        - saksnummer
+      properties:
+        hovedavsnitt:
+          $ref: '#/components/schemas/HovedavsnittInformasjonsbrev'
+        underavsnitt:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnderavsnittElement'
+        brevGjelder:
+          $ref: '#/components/schemas/Brevmottaker'
+        signatur:
+          $ref: '#/components/schemas/SignaturAutomatisk'
+        sendtDato:
+          type: string
+        saksnummer:
+          type: string
     IngenUttalelse:
       type: object
       required:
