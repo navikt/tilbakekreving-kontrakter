@@ -411,6 +411,10 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpprettRevurderingResponse'
         '400':
           description: The server could not understand the request due to invalid syntax.
           content:
@@ -1168,6 +1172,18 @@ components:
           type: string
         melding:
           type: string
+    EtterKlage:
+      type: object
+      required:
+        - instans
+        - begrunnelse
+      properties:
+        instans:
+          $ref: '#/components/schemas/Revurderingsinstans'
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - TilbakekrevingRevurderingsarsakDto
     Fakta:
       type: object
       required:
@@ -1309,6 +1325,18 @@ components:
           readOnly: true
         revurdering:
           $ref: '#/components/schemas/Revurdering'
+    FeilutbetaltBelopEndret:
+      type: object
+      required:
+        - instans
+        - begrunnelse
+      properties:
+        instans:
+          $ref: '#/components/schemas/Revurderingsinstans'
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - TilbakekrevingRevurderingsarsakDto
     FjernetPeriode:
       type: object
       required:
@@ -1338,6 +1366,15 @@ components:
           $ref: '#/components/schemas/Aktsomhet'
       x-kotlin-implements:
         - VilkaarsvurderingValgDto
+    Foreldelse:
+      type: object
+      required:
+        - begrunnelse
+      properties:
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - TilbakekrevingRevurderingsarsakDto
     ForhaandsvarselErSendt:
       type: object
       required:
@@ -1799,6 +1836,13 @@ components:
           items:
             $ref: '#/components/schemas/RettsligGrunnlag'
           minItems: 1
+    OpprettRevurderingResponse:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
     Oppsummeringsdata:
       type: object
       required:
@@ -1970,6 +2014,13 @@ components:
           enum:
             - INNVILGET
             - OPPHØRT
+    Revurderingsinstans:
+      type: string
+      enum:
+        - Førsteinstansen
+        - Klageinstansen
+        - Trygderetten
+        - Domstolen
     RotElement:
       type: object
       oneOf:
@@ -2144,9 +2195,19 @@ components:
         revurderingsarsak:
           $ref: '#/components/schemas/TilbakekrevingRevurderingsarsak'
     TilbakekrevingRevurderingsarsak:
-      type: string
-      enum:
-        - REVURDERING_ANNEN_ÅRSAK
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/FeilutbetaltBelopEndret'
+        - $ref: '#/components/schemas/EtterKlage'
+        - $ref: '#/components/schemas/UtenKlage'
+        - $ref: '#/components/schemas/Foreldelse'
+      discriminator:
+        propertyName: revurderingsarsak
+        mapping:
+          feilutbetalt_belop_endret: '#/components/schemas/FeilutbetaltBelopEndret'
+          etter_klage: '#/components/schemas/EtterKlage'
+          uten_klage: '#/components/schemas/UtenKlage'
+          foreldelse: '#/components/schemas/Foreldelse'
     Uaktsomt:
       type: object
       required:
@@ -2224,6 +2285,21 @@ components:
           format: date
         begrunnelse:
           type: string
+    UtenKlage:
+      type: object
+      required:
+        - instans
+        - begrunnelse
+      properties:
+        instans:
+          type: string
+          enum:
+            - Førsteinstansen
+            - Klageinstansen
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - TilbakekrevingRevurderingsarsakDto
     UttalelseVurdering:
       type: object
       oneOf:
