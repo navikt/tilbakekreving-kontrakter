@@ -1598,6 +1598,20 @@ components:
           type: array
           items:
             type: string
+    HovedavsnittRevurderingVedtaksbrev:
+      type: object
+      required:
+        - tittel
+        - innhold
+      properties:
+        tittel:
+          type: string
+          minLength: 3
+          maxLength: 300
+        innhold:
+          type: array
+          items:
+            type: string
     HovedavsnittUpdate:
       type: object
       required:
@@ -2046,6 +2060,25 @@ components:
           enum:
             - INNVILGET
             - OPPHØRT
+    RevurderingVedtaksbrevData:
+      type: object
+      required:
+        - hovedavsnitt
+        - brevGjelder
+        - signatur
+        - sendtDato
+        - saksnummer
+      properties:
+        hovedavsnitt:
+          $ref: '#/components/schemas/HovedavsnittRevurderingVedtaksbrev'
+        brevGjelder:
+          $ref: '#/components/schemas/Brevmottaker'
+        signatur:
+          $ref: '#/components/schemas/Signatur'
+        sendtDato:
+          type: string
+        saksnummer:
+          type: string
     Revurderingsinstans:
       type: string
       enum:
