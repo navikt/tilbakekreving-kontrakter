@@ -1722,7 +1722,7 @@ components:
             - type: 'null'
         ekstraInfo:
           type: object
-          unevaluatedProperties: {}
+          additionalProperties: {}
     Moment:
       type: object
       required:
@@ -2204,9 +2204,9 @@ components:
       discriminator:
         propertyName: revurderingsarsak
         mapping:
-          feilutbetalt_belop_endret: '#/components/schemas/FeilutbetaltBelopEndret'
-          etter_klage: '#/components/schemas/EtterKlage'
-          uten_klage: '#/components/schemas/UtenKlage'
+          feilutbetaltBelopEndret: '#/components/schemas/FeilutbetaltBelopEndret'
+          etterKlage: '#/components/schemas/EtterKlage'
+          utenKlage: '#/components/schemas/UtenKlage'
           foreldelse: '#/components/schemas/Foreldelse'
     Uaktsomt:
       type: object
