@@ -181,7 +181,7 @@ interface BehandlingApi {
   @route("/revurdering")
   oppdaterRevurderingsarsak(
     @path @format("uuid") behandlingId: string,
-    @body revurdering: TilbakekrevingRevurdering,
+    @body revurdering: MergePatchUpdate<TilbakekrevingRevurdering>,
   ): SuccessResponse<void> | ErrorResponse;
 }
 

@@ -464,9 +464,9 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          application/merge-patch+json:
             schema:
-              $ref: '#/components/schemas/TilbakekrevingRevurdering'
+              $ref: '#/components/schemas/TilbakekrevingRevurderingMergePatchUpdate'
   /api/v1/behandling/{behandlingId}/varselbrev/tekster:
     get:
       operationId: Behandling_hentVarselbrevTekster
@@ -1216,6 +1216,15 @@ components:
           type: string
       x-kotlin-implements:
         - TilbakekrevingRevurderingsarsakDto
+    EtterKlageMergePatchUpdateOrCreate:
+      type: object
+      properties:
+        instans:
+          $ref: '#/components/schemas/RevurderingsinstansMergePatchUpdateOrCreate'
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - TilbakekrevingRevurderingsarsakDto
     Fakta:
       type: object
       required:
@@ -1369,6 +1378,15 @@ components:
           type: string
       x-kotlin-implements:
         - TilbakekrevingRevurderingsarsakDto
+    FeilutbetaltBelopEndretMergePatchUpdateOrCreate:
+      type: object
+      properties:
+        instans:
+          $ref: '#/components/schemas/RevurderingsinstansMergePatchUpdateOrCreate'
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - TilbakekrevingRevurderingsarsakDto
     FjernetPeriode:
       type: object
       required:
@@ -1402,6 +1420,13 @@ components:
       type: object
       required:
         - begrunnelse
+      properties:
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - TilbakekrevingRevurderingsarsakDto
+    ForeldelseMergePatchUpdateOrCreate:
+      type: object
       properties:
         begrunnelse:
           type: string
@@ -2086,6 +2111,13 @@ components:
         - Klageinstansen
         - Trygderetten
         - Domstolen
+    RevurderingsinstansMergePatchUpdateOrCreate:
+      type: string
+      enum:
+        - Førsteinstansen
+        - Klageinstansen
+        - Trygderetten
+        - Domstolen
     RotElement:
       type: object
       oneOf:
@@ -2259,6 +2291,11 @@ components:
       properties:
         revurderingsarsak:
           $ref: '#/components/schemas/TilbakekrevingRevurderingsarsak'
+    TilbakekrevingRevurderingMergePatchUpdate:
+      type: object
+      properties:
+        revurderingsarsak:
+          $ref: '#/components/schemas/TilbakekrevingRevurderingsarsakMergePatchUpdate'
     TilbakekrevingRevurderingsarsak:
       type: object
       oneOf:
@@ -2273,6 +2310,20 @@ components:
           etter_klage: '#/components/schemas/EtterKlage'
           uten_klage: '#/components/schemas/UtenKlage'
           foreldelse: '#/components/schemas/Foreldelse'
+    TilbakekrevingRevurderingsarsakMergePatchUpdate:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/FeilutbetaltBelopEndretMergePatchUpdateOrCreate'
+        - $ref: '#/components/schemas/EtterKlageMergePatchUpdateOrCreate'
+        - $ref: '#/components/schemas/UtenKlageMergePatchUpdateOrCreate'
+        - $ref: '#/components/schemas/ForeldelseMergePatchUpdateOrCreate'
+      discriminator:
+        propertyName: revurderingsarsak
+        mapping:
+          feilutbetalt_belop_endret: '#/components/schemas/FeilutbetaltBelopEndretMergePatchUpdateOrCreate'
+          etter_klage: '#/components/schemas/EtterKlageMergePatchUpdateOrCreate'
+          uten_klage: '#/components/schemas/UtenKlageMergePatchUpdateOrCreate'
+          foreldelse: '#/components/schemas/ForeldelseMergePatchUpdateOrCreate'
     Uaktsomt:
       type: object
       required:
@@ -2355,6 +2406,18 @@ components:
       required:
         - instans
         - begrunnelse
+      properties:
+        instans:
+          type: string
+          enum:
+            - Førsteinstansen
+            - Klageinstansen
+        begrunnelse:
+          type: string
+      x-kotlin-implements:
+        - TilbakekrevingRevurderingsarsakDto
+    UtenKlageMergePatchUpdateOrCreate:
+      type: object
       properties:
         instans:
           type: string
