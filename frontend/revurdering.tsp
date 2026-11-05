@@ -15,9 +15,9 @@ model OpprettRevurderingResponse {
     envelope: "none",
 })
 union TilbakekrevingRevurderingsarsak {
-    feilutbetalt_belop_endret: FeilutbetaltBelopEndret,
-    etter_klage: EtterKlage,
-    uten_klage: UtenKlage,
+    feilutbetaltBelopEndret: FeilutbetaltBelopEndret,
+    etterKlage: EtterKlage,
+    utenKlage: UtenKlage,
     foreldelse: Foreldelse,
 }
 
@@ -28,25 +28,37 @@ union Revurderingsinstans {
     "Domstolen",
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilbakekrevingRevurderingsarsakDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["TilbakekrevingRevurderingsarsakDto"]
+)
 model FeilutbetaltBelopEndret {
     instans: Revurderingsinstans;
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilbakekrevingRevurderingsarsakDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["TilbakekrevingRevurderingsarsakDto"]
+)
 model EtterKlage {
     instans: Revurderingsinstans;
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilbakekrevingRevurderingsarsakDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["TilbakekrevingRevurderingsarsakDto"]
+)
 model UtenKlage {
     instans: "Førsteinstansen" | "Klageinstansen";
     begrunnelse: string;
 }
 
-@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilbakekrevingRevurderingsarsakDto"])
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["TilbakekrevingRevurderingsarsakDto"]
+)
 model Foreldelse {
     begrunnelse: string;
 }
