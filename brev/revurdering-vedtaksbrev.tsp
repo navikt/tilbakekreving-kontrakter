@@ -6,6 +6,10 @@ namespace Tilbakekreving;
 
 model RevurderingVedtaksbrevData{
     hovedavsnitt: HovedavsnittRevurderingVedtaksbrev;
+
+    @visibility(Lifecycle.Create, Lifecycle.Read)
+    bunntekster: Standardtekst[];
+
     brevGjelder: Brevmottaker;
     signatur: Signatur;
     sendtDato: string;
