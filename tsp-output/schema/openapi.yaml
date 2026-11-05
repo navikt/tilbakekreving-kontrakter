@@ -435,6 +435,38 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TilbakekrevingRevurdering'
+    patch:
+      operationId: Behandling_oppdaterRevurderingsarsak
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TilbakekrevingRevurdering'
   /api/v1/behandling/{behandlingId}/varselbrev/tekster:
     get:
       operationId: Behandling_hentVarselbrevTekster
@@ -1566,6 +1598,20 @@ components:
           type: array
           items:
             type: string
+    HovedavsnittRevurderingVedtaksbrev:
+      type: object
+      required:
+        - tittel
+        - innhold
+      properties:
+        tittel:
+          type: string
+          minLength: 3
+          maxLength: 300
+        innhold:
+          type: array
+          items:
+            type: string
     HovedavsnittUpdate:
       type: object
       required:
@@ -2014,6 +2060,25 @@ components:
           enum:
             - INNVILGET
             - OPPHØRT
+    RevurderingVedtaksbrevData:
+      type: object
+      required:
+        - hovedavsnitt
+        - brevGjelder
+        - signatur
+        - sendtDato
+        - saksnummer
+      properties:
+        hovedavsnitt:
+          $ref: '#/components/schemas/HovedavsnittRevurderingVedtaksbrev'
+        brevGjelder:
+          $ref: '#/components/schemas/Brevmottaker'
+        signatur:
+          $ref: '#/components/schemas/Signatur'
+        sendtDato:
+          type: string
+        saksnummer:
+          type: string
     Revurderingsinstans:
       type: string
       enum:

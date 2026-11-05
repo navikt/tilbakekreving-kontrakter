@@ -176,6 +176,13 @@ interface BehandlingApi {
     @path @format("uuid") behandlingId: string,
     @body revurdering: TilbakekrevingRevurdering,
   ): SuccessResponse<OpprettRevurderingResponse> | ErrorResponse;
+
+  @patch
+  @route("/revurdering")
+  oppdaterRevurderingsarsak(
+    @path @format("uuid") behandlingId: string,
+    @body revurdering: TilbakekrevingRevurdering,
+  ): SuccessResponse<void> | ErrorResponse;
 }
 
 model Behandling {
