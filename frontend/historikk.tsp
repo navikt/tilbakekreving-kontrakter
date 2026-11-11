@@ -4,7 +4,7 @@ model Hendelse {
     rolle: Rolle;
     rolleIdent: string | null;
     beskrivelse: string | null;
-    ekstraInfo: Record<string>;
+    ...Record<string>;
 }
 
 enum Rolle {

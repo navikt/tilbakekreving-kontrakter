@@ -1579,7 +1579,6 @@ components:
         - rolle
         - rolleIdent
         - beskrivelse
-        - ekstraInfo
       properties:
         tittel:
           type: string
@@ -1596,10 +1595,8 @@ components:
           anyOf:
             - type: string
             - type: 'null'
-        ekstraInfo:
-          type: object
-          additionalProperties:
-            type: string
+      additionalProperties:
+        type: string
     Hovedavsnitt:
       type: object
       required:
