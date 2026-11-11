@@ -38,39 +38,6 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
-  /api/v1/behandling/{behandlingId}/behandlingslogg:
-    get:
-      operationId: Behandling_behandlingslogg
-      parameters:
-        - name: behandlingId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Logginnslag'
-        '400':
-          description: The server could not understand the request due to invalid syntax.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      tags:
-        - behandling
   /api/v1/behandling/{behandlingId}/feilutbetaling:
     get:
       operationId: Behandling_fakta
@@ -1602,22 +1569,17 @@ components:
         - tittel
         - opprettet
         - rolle
-        - dokumentUrl
         - rolleIdent
         - beskrivelse
-        - utsettelseFrist
+        - ekstraInfo
       properties:
         tittel:
           type: string
         opprettet:
           type: string
-          format: date
+          format: date-time
         rolle:
           $ref: '#/components/schemas/Rolle'
-        dokumentUrl:
-          anyOf:
-            - type: string
-            - type: 'null'
         rolleIdent:
           anyOf:
             - type: string
@@ -1626,11 +1588,10 @@ components:
           anyOf:
             - type: string
             - type: 'null'
-        utsettelseFrist:
-          anyOf:
-            - type: string
-              format: date
-            - type: 'null'
+        ekstraInfo:
+          type: object
+          additionalProperties:
+            type: string
     Hovedavsnitt:
       type: object
       required:
@@ -1800,43 +1761,6 @@ components:
           endret_periode: '#/components/schemas/EndretPeriode'
           fjernet_periode: '#/components/schemas/FjernetPeriode'
           uendret_periode: '#/components/schemas/UendretPeriode'
-    Logginnslag:
-      type: object
-      required:
-        - behandlingId
-        - opprettetTid
-        - type
-        - aktør
-        - aktørIdent
-        - tittel
-        - tekst
-        - steg
-        - ekstraInfo
-      properties:
-        behandlingId:
-          type: string
-        opprettetTid:
-          type: string
-          format: date-time
-        type:
-          type: string
-        aktør:
-          type: string
-        aktørIdent:
-          type: string
-        tittel:
-          type: string
-        tekst:
-          anyOf:
-            - type: string
-            - type: 'null'
-        steg:
-          anyOf:
-            - type: string
-            - type: 'null'
-        ekstraInfo:
-          type: object
-          additionalProperties: {}
     Moment:
       type: object
       required:

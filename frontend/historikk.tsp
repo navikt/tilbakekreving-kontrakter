@@ -1,11 +1,10 @@
 model Hendelse {
     tittel: string;
-    opprettet: plainDate;
+    opprettet: utcDateTime;
     rolle: Rolle;
-    dokumentUrl: string | null;
     rolleIdent: string | null;
     beskrivelse: string | null;
-    utsettelseFrist: plainDate | null;
+    ekstraInfo: Record<string>;
 }
 
 enum Rolle {
