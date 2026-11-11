@@ -8,6 +8,7 @@ import "./forhaandsvarsel.tsp";
 import "./journalpost.tsp";
 import "./varselbrev-tekster.tsp";
 import "./revurdering.tsp";
+import "./historikk.tsp";
 
 using Http;
 
@@ -183,6 +184,12 @@ interface BehandlingApi {
     @path @format("uuid") behandlingId: string,
     @body revurdering: TilbakekrevingRevurdering,
   ): SuccessResponse<void> | ErrorResponse;
+
+  @get
+  @route("/historikk")
+  hentHistorikk(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Array<Hendelse>>
+    | ErrorResponse;
 }
 
 model Behandling {
