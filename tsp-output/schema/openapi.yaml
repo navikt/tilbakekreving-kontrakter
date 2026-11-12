@@ -859,6 +859,12 @@ paths:
         Returner 400 ved ugyldig vedtakId, 401 ved ugyldig eller manglende
         autentisering og 403 når kalleren mangler tilgang.
       parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: Bearer-token på formen `Bearer <jwt>`.
+          schema:
+            type: string
         - name: vedtakId
           in: path
           required: true
