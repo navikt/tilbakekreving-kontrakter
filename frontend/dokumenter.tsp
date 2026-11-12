@@ -16,6 +16,7 @@ alias VedtaksdokumentErrorResponse = {
 };
 
 interface VedtaksdokumentApi {
+    @useAuth(BearerAuth)
     @get
     @route("/vedtak/{vedtakId}")
     @doc("""
