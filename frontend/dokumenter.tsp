@@ -16,6 +16,7 @@ alias VedtaksdokumentErrorResponse = {
 };
 
 interface VedtaksdokumentApi {
+    @useAuth(BearerAuth)
     @get
     @route("/vedtak/{vedtakId}")
     @doc("""
@@ -33,6 +34,10 @@ interface VedtaksdokumentApi {
     autentisering og 403 når kalleren mangler tilgang.
     """)
     hentVedtaksdokumenter(
+        @header("Authorization")
+        @doc("Bearer-token på formen `Bearer <jwt>`.")
+        authorization: string,
+
         @path
         @doc("1–64 ASCII-sifre. Innledende nuller er tillatt, og tallverdien kan ikke overstige 9223372036854775807.")
         @minLength(1)
