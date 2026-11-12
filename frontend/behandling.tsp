@@ -3,6 +3,7 @@ import "./vilkaarsvurdering.tsp";
 import "./feilutbetaling.tsp";
 import "./beregningsresultat.tsp";
 import "./common.tsp";
+import "./behandlingslogg.tsp";
 import "./forhaandsvarsel.tsp";
 import "./journalpost.tsp";
 import "./varselbrev-tekster.tsp";
@@ -75,6 +76,12 @@ interface BehandlingApi {
   @route("/foreslå-vedtak")
   foreslaaVedtak(@path @format("uuid") behandlingId: string):
     | SuccessResponse<void>
+    | ErrorResponse;
+
+  @get
+  @route("/behandlingslogg")
+  behandlingslogg(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Array<Logginnslag>>
     | ErrorResponse;
 
   @get
