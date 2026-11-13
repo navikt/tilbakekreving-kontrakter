@@ -467,36 +467,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TilbakekrevingRevurdering'
-  /api/v1/behandling/{behandlingId}/revurdering/vedtaksbrev:
-    get:
-      operationId: Behandling_hentRevurderingVedtaksbrev
-      parameters:
-        - name: behandlingId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RevurderingVedtaksbrevData'
-        '400':
-          description: The server could not understand the request due to invalid syntax.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      tags:
-        - behandling
   /api/v1/behandling/{behandlingId}/varselbrev/tekster:
     get:
       operationId: Behandling_hentVarselbrevTekster
@@ -1621,7 +1591,9 @@ components:
           items:
             $ref: '#/components/schemas/RotElement'
         hjemler:
-          type: string
+          anyOf:
+            - type: string
+            - type: 'null'
     HovedavsnittInformasjonsbrev:
       type: object
       required:
@@ -2084,46 +2056,6 @@ components:
           enum:
             - INNVILGET
             - OPPHØRT
-    RevurderingVedtaksbrevData:
-      type: object
-      required:
-        - hovedavsnitt
-        - avsnitt
-        - vedtaksbrevType
-        - sistOppdatert
-        - brevGjelder
-        - sendtDato
-        - ytelse
-        - signatur
-        - bunntekster
-        - saksnummer
-      properties:
-        hovedavsnitt:
-          $ref: '#/components/schemas/Hovedavsnitt'
-        avsnitt:
-          type: array
-          items:
-            $ref: '#/components/schemas/Avsnitt'
-        vedtaksbrevType:
-          $ref: '#/components/schemas/VedtaksbrevType'
-        sistOppdatert:
-          type: string
-          format: date-time
-          readOnly: true
-        brevGjelder:
-          $ref: '#/components/schemas/Brevmottaker'
-        sendtDato:
-          type: string
-        ytelse:
-          $ref: '#/components/schemas/Ytelse'
-        signatur:
-          $ref: '#/components/schemas/Signatur'
-        bunntekster:
-          type: array
-          items:
-            $ref: '#/components/schemas/Standardtekst'
-        saksnummer:
-          type: string
     Revurderingsinstans:
       type: string
       enum:
@@ -2487,7 +2419,6 @@ components:
       required:
         - hovedavsnitt
         - avsnitt
-        - vedtaksbrevType
         - sistOppdatert
         - brevGjelder
         - sendtDato
@@ -2500,11 +2431,11 @@ components:
         hovedavsnitt:
           $ref: '#/components/schemas/Hovedavsnitt'
         avsnitt:
-          type: array
-          items:
-            $ref: '#/components/schemas/Avsnitt'
-        vedtaksbrevType:
-          $ref: '#/components/schemas/VedtaksbrevType'
+          anyOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/Avsnitt'
+            - type: 'null'
         sistOppdatert:
           type: string
           format: date-time
@@ -2518,7 +2449,9 @@ components:
         signatur:
           $ref: '#/components/schemas/Signatur'
         oppsummeringstabell:
-          $ref: '#/components/schemas/Oppsummeringsdata'
+          anyOf:
+            - $ref: '#/components/schemas/Oppsummeringsdata'
+            - type: 'null'
         bunntekster:
           type: array
           items:
@@ -2530,17 +2463,16 @@ components:
       required:
         - hovedavsnitt
         - avsnitt
-        - vedtaksbrevType
         - sistOppdatert
       properties:
         hovedavsnitt:
           $ref: '#/components/schemas/Hovedavsnitt'
         avsnitt:
-          type: array
-          items:
-            $ref: '#/components/schemas/Avsnitt'
-        vedtaksbrevType:
-          $ref: '#/components/schemas/VedtaksbrevType'
+          anyOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/Avsnitt'
+            - type: 'null'
         sistOppdatert:
           type: string
           format: date-time
@@ -2550,21 +2482,15 @@ components:
       required:
         - hovedavsnitt
         - avsnitt
-        - vedtaksbrevType
       properties:
         hovedavsnitt:
           $ref: '#/components/schemas/HovedavsnittUpdate'
         avsnitt:
-          type: array
-          items:
-            $ref: '#/components/schemas/AvsnittUpdateItem'
-        vedtaksbrevType:
-          $ref: '#/components/schemas/VedtaksbrevType'
-    VedtaksbrevType:
-      type: string
-      enum:
-        - FØRSTEGANG
-        - REVURDERING
+          anyOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/AvsnittUpdateItem'
+            - type: 'null'
     Vedtaksdokument:
       type: object
       required:

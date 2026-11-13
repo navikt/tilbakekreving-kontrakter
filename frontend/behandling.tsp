@@ -183,12 +183,6 @@ interface BehandlingApi {
     @path @format("uuid") behandlingId: string,
     @body revurdering: TilbakekrevingRevurdering,
   ): SuccessResponse<void> | ErrorResponse;
-
-    @get
-    @route("/revurdering/vedtaksbrev")
-    hentRevurderingVedtaksbrev(@path behandlingId: string):
-      | SuccessResponse<RevurderingVedtaksbrevData>
-      | ErrorResponse;
 }
 
 model Behandling {
