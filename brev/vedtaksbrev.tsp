@@ -14,7 +14,6 @@ interface VedtaksbrevApi {
 model VedtaksbrevRedigerbareData {
     hovedavsnitt: Hovedavsnitt;
     avsnitt: Avsnitt[];
-    vedtaksbrevType: VedtaksbrevType;
 
     @visibility(Lifecycle.Read)
     sistOppdatert: utcDateTime;
@@ -26,21 +25,7 @@ model VedtaksbrevData {
     sendtDato: string;
     ytelse: Ytelse;
     signatur: Signatur;
-    oppsummeringstabell: Oppsummeringsdata;
-
-    @visibility(Lifecycle.Create, Lifecycle.Read)
-    bunntekster: Standardtekst[];
-
-    @visibility(Lifecycle.Create, Lifecycle.Read)
-    saksnummer: string;
-}
-
-model RevurderingVedtaksbrevData {
-    ...VedtaksbrevRedigerbareData;
-    brevGjelder: Brevmottaker;
-    sendtDato: string;
-    ytelse: Ytelse;
-    signatur: Signatur;
+    oppsummeringstabell: Oppsummeringsdata | null;
 
     @visibility(Lifecycle.Create, Lifecycle.Read)
     bunntekster: Standardtekst[];
@@ -143,9 +128,4 @@ model OppsummertPeriode {
     skatt: string | null;
     tilbakekrevingsbeløp: string;
     tilbakekrevesBeløpEtterSkatt: string;
-}
-
-enum VedtaksbrevType {
-    FØRSTEGANG,
-    REVURDERING,
 }
