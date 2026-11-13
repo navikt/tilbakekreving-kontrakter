@@ -330,6 +330,39 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UttalelseVurdering'
+  /api/v1/behandling/{behandlingId}/historikk:
+    get:
+      operationId: Behandling_hentHistorikk
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hendelse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
   /api/v1/behandling/{behandlingId}/journalpost/{journalpostId}/dokument/{dokumentInfoId}:
     get:
       operationId: Behandling_hentDokument
@@ -1563,6 +1596,35 @@ components:
           $ref: '#/components/schemas/ReduksjonArsaker'
       x-kotlin-implements:
         - BelopIBeholdDto
+    Hendelse:
+      type: object
+      required:
+        - tittel
+        - opprettet
+        - rolle
+        - rolleIdent
+        - beskrivelse
+        - ekstraInfo
+      properties:
+        tittel:
+          type: string
+        opprettet:
+          type: string
+          format: date-time
+        rolle:
+          $ref: '#/components/schemas/Rolle'
+        rolleIdent:
+          anyOf:
+            - type: string
+            - type: 'null'
+        beskrivelse:
+          anyOf:
+            - type: string
+            - type: 'null'
+        ekstraInfo:
+          type: object
+          additionalProperties:
+            type: string
     Hovedavsnitt:
       type: object
       required:
@@ -1768,7 +1830,7 @@ components:
             - type: 'null'
         ekstraInfo:
           type: object
-          unevaluatedProperties: {}
+          additionalProperties: {}
     Moment:
       type: object
       required:
@@ -2086,6 +2148,12 @@ components:
         - Klageinstansen
         - Trygderetten
         - Domstolen
+    Rolle:
+      type: string
+      enum:
+        - SAKSBEHANDLER
+        - BESLUTTER
+        - VEDTAKSLØSNING
     RotElement:
       type: object
       oneOf:
