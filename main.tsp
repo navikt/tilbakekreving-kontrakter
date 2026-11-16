@@ -4,8 +4,6 @@ import "./frontend/dokumenter.tsp";
 import "./brev/vedtaksbrev.tsp";
 import "./brev/varselbrev.tsp";
 import "./brev/informasjonsbrev.tsp";
-import "./brev/revurdering-vedtaksbrev.tsp";
-
 
 using Http;
 

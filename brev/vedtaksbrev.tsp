@@ -13,7 +13,7 @@ interface VedtaksbrevApi {
 
 model VedtaksbrevRedigerbareData {
     hovedavsnitt: Hovedavsnitt;
-    avsnitt: Avsnitt[];
+    avsnitt: Avsnitt[] | null;
 
     @visibility(Lifecycle.Read)
     sistOppdatert: utcDateTime;
@@ -25,7 +25,7 @@ model VedtaksbrevData {
     sendtDato: string;
     ytelse: Ytelse;
     signatur: Signatur;
-    oppsummeringstabell: Oppsummeringsdata;
+    oppsummeringstabell: Oppsummeringsdata | null;
 
     @visibility(Lifecycle.Create, Lifecycle.Read)
     bunntekster: Standardtekst[];
@@ -45,7 +45,7 @@ model Hovedavsnitt {
     underavsnitt: RotElement[];
 
     @visibility(Lifecycle.Create, Lifecycle.Read)
-    hjemler: string;
+    hjemler: string | null;
 }
 
 model Avsnitt {
