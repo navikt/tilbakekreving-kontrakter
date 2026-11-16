@@ -859,6 +859,12 @@ paths:
         Returner 400 ved ugyldig vedtakId, 401 ved ugyldig eller manglende
         autentisering og 403 når kalleren mangler tilgang.
       parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: Bearer-token på formen `Bearer <jwt>`.
+          schema:
+            type: string
         - name: vedtakId
           in: path
           required: true
@@ -897,6 +903,8 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - dokumenter
+      security:
+        - BearerAuth: []
 components:
   schemas:
     Aktsomhet:
@@ -1768,7 +1776,7 @@ components:
             - type: 'null'
         ekstraInfo:
           type: object
-          unevaluatedProperties: {}
+          additionalProperties: {}
     Moment:
       type: object
       required:
@@ -2659,3 +2667,7 @@ components:
           type: string
         bestemtEntall:
           type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer
