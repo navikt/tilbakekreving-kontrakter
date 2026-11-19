@@ -45,6 +45,10 @@ union Tilleggsmottaker {
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilleggsmottakerDto"])
 model Fullmektig {
+    @visibility(Lifecycle.Read)
+    @format("uuid")
+    id: string;
+
     navn: string;
     adresse: TilleggsmottakerAdresse;
 }
@@ -57,5 +61,9 @@ union TilleggsmottakerAdresse {
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilleggsmottakerDto"])
 model Verge {
+    @visibility(Lifecycle.Read)
+    @format("uuid")
+    id: string;
+
     navn: string;
 }

@@ -87,9 +87,86 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Brevmottakere'
+                $ref: '#/components/schemas/Brevmottakere'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+    put:
+      operationId: Behandling_endreBrevmottaker
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brevmottakere'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                navn:
+                  type: string
+                personIdent:
+                  type: string
+              description: The template for adding optional properties.
+  /api/v1/behandling/{behandlingId}/brevmottakere/{brevmottakerId}:
+    delete:
+      operationId: Behandling_slettBrevmottaker
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: brevmottakerId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brevmottakere'
         '400':
           description: The server could not understand the request due to invalid syntax.
           content:
@@ -1620,9 +1697,14 @@ components:
     Fullmektig:
       type: object
       required:
+        - id
         - navn
         - adresse
       properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
         navn:
           type: string
         adresse:
@@ -2695,8 +2777,13 @@ components:
     Verge:
       type: object
       required:
+        - id
         - navn
       properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
         navn:
           type: string
       x-kotlin-implements:

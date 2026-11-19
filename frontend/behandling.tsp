@@ -195,8 +195,22 @@ interface BehandlingApi {
   @get
   @route("/brevmottakere")
   hentBrevmottakere(@path @format("uuid") behandlingId: string):
-    | SuccessResponse<Array<Brevmottakere>>
+    | SuccessResponse<Brevmottakere>
     | ErrorResponse;
+
+  @put
+  @route("/brevmottakere")
+  endreBrevmottaker(
+    @path @format("uuid") behandlingId: string,
+    @body brevmottaker: OptionalProperties<Brevmottaker>,
+  ): SuccessResponse<Brevmottakere> | ErrorResponse;
+
+  @delete
+  @route("/brevmottakere/{brevmottakerId}")
+  slettBrevmottaker(
+    @path @format("uuid") behandlingId: string,
+    @path @format("uuid") brevmottakerId: string,
+  ): SuccessResponse<Brevmottakere> | ErrorResponse;
 }
 
 model Behandling {
