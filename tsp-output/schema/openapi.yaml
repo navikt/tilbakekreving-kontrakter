@@ -71,6 +71,39 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
+  /api/v1/behandling/{behandlingId}/brevmottakere:
+    get:
+      operationId: Behandling_hentBrevmottakere
+      parameters:
+        - name: behandlingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Brevmottakere'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - behandling
   /api/v1/behandling/{behandlingId}/feilutbetaling:
     get:
       operationId: Behandling_fakta
@@ -1133,6 +1166,18 @@ components:
           type: string
         personIdent:
           type: string
+    Brevmottakere:
+      type: object
+      required:
+        - hovedmottaker
+        - tilleggsmottaker
+      properties:
+        hovedmottaker:
+          $ref: '#/components/schemas/HovedmottakerAddresse'
+        tilleggsmottaker:
+          anyOf:
+            - $ref: '#/components/schemas/Tilleggsmottaker'
+            - type: 'null'
     Brukeruttalelse:
       type: object
       required:
@@ -1564,10 +1609,26 @@ components:
           $ref: '#/components/schemas/Forstaaelse'
       x-kotlin-implements:
         - VilkaarsvurderingValgDto
+    FregAdresse:
+      type: object
+      x-kotlin-implements:
+        - HovedmottakerAddresseDto
     Fritekst:
       type: string
       minLength: 3
       maxLength: 3000
+    Fullmektig:
+      type: object
+      required:
+        - navn
+        - adresse
+      properties:
+        navn:
+          type: string
+        adresse:
+          $ref: '#/components/schemas/TilleggsmottakerAdresse'
+      x-kotlin-implements:
+        - TilleggsmottakerDto
     GodTro:
       type: object
       required:
@@ -1698,6 +1759,18 @@ components:
           type: array
           items:
             type: string
+    HovedmottakerAddresse:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/FregAdresse'
+        - $ref: '#/components/schemas/NorskAdresse'
+        - $ref: '#/components/schemas/UtenlandskAdresse'
+      discriminator:
+        propertyName: adressetype
+        mapping:
+          freg: '#/components/schemas/FregAdresse'
+          norsk: '#/components/schemas/NorskAdresse'
+          utenlandsk: '#/components/schemas/UtenlandskAdresse'
     IkkeAktuelt:
       type: object
       required:
@@ -1869,6 +1942,18 @@ components:
             - type: 'null'
       x-kotlin-implements:
         - ReduksjonArsakerDto
+    NorskAdresse:
+      type: object
+      required:
+        - gate
+        - postnummer
+      properties:
+        gate:
+          type: string
+        postnummer:
+          type: string
+      x-kotlin-implements:
+        - HovedmottakerAddresseDto
     NyPeriode:
       type: object
       required:
@@ -2318,6 +2403,26 @@ components:
           etter_klage: '#/components/schemas/EtterKlage'
           uten_klage: '#/components/schemas/UtenKlage'
           foreldelse: '#/components/schemas/Foreldelse'
+    Tilleggsmottaker:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/Fullmektig'
+        - $ref: '#/components/schemas/Verge'
+      discriminator:
+        propertyName: tilleggsmottaker
+        mapping:
+          fullmektig: '#/components/schemas/Fullmektig'
+          verge: '#/components/schemas/Verge'
+    TilleggsmottakerAdresse:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/NorskAdresse'
+        - $ref: '#/components/schemas/UtenlandskAdresse'
+      discriminator:
+        propertyName: adressetype
+        mapping:
+          norsk: '#/components/schemas/NorskAdresse'
+          utenlandsk: '#/components/schemas/UtenlandskAdresse'
     Uaktsomt:
       type: object
       required:
@@ -2410,6 +2515,18 @@ components:
           type: string
       x-kotlin-implements:
         - TilbakekrevingRevurderingsarsakDto
+    UtenlandskAdresse:
+      type: object
+      required:
+        - land
+        - adresse
+      properties:
+        land:
+          type: string
+        adresse:
+          type: string
+      x-kotlin-implements:
+        - HovedmottakerAddresseDto
     UttalelseVurdering:
       type: object
       oneOf:
@@ -2575,6 +2692,15 @@ components:
         - IngenTilbakebetaling
         - DelvisTilbakebetaling
         - FullTilbakebetaling
+    Verge:
+      type: object
+      required:
+        - navn
+      properties:
+        navn:
+          type: string
+      x-kotlin-implements:
+        - TilleggsmottakerDto
     Vilkaar:
       type: object
       required:

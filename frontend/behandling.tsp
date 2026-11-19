@@ -9,6 +9,7 @@ import "./journalpost.tsp";
 import "./varselbrev-tekster.tsp";
 import "./revurdering.tsp";
 import "./historikk.tsp";
+import "./brevmottaker.tsp";
 
 using Http;
 
@@ -189,6 +190,12 @@ interface BehandlingApi {
   @route("/historikk")
   hentHistorikk(@path @format("uuid") behandlingId: string):
     | SuccessResponse<Array<Hendelse>>
+    | ErrorResponse;
+
+  @get
+  @route("/brevmottakere")
+  hentBrevmottakere(@path @format("uuid") behandlingId: string):
+    | SuccessResponse<Array<Brevmottakere>>
     | ErrorResponse;
 }
 
