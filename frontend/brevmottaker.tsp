@@ -1,3 +1,31 @@
+using Http;
+
+interface BrevmottakerApi {
+    @get
+    @route("/{tilbakekrevingId}/brevmottakere")
+    hentBrevmottakere(@path tilbakekrevingId: string):
+        | SuccessResponse<Brevmottakere>
+        | ErrorResponse;
+
+    @put
+    @route("/{tilbakekrevingId}/brevmottakere")
+    endreBrevmottaker(
+        @path tilbakekrevingId: string,
+        @body brevmottaker: OptionalProperties<Brevmottaker>,
+    ): SuccessResponse<Brevmottakere> | ErrorResponse;
+
+    @delete
+    @route("/{tilbakekrevingId}/brevmottakere/{brevmottakerId}")
+    slettBrevmottaker(
+        @path tilbakekrevingId: string,
+        @path @format("uuid") brevmottakerId: string,
+    ): SuccessResponse<Brevmottakere> | ErrorResponse;
+
+    @get
+    @route("/brevmottakere/poststeder")
+    hentPoststeder(): SuccessResponse<Record<string>>;
+}
+
 model Brevmottakere {
     hovedmottaker: HovedmottakerAddresse;
     tilleggsmottaker: Tilleggsmottaker | null;

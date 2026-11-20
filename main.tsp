@@ -22,4 +22,8 @@ namespace Tilbakekreving {
     @tag("brev")
     @route("/api/v1/brev")
     interface Brev extends VedtaksbrevApi, VarselbrevApi {}
+
+    @tag("brevmottaker")
+    @route("/api/v1/tilbakekreving")
+    interface Brevmottaker extends BrevmottakerApi {}
 }
