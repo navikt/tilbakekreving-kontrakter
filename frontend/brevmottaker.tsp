@@ -77,7 +77,6 @@ model Fullmektig {
     @format("uuid")
     id: string;
 
-    navn: string | null;
     mottaker: FullmektigMottaker;
 }
 

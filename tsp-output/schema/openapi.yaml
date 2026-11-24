@@ -1711,17 +1711,12 @@ components:
       type: object
       required:
         - id
-        - navn
         - mottaker
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
-        navn:
-          anyOf:
-            - type: string
-            - type: 'null'
         mottaker:
           $ref: '#/components/schemas/FullmektigMottaker'
       x-kotlin-implements:
