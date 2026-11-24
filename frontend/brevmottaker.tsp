@@ -8,18 +8,33 @@ interface BrevmottakerApi {
         | ErrorResponse;
 
     @put
-    @route("/{tilbakekrevingId}/brevmottakere")
-    endreBrevmottaker(
+    @route("/{tilbakekrevingId}/brevmottakere/mottaker")
+    endreHovedmottaker(
         @path tilbakekrevingId: string,
-        @body brevmottaker: OptionalProperties<Brevmottaker>,
-    ): SuccessResponse<Brevmottakere> | ErrorResponse;
+        @body brevmottaker: HovedmottakerAddresse,
+    ): SuccessResponse<HovedmottakerAddresse> | ErrorResponse;
+
+    @post
+    @route("/{tilbakekrevingId}/brevmottakere")
+    leggTilTilleggsmottaker(
+        @path tilbakekrevingId: string,
+        @body brevmottaker: Tilleggsmottaker,
+    ): SuccessResponse<Tilleggsmottaker> | ErrorResponse;
+
+    @put
+    @route("/{tilbakekrevingId}/brevmottakere/{brevmottakerId}")
+    endreTilleggsmottaker(
+        @path tilbakekrevingId: string,
+        @path @format("uuid") brevmottakerId: string,
+        @body brevmottaker: Tilleggsmottaker,
+    ): SuccessResponse<Tilleggsmottaker> | ErrorResponse;
 
     @delete
     @route("/{tilbakekrevingId}/brevmottakere/{brevmottakerId}")
     slettBrevmottaker(
         @path tilbakekrevingId: string,
         @path @format("uuid") brevmottakerId: string,
-    ): SuccessResponse<Brevmottakere> | ErrorResponse;
+    ): SuccessResponse<void> | ErrorResponse;
 
     @get
     @route("/brevmottakere/poststeder")
