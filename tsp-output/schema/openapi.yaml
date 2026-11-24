@@ -1712,18 +1712,32 @@ components:
       required:
         - id
         - navn
-        - adresse
+        - mottaker
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
         navn:
-          type: string
-        adresse:
-          $ref: '#/components/schemas/TilleggsmottakerAdresse'
+          anyOf:
+            - type: string
+            - type: 'null'
+        mottaker:
+          $ref: '#/components/schemas/FullmektigMottaker'
       x-kotlin-implements:
         - TilleggsmottakerDto
+    FullmektigMottaker:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/ManuellAdresse'
+        - $ref: '#/components/schemas/Organisasjon'
+        - $ref: '#/components/schemas/Person'
+      discriminator:
+        propertyName: mottakerType
+        mapping:
+          manuell: '#/components/schemas/ManuellAdresse'
+          organisasjon: '#/components/schemas/Organisasjon'
+          person: '#/components/schemas/Person'
     GodTro:
       type: object
       required:
@@ -1861,7 +1875,7 @@ components:
         - $ref: '#/components/schemas/NorskAdresse'
         - $ref: '#/components/schemas/UtenlandskAdresse'
       discriminator:
-        propertyName: adressetype
+        propertyName: addressetype
         mapping:
           freg: '#/components/schemas/FregAdresse'
           norsk: '#/components/schemas/NorskAdresse'
@@ -1995,6 +2009,29 @@ components:
         ekstraInfo:
           type: object
           additionalProperties: {}
+    ManuellAdresse:
+      type: object
+      required:
+        - navn
+        - mottaker
+      properties:
+        navn:
+          type: string
+        mottaker:
+          $ref: '#/components/schemas/ManuellMottaker'
+      x-kotlin-implements:
+        - FullmektigMottakerDto
+        - VergeMottakerDto
+    ManuellMottaker:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/NorskAdresse'
+        - $ref: '#/components/schemas/UtenlandskAdresse'
+      discriminator:
+        propertyName: adressetype
+        mapping:
+          norsk: '#/components/schemas/NorskAdresse'
+          utenlandsk: '#/components/schemas/UtenlandskAdresse'
     Moment:
       type: object
       required:
@@ -2049,6 +2086,7 @@ components:
           type: string
       x-kotlin-implements:
         - HovedmottakerAddresseDto
+        - ManuellMottakerDto
     NyPeriode:
       type: object
       required:
@@ -2175,6 +2213,24 @@ components:
           type: string
         tilbakekrevesBeløpEtterSkatt:
           type: string
+    Organisasjon:
+      type: object
+      required:
+        - navn
+        - organisasjonsnavn
+        - organisasjonsnummer
+      properties:
+        navn:
+          anyOf:
+            - type: string
+            - type: 'null'
+        organisasjonsnavn:
+          type: string
+          readOnly: true
+        organisasjonsnummer:
+          type: string
+      x-kotlin-implements:
+        - FullmektigMottakerDto
     PakrevdBegrunnelse:
       type: object
       required:
@@ -2243,6 +2299,20 @@ components:
           format: uuid
         periode:
           $ref: '#/components/schemas/Periode'
+    Person:
+      type: object
+      required:
+        - navn
+        - ident
+      properties:
+        navn:
+          type: string
+          readOnly: true
+        ident:
+          type: string
+      x-kotlin-implements:
+        - FullmektigMottakerDto
+        - VergeMottakerDto
     ReduksjonArsaker:
       type: object
       oneOf:
@@ -2504,20 +2574,10 @@ components:
         - $ref: '#/components/schemas/Fullmektig'
         - $ref: '#/components/schemas/Verge'
       discriminator:
-        propertyName: tilleggsmottaker
+        propertyName: tilleggsmottakerType
         mapping:
           fullmektig: '#/components/schemas/Fullmektig'
           verge: '#/components/schemas/Verge'
-    TilleggsmottakerAdresse:
-      type: object
-      oneOf:
-        - $ref: '#/components/schemas/NorskAdresse'
-        - $ref: '#/components/schemas/UtenlandskAdresse'
-      discriminator:
-        propertyName: adressetype
-        mapping:
-          norsk: '#/components/schemas/NorskAdresse'
-          utenlandsk: '#/components/schemas/UtenlandskAdresse'
     Uaktsomt:
       type: object
       required:
@@ -2622,6 +2682,7 @@ components:
           type: string
       x-kotlin-implements:
         - HovedmottakerAddresseDto
+        - ManuellMottakerDto
     UttalelseVurdering:
       type: object
       oneOf:
@@ -2791,16 +2852,26 @@ components:
       type: object
       required:
         - id
-        - navn
+        - mottaker
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
-        navn:
-          type: string
+        mottaker:
+          $ref: '#/components/schemas/VergeMottaker'
       x-kotlin-implements:
         - TilleggsmottakerDto
+    VergeMottaker:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/ManuellAdresse'
+        - $ref: '#/components/schemas/Person'
+      discriminator:
+        propertyName: mottakerType
+        mapping:
+          manuell: '#/components/schemas/ManuellAdresse'
+          person: '#/components/schemas/Person'
     Vilkaar:
       type: object
       required:

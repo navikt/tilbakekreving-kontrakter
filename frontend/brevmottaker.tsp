@@ -31,7 +31,7 @@ model Brevmottakere {
     tilleggsmottaker: Tilleggsmottaker | null;
 }
 
-@discriminated(#{ discriminatorPropertyName: "adressetype", envelope: "none" })
+@discriminated(#{ discriminatorPropertyName: "addressetype", envelope: "none" })
 union HovedmottakerAddresse {
     freg: FregAdresse,
     norsk: NorskAdresse,
@@ -46,7 +46,7 @@ model FregAdresse {}
 
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
-    #["HovedmottakerAddresseDto"]
+    #["HovedmottakerAddresseDto", "ManuellMottakerDto"]
 )
 model NorskAdresse {
     gate: string;
@@ -55,7 +55,7 @@ model NorskAdresse {
 
 @TypeSpec.OpenAPI.extension(
     "x-kotlin-implements",
-    #["HovedmottakerAddresseDto"]
+    #["HovedmottakerAddresseDto", "ManuellMottakerDto"]
 )
 model UtenlandskAdresse {
     land: string;
@@ -63,7 +63,7 @@ model UtenlandskAdresse {
 }
 
 @discriminated(#{
-    discriminatorPropertyName: "tilleggsmottaker",
+    discriminatorPropertyName: "tilleggsmottakerType",
     envelope: "none",
 })
 union Tilleggsmottaker {
@@ -77,14 +77,15 @@ model Fullmektig {
     @format("uuid")
     id: string;
 
-    navn: string;
-    adresse: TilleggsmottakerAdresse;
+    navn: string | null;
+    mottaker: FullmektigMottaker;
 }
 
-@discriminated(#{ discriminatorPropertyName: "adressetype", envelope: "none" })
-union TilleggsmottakerAdresse {
-    norsk: NorskAdresse,
-    utenlandsk: UtenlandskAdresse,
+@discriminated(#{ discriminatorPropertyName: "mottakerType", envelope: "none" })
+union FullmektigMottaker {
+    manuell: ManuellAdresse,
+    organisasjon: Organisasjon,
+    person: Person,
 }
 
 @TypeSpec.OpenAPI.extension("x-kotlin-implements", #["TilleggsmottakerDto"])
@@ -93,5 +94,47 @@ model Verge {
     @format("uuid")
     id: string;
 
+    mottaker: VergeMottaker;
+}
+
+@discriminated(#{ discriminatorPropertyName: "mottakerType", envelope: "none" })
+union VergeMottaker {
+    manuell: ManuellAdresse,
+    person: Person,
+}
+
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["FullmektigMottakerDto", "VergeMottakerDto"]
+)
+model ManuellAdresse {
     navn: string;
+    mottaker: ManuellMottaker;
+}
+
+@discriminated(#{ discriminatorPropertyName: "adressetype", envelope: "none" })
+union ManuellMottaker {
+    norsk: NorskAdresse,
+    utenlandsk: UtenlandskAdresse,
+}
+
+@TypeSpec.OpenAPI.extension("x-kotlin-implements", #["FullmektigMottakerDto"])
+model Organisasjon {
+    navn: string | null;
+
+    @visibility(Lifecycle.Read)
+    organisasjonsnavn: string;
+
+    organisasjonsnummer: string;
+}
+
+@TypeSpec.OpenAPI.extension(
+    "x-kotlin-implements",
+    #["FullmektigMottakerDto", "VergeMottakerDto"]
+)
+model Person {
+    @visibility(Lifecycle.Read)
+    navn: string;
+
+    ident: string;
 }
