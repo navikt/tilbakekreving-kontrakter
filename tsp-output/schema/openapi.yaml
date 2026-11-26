@@ -388,9 +388,9 @@ paths:
         '200':
           description: The request has succeeded.
           content:
-            application/octet-stream:
+            application/pdf:
               schema:
-                contentMediaType: application/octet-stream
+                contentMediaType: application/pdf
         '400':
           description: The server could not understand the request due to invalid syntax.
           content:

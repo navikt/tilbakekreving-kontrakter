@@ -44,7 +44,7 @@ interface BehandlingApi {
     @path @format("uuid") behandlingId: string,
     @path journalpostId: string,
     @path dokumentInfoId: string,
-  ): SuccessResponse<bytes> | ErrorResponse;
+  ): Dokument | ErrorResponse;
 
   @get
   @route("/{dokumentType}/gjeldende")
