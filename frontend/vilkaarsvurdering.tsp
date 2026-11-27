@@ -29,8 +29,17 @@ model Vilkaar is SaksbehandlingSteg {
 
     @visibility(Lifecycle.Read)
     erUnder4xRettsgebyr: boolean;
+
+    foreldetPeriode: ForeldetPeriode | null;
 }
 
+model ForeldetPeriode {
+    @visibility(Lifecycle.Read)
+    periode: Periode;
+
+    @visibility(Lifecycle.Read)
+    feilutbetaltBeløp: uint32;
+}
 model Vilkaarsperiode {
     @visibility(Lifecycle.Read)
     feilutbetaltBeløp: uint32;

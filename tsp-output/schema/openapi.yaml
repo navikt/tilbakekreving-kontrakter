@@ -1676,6 +1676,19 @@ components:
           type: string
       x-kotlin-implements:
         - TilbakekrevingRevurderingsarsakDto
+    ForeldetPeriode:
+      type: object
+      required:
+        - periode
+        - feilutbetaltBeløp
+      properties:
+        periode:
+          $ref: '#/components/schemas/Periode'
+          readOnly: true
+        feilutbetaltBeløp:
+          type: integer
+          format: uint32
+          readOnly: true
     ForhaandsvarselErSendt:
       type: object
       required:
@@ -2968,6 +2981,7 @@ components:
         - momenterSærligeGrunner
         - momenterReduksjonGodTro
         - erUnder4xRettsgebyr
+        - foreldetPeriode
       properties:
         tilbakeført:
           $ref: '#/components/schemas/ArsakTilTilbakeforing'
@@ -2992,6 +3006,10 @@ components:
         erUnder4xRettsgebyr:
           type: boolean
           readOnly: true
+        foreldetPeriode:
+          anyOf:
+            - $ref: '#/components/schemas/ForeldetPeriode'
+            - type: 'null'
     Vilkaarsperiode:
       type: object
       required:
