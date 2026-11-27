@@ -39,14 +39,6 @@ interface BehandlingApi {
   ): SuccessResponse<FaktaOmFeilutbetaling> | ErrorResponse;
 
   @get
-  @route("/journalpost/{journalpostId}/dokument/{dokumentInfoId}")
-  hentDokument(
-    @path @format("uuid") behandlingId: string,
-    @path journalpostId: string,
-    @path dokumentInfoId: string,
-  ): SuccessResponse<bytes> | ErrorResponse;
-
-  @get
   @route("/{dokumentType}/gjeldende")
   hentDokumentInfo(
     @path @format("uuid") behandlingId: string,
