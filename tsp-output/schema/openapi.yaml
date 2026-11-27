@@ -364,47 +364,6 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - behandling
-  /api/v1/behandling/{behandlingId}/journalpost/{journalpostId}/dokument/{dokumentInfoId}:
-    get:
-      operationId: Behandling_hentDokument
-      parameters:
-        - name: behandlingId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: journalpostId
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: dokumentInfoId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/octet-stream:
-              schema:
-                contentMediaType: application/octet-stream
-        '400':
-          description: The server could not understand the request due to invalid syntax.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      tags:
-        - behandling
   /api/v1/behandling/{behandlingId}/kravgrunnlag/benytt-nyeste:
     put:
       operationId: Behandling_benyttNyesteKravgrunnlag
