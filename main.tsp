@@ -17,7 +17,7 @@ namespace Tilbakekreving {
 
     @tag("dokumenter")
     @route("/api/v1/dokumenter")
-    interface Dokumenter extends VedtaksdokumentApi {}
+    interface Dokument extends DokumentApi {}
 
     @tag("brev")
     @route("/api/v1/brev")

@@ -15,24 +15,16 @@ alias VedtaksdokumentErrorResponse = {
     @body error: Error;
 };
 
-interface VedtaksdokumentApi {
+interface DokumentApi {
     @useAuth(BearerAuth)
     @get
     @route("/vedtak/{vedtakId}")
     @doc("""
-    Henter alle brev for vedtaket. Ta bare med brev som har både journalpostId
-    og dokumentInfoId. Samle treff fra flere iverksettelser i gammel og ny modell,
-    fjern duplikater, og returner tom liste når det ikke finnes treff.
-
-    Den nye modellen kan hente brev fra flere behandlinger på samme sak.
-    Tvangsgrunnlag API kontrollerer koblingen mellom skyldner og vedtakId.
-    Familie-tilbake håndterer autentisering og tilgang.
-
-    vedtakId må bestå av 1–64 ASCII-sifre, med en tallverdi på høyst
-    9223372036854775807. Innledende nuller er tillatt.
-    Returner 400 ved ugyldig vedtakId, 401 ved ugyldig eller manglende
-    autentisering og 403 når kalleren mangler tilgang.
-    """)
+        Henter alle brev for vedtaket. Ta bare med brev som har både journalpostId
+        og dokumentInfoId. Returner tom liste når det ikke finnes noen brev.
+        
+        vedtakId må bestå av 1–64 ASCII-sifre. Innledende nuller er tillatt.
+        """)
     hentVedtaksdokumenter(
         @header("Authorization")
         @doc("Bearer-token på formen `Bearer <jwt>`.")
@@ -45,4 +37,13 @@ interface VedtaksdokumentApi {
         @pattern("^[0-9]+$")
         vedtakId: VedtakId,
     ): SuccessResponse<Array<Vedtaksdokument>> | VedtaksdokumentErrorResponse;
+
+    @get
+    @route("/journalpost/{journalpostId}/dokument/{dokumentInfoId}")
+    hentDokument(
+        @path journalpostId: string,
+        @path dokumentInfoId: string,
+        @header("Behandling-Id") behandlingId?: string,
+        @header("Fagsak-Id") fagsakId?: string,
+    ): File<"application/pdf">;
 }

@@ -876,22 +876,47 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/VedtaksbrevData'
+  /api/v1/dokumenter/journalpost/{journalpostId}/dokument/{dokumentInfoId}:
+    get:
+      operationId: Dokument_hentDokument
+      parameters:
+        - name: journalpostId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: dokumentInfoId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Behandling-Id
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: Fagsak-Id
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/pdf:
+              schema:
+                contentMediaType: application/pdf
+      tags:
+        - dokumenter
   /api/v1/dokumenter/vedtak/{vedtakId}:
     get:
-      operationId: Dokumenter_hentVedtaksdokumenter
+      operationId: Dokument_hentVedtaksdokumenter
       description: |-
         Henter alle brev for vedtaket. Ta bare med brev som har både journalpostId
-        og dokumentInfoId. Samle treff fra flere iverksettelser i gammel og ny modell,
-        fjern duplikater, og returner tom liste når det ikke finnes treff.
+        og dokumentInfoId. Returner tom liste når det ikke finnes noen brev.
 
-        Den nye modellen kan hente brev fra flere behandlinger på samme sak.
-        Tvangsgrunnlag API kontrollerer koblingen mellom skyldner og vedtakId.
-        Familie-tilbake håndterer autentisering og tilgang.
-
-        vedtakId må bestå av 1–64 ASCII-sifre, med en tallverdi på høyst
-        9223372036854775807. Innledende nuller er tillatt.
-        Returner 400 ved ugyldig vedtakId, 401 ved ugyldig eller manglende
-        autentisering og 403 når kalleren mangler tilgang.
+        vedtakId må bestå av 1–64 ASCII-sifre. Innledende nuller er tillatt.
       parameters:
         - name: Authorization
           in: header
