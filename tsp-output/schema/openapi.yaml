@@ -907,6 +907,24 @@ paths:
             application/pdf:
               schema:
                 contentMediaType: application/pdf
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access is forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       tags:
         - dokumenter
   /api/v1/dokumenter/vedtak/{vedtakId}:

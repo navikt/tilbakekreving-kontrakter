@@ -10,7 +10,7 @@ model Vedtaksdokument {
     dokumentInfoId: string;
 }
 
-alias VedtaksdokumentErrorResponse = {
+alias DokumentErrorResponse = {
     @statusCode statusCode: 400 | 401 | 403;
     @body error: Error;
 };
@@ -36,7 +36,7 @@ interface DokumentApi {
         @maxLength(64)
         @pattern("^[0-9]+$")
         vedtakId: VedtakId,
-    ): SuccessResponse<Array<Vedtaksdokument>> | VedtaksdokumentErrorResponse;
+    ): SuccessResponse<Array<Vedtaksdokument>> | DokumentErrorResponse;
 
     @get
     @route("/journalpost/{journalpostId}/dokument/{dokumentInfoId}")
@@ -45,5 +45,5 @@ interface DokumentApi {
         @path dokumentInfoId: string,
         @header("Behandling-Id") behandlingId?: string,
         @header("Fagsak-Id") fagsakId?: string,
-    ): File<"application/pdf">;
+    ): File<"application/pdf"> | DokumentErrorResponse;
 }
